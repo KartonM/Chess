@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,18 +21,28 @@ namespace Szachy
             figures = new Figure[40];
 
             //Creating an empty board
+
             board = new Cell[9][];
-            for (int i = 0; i<=8; i++)
+            for (int i = 0; i <= 8; i++)
                 board[i] = new Cell[9];
 
-        //WHITE
+            for (int iCol = 1; iCol <= 8; iCol++)
+                for (int iRow = 1; iRow <= 8; iRow++)
+                {
+                    board[iCol][iRow] = new Cell();
+                }
 
-            //Creating a set of figures
-            for(int i=1; i<=16; i++)
+                    //WHITE
+
+                    //Creating a set of figures
+                    for (int i=0; i<=16; i++)
             {
                 figures[i] = new Figure();
                 figures[i].color = Figure.ColorEnum.White;
             }
+
+
+            figures[0].type = Figure.TypeEnum.Null;
 
             //Setting figure types
             figures[1].type = Figure.TypeEnum.Pawn;
@@ -98,6 +109,54 @@ namespace Szachy
         {
             board[toColumn][toRow].figure = board[fromColumn][fromRow].figure;
             board[fromColumn][fromRow].figure = null;
+        }
+
+        public void BoardSetup()
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+                //Setting up pawns
+                board[i][2].figure = figures[i];
+                board[i][7].figure = figures[i + 16];
+
+                //Setting up other figures
+                board[i][1].figure = figures[i + 8];
+                board[i][7].figure = figures[i + 24];
+            }
+        }
+
+        public void DrawFigures()
+        {
+            for (int iCol = 1; iCol <= 8; iCol++)
+                for (int iRow = 1; iRow <= 8; iRow++)
+                {
+                    PictureBox pb = (PictureBox)form.Controls.Find("c" + iCol.ToString() + iRow.ToString(), false)[0];
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage; //DO USUNIĘCIA
+
+                    if (board[iCol][iRow].figure!=null)
+                    {
+                        switch (board[iCol][iRow].figure.type)
+                        {
+                            case Figure.TypeEnum.Pawn:
+
+                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                {
+                                    pb.Image = Resources.WhitePawn;
+                                }
+                                else
+                                {
+                                    pb.Image = Resources.BlackPawn;
+                                }
+                                break;
+
+                        }
+                    }
+                    else
+                    {
+                        pb.Image = null;
+                    }
+
+            }
         }
     }    
 }

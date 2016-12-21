@@ -12,7 +12,7 @@ namespace Szachy
 
         public Cell()
         {
-            figure = null;
+
         }
 
         public void ChangeFigure(Figure newFigure)

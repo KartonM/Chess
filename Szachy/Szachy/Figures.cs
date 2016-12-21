@@ -13,13 +13,13 @@ namespace Szachy
 
         public Figure()
         {
-            type = Figure.TypeEnum.Pawn;
+            type = Figure.TypeEnum.Null;
             color = Figure.ColorEnum.White;
         }
 
         public enum TypeEnum
         {
-            Pawn, Rook, Knight, Bishop, Queen, King
+            Pawn, Rook, Knight, Bishop, Queen, King, Null
         };
 
         public enum ColorEnum
