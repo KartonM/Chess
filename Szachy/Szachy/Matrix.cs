@@ -18,6 +18,10 @@ namespace Szachy
 
         public Matrix()
         {
+            //Creating additional array for checking if the move is possible
+            string[,] CellMoveAbility = new string[9, 9];
+
+
             figures = new Figure[40];
 
             //Creating an empty board
@@ -188,5 +192,7 @@ namespace Szachy
 
             }
         }
+
+
     }    
 }
