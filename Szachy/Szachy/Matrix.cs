@@ -19,7 +19,7 @@ namespace Szachy
         {
             figures = new Figure[40];
 
-            //Creating a empty board
+            //Creating an empty board
             board = new Cell[9][];
             for (int i = 0; i<=8; i++)
                 board[i] = new Cell[9];
@@ -98,32 +98,6 @@ namespace Szachy
         {
             board[toColumn][toRow].figure = board[fromColumn][fromRow].figure;
             board[fromColumn][fromRow].figure = null;
-        }
-
-        public void DrawFigures()
-        {
-            for(int iCol=1; iCol<=8; iCol++)
-                for(int iRow=1; iRow<=8; iRow++)
-                {
-                    switch(board[iCol][iRow].figure.type)
-                    {
-                        case Figure.TypeEnum.Pawn:
-
-                            PictureBox pb = (PictureBox)form.Controls.Find("c"+iCol.ToString()+iRow.ToString(), false)[0];
-                            pb.SizeMode = PictureBoxSizeMode.StretchImage; //DO USUNIĘCIA
-                            if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
-                            {
-                                pb.Image = Resources.WhitePawn;
-                            }
-                        else
-                            {
-                                pb.Image = Resources.BlackPawn;
-                            }
-                            break;
-
-                    }
-
-                }
         }
     }    
 }
