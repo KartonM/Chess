@@ -83,8 +83,8 @@ namespace Szachy
             figures[25].type = Figure.TypeEnum.Rook;
             figures[26].type = Figure.TypeEnum.Knight;
             figures[27].type = Figure.TypeEnum.Bishop;
-            figures[28].type = Figure.TypeEnum.Queen;
-            figures[29].type = Figure.TypeEnum.King;
+            figures[28].type = Figure.TypeEnum.King;
+            figures[29].type = Figure.TypeEnum.Queen;
             figures[30].type = Figure.TypeEnum.Bishop;
             figures[31].type = Figure.TypeEnum.Knight;
             figures[32].type = Figure.TypeEnum.Rook;
@@ -121,7 +121,7 @@ namespace Szachy
 
                 //Setting up other figures
                 board[i][1].figure = figures[i + 8];
-                board[i][7].figure = figures[i + 24];
+                board[i][8].figure = figures[i + 24];
             }
         }
 
@@ -130,7 +130,7 @@ namespace Szachy
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
                 {
-                    PictureBox pb = (PictureBox)form.Controls.Find("c" + iCol.ToString() + iRow.ToString(), false)[0];
+                    PictureBox pb = (PictureBox)form.Controls.Find("C" + iCol.ToString() + iRow.ToString(), false)[0];
                     pb.SizeMode = PictureBoxSizeMode.StretchImage; //DO USUNIĘCIA
 
                     if (board[iCol][iRow].figure!=null)
@@ -140,13 +140,43 @@ namespace Szachy
                             case Figure.TypeEnum.Pawn:
 
                                 if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
-                                {
                                     pb.Image = Resources.WhitePawn;
-                                }
                                 else
-                                {
                                     pb.Image = Resources.BlackPawn;
-                                }
+                                break;
+
+                            case Figure.TypeEnum.Rook:
+                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                    pb.Image = Resources.WhiteRook;
+                                else
+                                    pb.Image = Resources.BlackRook;
+                                break;
+                            case Figure.TypeEnum.Knight:
+                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                    pb.Image = Resources.WhiteKnight;
+                                else
+                                    pb.Image = Resources.BlackKnight;
+                                break;
+
+                            case Figure.TypeEnum.Bishop:
+                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                    pb.Image = Resources.WhiteBishop;
+                                else
+                                    pb.Image = Resources.BlackBishop;
+                                break;
+
+                            case Figure.TypeEnum.King:
+                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                    pb.Image = Resources.WhiteKing;
+                                else
+                                    pb.Image = Resources.BlackKing;
+                                break;
+
+                            case Figure.TypeEnum.Queen:
+                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                    pb.Image = Resources.WhiteQueen;
+                                else
+                                    pb.Image = Resources.BlackQueen;
                                 break;
 
                         }
