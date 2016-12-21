@@ -45,9 +45,6 @@ namespace Szachy
                 figures[i].color = Figure.ColorEnum.White;
             }
 
-
-            figures[0].type = Figure.TypeEnum.Null;
-
             //Setting figure types
             figures[1].type = Figure.TypeEnum.Pawn;
             figures[2].type = Figure.TypeEnum.Pawn;
@@ -134,7 +131,7 @@ namespace Szachy
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
                 {
-                    PictureBox pb = (PictureBox)form.Controls.Find("C" + iCol.ToString() + iRow.ToString(), false)[0];
+                    PictureBox pb = (PictureBox)form.Controls.Find("c" + iCol.ToString() + iRow.ToString(), false)[0];
                     pb.SizeMode = PictureBoxSizeMode.StretchImage; //DO USUNIĘCIA
 
                     if (board[iCol][iRow].figure!=null)
