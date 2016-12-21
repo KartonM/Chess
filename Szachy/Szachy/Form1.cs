@@ -19,8 +19,8 @@ namespace Szachy
 
             Matrix matrix = new Matrix();
 
-            PictureBox pb = (PictureBox)this.Controls.Find("c32", false)[0];
-            pb.BackColor = Color.Red;
+            //PictureBox pb = (PictureBox)this.Controls.Find("c32", false)[0];
+            //pb.BackColor = Color.Red;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Szachy
         {
             figures = new Figure[40];
 
-            //Creating a empty board
+            //Creating an empty board
             board = new Cell[9][];
             for (int i = 0; i<=8; i++)
                 board[i] = new Cell[9];
@@ -94,6 +94,20 @@ namespace Szachy
         {
             board[toColumn][toRow].figure = board[fromColumn][fromRow].figure;
             board[fromColumn][fromRow].figure = null;
+        }
+
+        public void BoardSetup()
+        {
+            for(int i = 1; i<=8; i++)
+            {
+                //Setting up pawns
+                board[i][2].figure = figures[i];
+                board[i][7].figure = figures[i+16];
+
+                //Setting up other figures
+                board[i][1].figure = figures[i+8];
+                board[i][7].figure = figures[i + 24];
+            }
         }
     }    
 }
