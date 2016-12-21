@@ -23,5 +23,12 @@ namespace Szachy
             matrix.DrawFigures();
             
         }
+
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+            PictureBox pb = (PictureBox)sender;
+            Debug.WriteLine(pb.Name);
+        }
+
     }
 }
