@@ -9,7 +9,6 @@ namespace Szachy
     public class Cell
     {
         public Figure figure = null;
-        public int[] position;
 
         public void ChangeFigure(Figure newFigure)
         {

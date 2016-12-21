@@ -13,14 +13,21 @@ namespace Szachy
 
         public Matrix()
         {
+            figures = new Figure[40];
+
             //Creating a empty board
             board = new Cell[9][];
-            for (int i = 0; i <= 8; i++)
-                board[i] = new Cell[8];
+            for (int i = 0; i<=8; i++)
+                board[i] = new Cell[9];
+
+        //WHITE
 
             //Creating a set of figures
-            for (int i = 1; i <= 20; i++)
+            for(int i=1; i<=16; i++)
+            {
                 figures[i] = new Figure();
+                figures[i].color = Figure.ColorEnum.White;
+            }
 
             //Setting figure types
             figures[1].type = Figure.TypeEnum.Pawn;
@@ -40,12 +47,37 @@ namespace Szachy
             figures[15].type = Figure.TypeEnum.Knight;
             figures[16].type = Figure.TypeEnum.Rook;
 
+        //BLACK
 
+            //Creating a set of figures
+            for (int i = 17; i <= 32; i++)
+            {
+                figures[i] = new Figure();
+                figures[i].color = Figure.ColorEnum.Black;
+            }
+
+            //Setting figure types
+            figures[17].type = Figure.TypeEnum.Pawn;
+            figures[18].type = Figure.TypeEnum.Pawn;
+            figures[19].type = Figure.TypeEnum.Pawn;
+            figures[20].type = Figure.TypeEnum.Pawn;
+            figures[21].type = Figure.TypeEnum.Pawn;
+            figures[22].type = Figure.TypeEnum.Pawn;
+            figures[23].type = Figure.TypeEnum.Pawn;
+            figures[24].type = Figure.TypeEnum.Pawn;
+            figures[25].type = Figure.TypeEnum.Rook;
+            figures[26].type = Figure.TypeEnum.Knight;
+            figures[27].type = Figure.TypeEnum.Bishop;
+            figures[28].type = Figure.TypeEnum.Queen;
+            figures[29].type = Figure.TypeEnum.King;
+            figures[30].type = Figure.TypeEnum.Bishop;
+            figures[31].type = Figure.TypeEnum.Knight;
+            figures[32].type = Figure.TypeEnum.Rook;
 
         }
 
         //Check if cell exists
-        public bool CellExists(int row, int column)
+        public bool CellExists(int column, int row)
         {
             if (row >= 1 && column >= 1 && row <= 10 && column <= 10)
                 return true;
@@ -53,15 +85,15 @@ namespace Szachy
                 return false;
         }
 
-        public bool CellIsEmpty(int row, int column)
+        public bool CellIsEmpty(int column, int row)
         {
-            return (board[row][column].figure == null);
+            return (board[column][row].figure == null);
         }
 
-        private void MoveFigure(int fromRow, int fromColumn, int toRow, int toColumn)
+        private void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
         {
-            board[toRow][toColumn].figure = board[fromRow][fromColumn].figure;
-            board[fromRow][fromColumn].figure = null;
+            board[toColumn][toRow].figure = board[fromColumn][fromRow].figure;
+            board[fromColumn][fromRow].figure = null;
         }
-    }
+    }    
 }

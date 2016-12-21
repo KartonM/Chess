@@ -9,10 +9,16 @@ namespace Szachy
     public class Figure
     {
         public TypeEnum type;
+        public ColorEnum color;
 
         public enum TypeEnum
         {
             Pawn, Rook, Knight, Bishop, Queen, King
+        };
+
+        public enum ColorEnum
+        {
+            White, Black
         };
     }
 }
