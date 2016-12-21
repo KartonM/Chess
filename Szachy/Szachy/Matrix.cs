@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using Szachy.Properties;
 
 namespace Szachy
 {
@@ -10,6 +13,7 @@ namespace Szachy
     {
         public Cell[][] board;
         public Figure[] figures;
+        public Form form;
 
         public Matrix()
         {
@@ -90,10 +94,36 @@ namespace Szachy
             return (board[column][row].figure == null);
         }
 
-        private void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
+        public void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
         {
             board[toColumn][toRow].figure = board[fromColumn][fromRow].figure;
             board[fromColumn][fromRow].figure = null;
+        }
+
+        public void DrawFigures()
+        {
+            for(int iCol=1; iCol<=8; iCol++)
+                for(int iRow=1; iRow<=8; iRow++)
+                {
+                    switch(board[iCol][iRow].figure.type)
+                    {
+                        case Figure.TypeEnum.Pawn:
+
+                            PictureBox pb = (PictureBox)form.Controls.Find("c"+iCol.ToString()+iRow.ToString(), false)[0];
+                            pb.SizeMode = PictureBoxSizeMode.StretchImage; //DO USUNIĘCIA
+                            if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                            {
+                                pb.Image = Resources.WhitePawn;
+                            }
+                        else
+                            {
+                                pb.Image = Resources.BlackPawn;
+                            }
+                            break;
+
+                    }
+
+                }
         }
     }    
 }

@@ -10,6 +10,11 @@ namespace Szachy
     {
         public Figure figure = null;
 
+        public Cell()
+        {
+            figure = null;
+        }
+
         public void ChangeFigure(Figure newFigure)
         {
             figure = newFigure;

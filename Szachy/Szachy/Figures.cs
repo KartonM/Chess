@@ -11,6 +11,12 @@ namespace Szachy
         public TypeEnum type;
         public ColorEnum color;
 
+        public Figure()
+        {
+            type = Figure.TypeEnum.Pawn;
+            color = Figure.ColorEnum.White;
+        }
+
         public enum TypeEnum
         {
             Pawn, Rook, Knight, Bishop, Queen, King

@@ -668,6 +668,7 @@
             this.c88.Location = new System.Drawing.Point(404, 12);
             this.c88.Name = "c88";
             this.c88.Size = new System.Drawing.Size(50, 50);
+            this.c88.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.c88.TabIndex = 64;
             this.c88.TabStop = false;
             // 
