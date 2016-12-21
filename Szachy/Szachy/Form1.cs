@@ -24,11 +24,10 @@ namespace Szachy
             
         }
 
-        private void PictureBox_Click(object sender, EventArgs e)
+        private void CellClick(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
             Debug.WriteLine(pb.Name);
         }
-
     }
 }

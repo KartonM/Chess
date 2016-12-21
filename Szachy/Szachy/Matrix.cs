@@ -12,7 +12,7 @@ namespace Szachy
 {
     public class Matrix
     {
-        public Cell[][] board;
+        public Cell[,] board;
         public Figure[] figures;
         public Form form;
 
@@ -22,14 +22,12 @@ namespace Szachy
 
             //Creating an empty board
 
-            board = new Cell[9][];
-            for (int i = 0; i <= 8; i++)
-                board[i] = new Cell[9];
+            board = new Cell[9,9];
 
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
                 {
-                    board[iCol][iRow] = new Cell();
+                    board[iCol,iRow] = new Cell();
                 }
 
                     //WHITE
@@ -99,13 +97,13 @@ namespace Szachy
 
         public bool CellIsEmpty(int column, int row)
         {
-            return (board[column][row].figure == null);
+            return (board[column,row].figure == null);
         }
 
         public void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
         {
-            board[toColumn][toRow].figure = board[fromColumn][fromRow].figure;
-            board[fromColumn][fromRow].figure = null;
+            board[toColumn,toRow].figure = board[fromColumn,fromRow].figure;
+            board[fromColumn,fromRow].figure = null;
         }
 
         public void BoardSetup()
@@ -113,12 +111,12 @@ namespace Szachy
             for (int i = 1; i <= 8; i++)
             {
                 //Setting up pawns
-                board[i][2].figure = figures[i];
-                board[i][7].figure = figures[i + 16];
+                board[i,2].figure = figures[i];
+                board[i,7].figure = figures[i + 16];
 
                 //Setting up other figures
-                board[i][1].figure = figures[i + 8];
-                board[i][8].figure = figures[i + 24];
+                board[i,1].figure = figures[i + 8];
+                board[i,8].figure = figures[i + 24];
             }
         }
 
@@ -130,47 +128,47 @@ namespace Szachy
                     PictureBox pb = (PictureBox)form.Controls.Find("c" + iCol.ToString() + iRow.ToString(), false)[0];
                     pb.SizeMode = PictureBoxSizeMode.StretchImage; //DO USUNIĘCIA
 
-                    if (board[iCol][iRow].figure!=null)
+                    if (board[iCol,iRow].figure!=null)
                     {
-                        switch (board[iCol][iRow].figure.type)
+                        switch (board[iCol,iRow].figure.type)
                         {
                             case Figure.TypeEnum.Pawn:
 
-                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                if (board[iCol,iRow].figure.color == Figure.ColorEnum.White)
                                     pb.Image = Resources.WhitePawn;
                                 else
                                     pb.Image = Resources.BlackPawn;
                                 break;
 
                             case Figure.TypeEnum.Rook:
-                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                if (board[iCol,iRow].figure.color == Figure.ColorEnum.White)
                                     pb.Image = Resources.WhiteRook;
                                 else
                                     pb.Image = Resources.BlackRook;
                                 break;
                             case Figure.TypeEnum.Knight:
-                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                if (board[iCol,iRow].figure.color == Figure.ColorEnum.White)
                                     pb.Image = Resources.WhiteKnight;
                                 else
                                     pb.Image = Resources.BlackKnight;
                                 break;
 
                             case Figure.TypeEnum.Bishop:
-                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                if (board[iCol,iRow].figure.color == Figure.ColorEnum.White)
                                     pb.Image = Resources.WhiteBishop;
                                 else
                                     pb.Image = Resources.BlackBishop;
                                 break;
 
                             case Figure.TypeEnum.King:
-                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                if (board[iCol,iRow].figure.color == Figure.ColorEnum.White)
                                     pb.Image = Resources.WhiteKing;
                                 else
                                     pb.Image = Resources.BlackKing;
                                 break;
 
                             case Figure.TypeEnum.Queen:
-                                if (board[iCol][iRow].figure.color == Figure.ColorEnum.White)
+                                if (board[iCol,iRow].figure.color == Figure.ColorEnum.White)
                                     pb.Image = Resources.WhiteQueen;
                                 else
                                     pb.Image = Resources.BlackQueen;

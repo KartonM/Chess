@@ -89,6 +89,9 @@
     <Content Include="Resources\BlackPawn.png" />
     <Content Include="Resources\BlackQueen.png" />
     <Content Include="Resources\BlackRook.png" />
+    <Content Include="Resources\CellAvailable.png" />
+    <Content Include="Resources\CellCurrent.png" />
+    <Content Include="Resources\CellEnemy.png" />
     <Content Include="Resources\WhiteBishop.png" />
     <Content Include="Resources\WhiteKing.png" />
     <Content Include="Resources\WhiteKnight.png" />
