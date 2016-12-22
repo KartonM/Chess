@@ -13,27 +13,43 @@ namespace Szachy
     public class Matrix
     {
         public Cell[,] board;
+        public string[,] moveAbility; 
         public Figure[] figures;
         public Form form;
+        public bool cellSelected = false;
+
+        Figure.ColorEnum currentColor;
 
         public Matrix()
         {
-            figures = new Figure[40];
+            currentColor = Figure.ColorEnum.White;
 
-            //Creating an empty board
+    //BOARD
+    //Creating an empty board
 
-            board = new Cell[9,9];
+            board = new Cell[10,10];
+
+            for (int iCol = 1; iCol <= 9; iCol++)
+                for (int iRow = 1; iRow <= 9; iRow++)
+                    board[iCol,iRow] = new Cell();
+
+            //MOVE ABILITY
+
+            moveAbility = new string[9, 9];
 
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
                 {
-                    board[iCol,iRow] = new Cell();
+                    moveAbility[iCol, iRow] = "No";
                 }
 
-                    //WHITE
+            //FIGURES
+            figures = new Figure[33];
 
-                    //Creating a set of figures
-                    for (int i=0; i<=16; i++)
+            //WHITE
+
+            //Creating a set of figures
+            for (int i=0; i<=16; i++)
             {
                 figures[i] = new Figure();
                 figures[i].color = Figure.ColorEnum.White;
@@ -89,7 +105,7 @@ namespace Szachy
         //Check if cell exists
         public bool CellExists(int column, int row)
         {
-            if (row >= 1 && column >= 1 && row <= 10 && column <= 10)
+            if (row >= 1 && column >= 1 && row <= 8 && column <= 8)
                 return true;
             else
                 return false;
@@ -97,7 +113,11 @@ namespace Szachy
 
         public bool CellIsEmpty(int column, int row)
         {
-            return (board[column,row].figure == null);
+            Debug.WriteLine("col: " + column + "  row: " + row);
+            if (board[column, row].figure == null)
+                return true;
+            else
+                return false;
         }
 
         public void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
@@ -182,6 +202,148 @@ namespace Szachy
                     }
 
             }
+        }
+
+        public void DrawMoveAbility()
+        {
+            for (int iCol = 1; iCol <= 8; iCol++)
+                for (int iRow = 1; iRow <= 8; iRow++)
+                {
+                    PictureBox pb = (PictureBox)form.Controls.Find("c" + iCol.ToString() + iRow.ToString(), false)[0];
+                    pb.BackgroundImageLayout = ImageLayout.Stretch; //DO USUNIĘCIA
+
+                    switch (moveAbility[iCol, iRow])
+                    {
+                        case "No":
+                            pb.BackgroundImage = null;
+                            break;
+                        case "Yes":
+                            pb.BackgroundImage = Resources.CellAvailable;
+                            break;
+                        case "Current":
+                            pb.BackgroundImage = Resources.CellCurrent;
+                            break;
+                        case "Attack":
+                            pb.BackgroundImage = Resources.CellEnemy;
+                            break;
+                    }
+                }
+        }
+
+        public void SelectCell(int selectedCol, int selectedRow)
+        {
+            if(cellSelected)
+            {
+
+            }
+            else
+            {
+                    GetMoveAbility(selectedCol, selectedRow);
+                    DrawMoveAbility();
+            }
+        }
+
+        public void GetMoveAbility(int selectedCol, int selectedRow)
+        {
+            ResetMoveAbility();
+            moveAbility[selectedCol, selectedRow] = "Current";
+
+            switch(board[selectedCol,selectedRow].figure.type)
+            {
+                case Figure.TypeEnum.Rook:
+                    for(int i=1; i<=8; i++)
+                    {
+                        //DIRECTION RIGHT
+                        if(CellExists(selectedCol + i, selectedRow))
+                        {
+                            if (CellIsEmpty(selectedCol + i, selectedRow))
+                                //Cell empty
+                                moveAbility[selectedCol + i, selectedRow] = "Yes";
+                            else
+                            {
+                                //Check if friend or foe
+                                if(board[selectedCol + i, selectedRow].figure.color == Figure.ColorEnum.White)
+                                    moveAbility[selectedCol + i, selectedRow] = "No";
+                                else
+                                    moveAbility[selectedCol + i, selectedRow] = "Attack";
+                                break;
+                            }
+                        }
+                    }
+
+                    for (int i = 1; i <= 8; i++)
+                    {
+                        Debug.WriteLine("Left: " + i + ", " + CellExists(selectedCol - i, selectedRow));
+
+                        //DIRECTION LEFT
+                        if (CellExists(selectedCol - i, selectedRow))
+                        {
+                            if (CellIsEmpty(selectedCol - i, selectedRow))
+                                //Cell empty
+                                moveAbility[selectedCol - i, selectedRow] = "Yes";
+                            else
+                            {
+                                //Check if friend or foe
+                                if (board[selectedCol - i, selectedRow].figure.color == Figure.ColorEnum.White)
+                                    moveAbility[selectedCol - i, selectedRow] = "No";
+                                else
+                                    moveAbility[selectedCol - i, selectedRow] = "Attack";
+                                break;
+                            }
+                        }
+                    }
+
+                    for (int i = 1; i <= 8; i++)
+                    {
+                        //DIRECTION UP
+                        if (CellExists(selectedCol, selectedRow + i))
+                        {
+                            Debug.WriteLine("Up: " + (selectedRow + i) + ", " + CellExists(selectedCol, selectedRow + i));
+                            if (CellIsEmpty(selectedCol, selectedRow + i))
+                                //Cell empty
+                                moveAbility[selectedCol, selectedRow + i] = "Yes";
+                            else
+                            {
+                                //Check if friend or foe
+                                if (board[selectedCol, selectedRow + i].figure.color == Figure.ColorEnum.White)
+                                    moveAbility[selectedCol, selectedRow + i] = "No";
+                                else
+                                    moveAbility[selectedCol, selectedRow + i] = "Attack";
+                                break;
+                            }
+                        }
+                    }
+
+                    for (int i = 1; i <= 8; i++)
+                    {
+                        //DIRECTION UP
+                        if (CellExists(selectedCol, selectedRow - i))
+                        {
+                            if (CellIsEmpty(selectedCol, selectedRow - i))
+                                //Cell empty
+                                moveAbility[selectedCol, selectedRow - i] = "Yes";
+                                else
+                            {
+                                //Check if friend or foe
+                                if (board[selectedCol, selectedRow - i].figure.color == Figure.ColorEnum.White)
+                                    moveAbility[selectedCol, selectedRow - i] = "No";
+                                else
+                                    moveAbility[selectedCol, selectedRow - i] = "Attack";
+                                break;
+                            }
+                        }
+                    }
+
+
+                    break; 
+            }
+        }
+
+        void ResetMoveAbility()
+        {
+            for (int iCol = 1; iCol <= 8; iCol++)
+                for (int iRow = 1; iRow <= 8; iRow++)
+                    moveAbility[iCol, iRow] = "No";
         }
     }    
 }
