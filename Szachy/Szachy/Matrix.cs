@@ -17,6 +17,7 @@ namespace Szachy
         public Figure[] figures;
         public Form form;
         public bool cellSelected = false;
+        public int[] currentSelection = { 1, 1 }; 
 
         Figure.ColorEnum currentColor;
 
@@ -36,12 +37,6 @@ namespace Szachy
             //MOVE ABILITY
 
             moveAbility = new string[9, 9];
-
-            for (int iCol = 1; iCol <= 8; iCol++)
-                for (int iRow = 1; iRow <= 8; iRow++)
-                {
-                    moveAbility[iCol, iRow] = "No";
-                }
 
             //FIGURES
             figures = new Figure[33];
@@ -232,14 +227,24 @@ namespace Szachy
 
         public void SelectCell(int selectedCol, int selectedRow)
         {
-            if(cellSelected)
-            {
 
-            }
-            else
+            if (board[selectedCol, selectedRow].figure != null &&
+                board[selectedCol, selectedRow].figure.color == currentColor)
             {
-                    GetMoveAbility(selectedCol, selectedRow);
-                    DrawMoveAbility();
+                GetMoveAbility(selectedCol, selectedRow);
+                DrawMoveAbility();
+                currentSelection[0] = selectedCol;
+                currentSelection[1] = selectedRow;
+            }
+            else if(moveAbility[selectedCol, selectedRow] == "Yes" ||
+                 moveAbility[selectedCol, selectedRow] == "Attack")
+            {
+                MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
+                DrawFigures();
+                ResetMoveAbility();
+                DrawMoveAbility();
+                if (currentColor == Figure.ColorEnum.White) currentColor = Figure.ColorEnum.Black;
+                else currentColor = Figure.ColorEnum.White;
             }
         }
 
@@ -251,95 +256,119 @@ namespace Szachy
             switch(board[selectedCol,selectedRow].figure.type)
             {
                 case Figure.TypeEnum.Rook:
-                    for(int i=1; i<=8; i++)
-                    {
-                        //DIRECTION RIGHT
-                        if(CellExists(selectedCol + i, selectedRow))
-                        {
-                            if (CellIsEmpty(selectedCol + i, selectedRow))
-                                //Cell empty
-                                moveAbility[selectedCol + i, selectedRow] = "Yes";
-                            else
-                            {
-                                //Check if friend or foe
-                                if(board[selectedCol + i, selectedRow].figure.color == Figure.ColorEnum.White)
-                                    moveAbility[selectedCol + i, selectedRow] = "No";
-                                else
-                                    moveAbility[selectedCol + i, selectedRow] = "Attack";
-                                break;
-                            }
-                        }
-                    }
+                    RooksMoveAbility(selectedCol, selectedRow);
+                    break;
 
-                    for (int i = 1; i <= 8; i++)
-                    {
-                        Debug.WriteLine("Left: " + i + ", " + CellExists(selectedCol - i, selectedRow));
+                case Figure.TypeEnum.Knight:
+                    KnightsMoveAbility(selectedCol, selectedRow);
+                    break;
 
-                        //DIRECTION LEFT
-                        if (CellExists(selectedCol - i, selectedRow))
-                        {
-                            if (CellIsEmpty(selectedCol - i, selectedRow))
-                                //Cell empty
-                                moveAbility[selectedCol - i, selectedRow] = "Yes";
-                            else
-                            {
-                                //Check if friend or foe
-                                if (board[selectedCol - i, selectedRow].figure.color == Figure.ColorEnum.White)
-                                    moveAbility[selectedCol - i, selectedRow] = "No";
-                                else
-                                    moveAbility[selectedCol - i, selectedRow] = "Attack";
-                                break;
-                            }
-                        }
-                    }
+                case Figure.TypeEnum.Bishop:
+                    BishopsMoveAbility(selectedCol, selectedRow);
+                    break;
 
-                    for (int i = 1; i <= 8; i++)
-                    {
-                        //DIRECTION UP
-                        if (CellExists(selectedCol, selectedRow + i))
-                        {
-                            Debug.WriteLine("Up: " + (selectedRow + i) + ", " + CellExists(selectedCol, selectedRow + i));
-                            if (CellIsEmpty(selectedCol, selectedRow + i))
-                                //Cell empty
-                                moveAbility[selectedCol, selectedRow + i] = "Yes";
-                            else
-                            {
-                                //Check if friend or foe
-                                if (board[selectedCol, selectedRow + i].figure.color == Figure.ColorEnum.White)
-                                    moveAbility[selectedCol, selectedRow + i] = "No";
-                                else
-                                    moveAbility[selectedCol, selectedRow + i] = "Attack";
-                                break;
-                            }
-                        }
-                    }
+                case Figure.TypeEnum.Queen:
+                    RooksMoveAbility(selectedCol, selectedRow);
+                    BishopsMoveAbility(selectedCol, selectedRow);
+                    break;
 
-                    for (int i = 1; i <= 8; i++)
-                    {
-                        //DIRECTION UP
-                        if (CellExists(selectedCol, selectedRow - i))
-                        {
-                            if (CellIsEmpty(selectedCol, selectedRow - i))
-                                //Cell empty
-                                moveAbility[selectedCol, selectedRow - i] = "Yes";
-                                else
-                            {
-                                //Check if friend or foe
-                                if (board[selectedCol, selectedRow - i].figure.color == Figure.ColorEnum.White)
-                                    moveAbility[selectedCol, selectedRow - i] = "No";
-                                else
-                                    moveAbility[selectedCol, selectedRow - i] = "Attack";
-                                break;
-                            }
-                        }
-                    }
+            }
+        }
+        //lol koment
+        void RooksMoveAbility(int selectedCol, int selectedRow)
+        {
+            for (int i = 1; i <= 8-selectedRow; i++)
+            {
+                //DIRECTION RIGHT
+                if(!CheckMoveAbility(selectedCol + i, selectedRow)) break;
+            }
 
+            for (int i = 1; i <= selectedCol-1; i++)
+            {
+                //Debug.WriteLine("Left: " + i + ", " + CellExists(selectedCol - i, selectedRow));
 
-                    break; 
+                //DIRECTION LEFT
+                if (!CheckMoveAbility(selectedCol - i, selectedRow)) break;
+            }
+
+            for (int i = 1; i <= 8-selectedRow; i++)
+            {
+                //DIRECTION UP
+
+                if (!CheckMoveAbility(selectedCol, selectedRow+i)) break;
+            }
+
+            for (int i = 1; i <= selectedRow-1; i++)
+            {
+                //DIRECTION DOWN
+                if (!CheckMoveAbility(selectedCol, selectedRow - i)) break;
             }
         }
 
-        void ResetMoveAbility()
+        void KnightsMoveAbility(int selectedCol, int selectedRow)
+        {
+            CheckMoveAbility(selectedCol + 2, selectedRow + 1);
+            CheckMoveAbility(selectedCol + 1, selectedRow + 2);
+            CheckMoveAbility(selectedCol + 2, selectedRow - 1);
+            CheckMoveAbility(selectedCol + 1, selectedRow - 2);
+            CheckMoveAbility(selectedCol - 2, selectedRow + 1);
+            CheckMoveAbility(selectedCol - 1, selectedRow + 2);
+            CheckMoveAbility(selectedCol - 2, selectedRow - 1);
+            CheckMoveAbility(selectedCol - 1, selectedRow - 2);
+        }
+
+        void BishopsMoveAbility(int selectedCol, int selectedRow)
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+                //direction upper right
+                if (!CheckMoveAbility(selectedCol + i, selectedRow + i)) break;
+            }
+
+            for (int i = 1; i <= 8; i++)
+            {
+                //direction upper left
+                if (!CheckMoveAbility(selectedCol - i, selectedRow + i)) break;
+            }
+
+            for (int i = 1; i <= 8; i++)
+            {
+                //direction lower right
+                if (!CheckMoveAbility(selectedCol + i, selectedRow - i)) break;
+            }
+
+            for (int i = 1; i <= 8; i++)
+            {
+                //direction lower left
+                if (!CheckMoveAbility(selectedCol - i, selectedRow - i)) break;
+            }
+        }
+
+        bool CheckMoveAbility(int col, int row)
+        {
+            if (CellExists(col, row))
+            {
+                if (CellIsEmpty(col, row))
+                {
+                    //Cell empty
+                    moveAbility[col, row] = "Yes";
+                }
+                else
+                {
+                    //Check if friend or foe
+                    if (board[col, row].figure.color == currentColor)
+                        moveAbility[col, row] = "No";
+                    else
+                        moveAbility[col, row] = "Attack";
+
+                    return false;
+                }
+            }
+            return true;
+
+        }
+
+        public void ResetMoveAbility()
         {
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
