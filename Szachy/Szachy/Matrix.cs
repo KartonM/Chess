@@ -89,8 +89,8 @@ namespace Szachy
             figures[25].type = Figure.TypeEnum.Rook;
             figures[26].type = Figure.TypeEnum.Knight;
             figures[27].type = Figure.TypeEnum.Bishop;
-            figures[28].type = Figure.TypeEnum.King;
-            figures[29].type = Figure.TypeEnum.Queen;
+            figures[28].type = Figure.TypeEnum.Queen;
+            figures[29].type = Figure.TypeEnum.King;
             figures[30].type = Figure.TypeEnum.Bishop;
             figures[31].type = Figure.TypeEnum.Knight;
             figures[32].type = Figure.TypeEnum.Rook;
@@ -119,6 +119,35 @@ namespace Szachy
         {
             board[fromColumn, fromRow].figure.firstMove = false;
             board[toColumn,toRow].figure = board[fromColumn,fromRow].figure;
+
+            //WHITE castle king-side *short*
+            if (board[fromColumn, fromRow].figure.type == Figure.TypeEnum.King &&
+                fromColumn == 5 &&
+                toColumn == 7 &&
+                fromRow == 1)
+                    MoveFigure(8, 1, 6, 1);
+            
+            //WHITE castle queen-side  *long*
+            if (board[fromColumn, fromRow].figure.type == Figure.TypeEnum.King &&
+                fromColumn == 5 &&
+                toColumn == 3 &&
+                fromRow == 1)
+                    MoveFigure(1, 1, 4, 1);
+
+            //BLACK castle king-side *short*
+            if (board[fromColumn, fromRow].figure.type == Figure.TypeEnum.King &&
+                fromColumn == 5 &&
+                toColumn == 7 &&
+                fromRow == 8)
+                    MoveFigure(8, 8, 6, 8);
+
+            //BLACK castle queen-side *long*
+            if (board[fromColumn, fromRow].figure.type == Figure.TypeEnum.King &&
+                fromColumn == 5 &&
+                toColumn == 3 &&
+                fromRow == 8)
+                MoveFigure(1, 8, 4, 8);
+
             board[fromColumn,fromRow].figure = null;
         }
 
@@ -277,9 +306,13 @@ namespace Szachy
                     PawnMoveAbility(selectedCol, selectedRow);
                     break;
 
+                case Figure.TypeEnum.King:
+                    KingsMoveAbility(selectedCol, selectedRow);
+                    break;
+
             }
         }
-        //lol koment
+
         void RooksMoveAbility(int selectedCol, int selectedRow)
         {
             for (int i = 1; i <= 8; i++)
@@ -385,6 +418,41 @@ namespace Szachy
             CheckMoveAbility(selectedCol - 1, selectedRow - 1);
             CheckMoveAbility(selectedCol, selectedRow + 1);
             CheckMoveAbility(selectedCol, selectedRow - 1);
+
+            //WHITE castle king-side *short*
+            if (board[selectedCol, selectedRow].figure.firstMove &&
+               board[selectedCol, selectedRow].figure.color == Figure.ColorEnum.White && 
+               figures[16].firstMove &&
+               CellIsEmpty(6, 1) &&
+               CellIsEmpty(7, 1))
+                    moveAbility[7, 1] = "Yes";
+
+            //WHITE castle queen-side *long*
+            if (board[selectedCol, selectedRow].figure.firstMove &&
+              board[selectedCol, selectedRow].figure.color == Figure.ColorEnum.White &&
+              figures[9].firstMove &&
+              CellIsEmpty(2, 1) &&
+              CellIsEmpty(3, 1) &&
+              CellIsEmpty(4, 1))
+                    moveAbility[3, 1] = "Yes";
+
+            //BLACK castle king-side *short*
+            if (board[selectedCol, selectedRow].figure.firstMove &&
+               board[selectedCol, selectedRow].figure.color == Figure.ColorEnum.Black &&
+               figures[32].firstMove &&
+               CellIsEmpty(6, 8) &&
+               CellIsEmpty(7, 8))
+                    moveAbility[7, 8] = "Yes";
+
+            //BLACK castle queen-side *long*
+            if (board[selectedCol, selectedRow].figure.firstMove &&
+              board[selectedCol, selectedRow].figure.color == Figure.ColorEnum.Black &&
+              figures[25].firstMove &&
+              CellIsEmpty(2, 8) &&
+              CellIsEmpty(3, 8) &&
+              CellIsEmpty(4, 8))
+                moveAbility[3, 8] = "Yes";
+
         }
 
         bool CheckMoveAbility(int col, int row)
