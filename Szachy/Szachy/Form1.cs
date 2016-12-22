@@ -24,8 +24,8 @@ namespace Szachy
             matrix.BoardSetup();
 
             //matrix.MoveFigure(1, 1, 4, 5);
-           // matrix.MoveFigure(1, 7, 7, 5);
-           // matrix.MoveFigure(2, 1, 6, 5);
+            // matrix.MoveFigure(1, 7, 7, 5);
+            // matrix.MoveFigure(2, 1, 6, 5);
             matrix.MoveFigure(2, 1, 5, 5);
 
             matrix.DrawFigures();

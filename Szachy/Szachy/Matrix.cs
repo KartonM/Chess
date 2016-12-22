@@ -117,6 +117,7 @@ namespace Szachy
 
         public void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
         {
+            board[fromColumn, fromRow].figure.firstMove = false;
             board[toColumn,toRow].figure = board[fromColumn,fromRow].figure;
             board[fromColumn,fromRow].figure = null;
         }
@@ -272,18 +273,22 @@ namespace Szachy
                     BishopsMoveAbility(selectedCol, selectedRow);
                     break;
 
+                case Figure.TypeEnum.Pawn:
+                    PawnMoveAbility(selectedCol, selectedRow);
+                    break;
+
             }
         }
         //lol koment
         void RooksMoveAbility(int selectedCol, int selectedRow)
         {
-            for (int i = 1; i <= 8-selectedRow; i++)
+            for (int i = 1; i <= 8; i++)
             {
                 //DIRECTION RIGHT
                 if(!CheckMoveAbility(selectedCol + i, selectedRow)) break;
             }
 
-            for (int i = 1; i <= selectedCol-1; i++)
+            for (int i = 1; i <= 8; i++)
             {
                 //Debug.WriteLine("Left: " + i + ", " + CellExists(selectedCol - i, selectedRow));
 
@@ -291,14 +296,14 @@ namespace Szachy
                 if (!CheckMoveAbility(selectedCol - i, selectedRow)) break;
             }
 
-            for (int i = 1; i <= 8-selectedRow; i++)
+            for (int i = 1; i <= 8; i++)
             {
                 //DIRECTION UP
 
                 if (!CheckMoveAbility(selectedCol, selectedRow+i)) break;
             }
 
-            for (int i = 1; i <= selectedRow-1; i++)
+            for (int i = 1; i <= 8; i++)
             {
                 //DIRECTION DOWN
                 if (!CheckMoveAbility(selectedCol, selectedRow - i)) break;
@@ -342,6 +347,44 @@ namespace Szachy
                 //direction lower left
                 if (!CheckMoveAbility(selectedCol - i, selectedRow - i)) break;
             }
+        }
+
+        void PawnMoveAbility(int selectedCol, int selectedRow)
+        {
+            if(currentColor==Figure.ColorEnum.White)
+            {
+                if (CellExists(selectedCol, selectedRow+1) && CellIsEmpty(selectedCol, selectedRow+1))
+                    moveAbility[selectedCol, selectedRow+1] = "Yes";
+                if (board[selectedCol, selectedRow].figure.firstMove && CellIsEmpty(selectedCol, selectedRow + 2) && CellIsEmpty(selectedCol, selectedRow + 1))
+                    moveAbility[selectedCol, selectedRow+2] = "Yes";
+                if(CellExists(selectedCol+1, selectedRow+1) && !CellIsEmpty(selectedCol + 1, selectedRow + 1) && board[selectedCol + 1, selectedRow + 1].figure.color!=currentColor)
+                    moveAbility[selectedCol+1, selectedRow+1] = "Attack";
+                if (CellExists(selectedCol-1, selectedRow+1) && !CellIsEmpty(selectedCol - 1, selectedRow + 1) && board[selectedCol - 1, selectedRow + 1].figure.color != currentColor)
+                    moveAbility[selectedCol-1, selectedRow+1] = "Attack";
+            }
+            else
+            {
+                if (CellExists(selectedCol, selectedRow - 1) && CellIsEmpty(selectedCol, selectedRow - 1))
+                    moveAbility[selectedCol, selectedRow - 1] = "Yes";
+                if (board[selectedCol, selectedRow].figure.firstMove && CellIsEmpty(selectedCol, selectedRow - 2) && CellIsEmpty(selectedCol, selectedRow - 1))
+                    moveAbility[selectedCol, selectedRow - 2] = "Yes";
+                if (CellExists(selectedCol + 1, selectedRow - 1) && !CellIsEmpty(selectedCol + 1, selectedRow - 1) && board[selectedCol + 1, selectedRow - 1].figure.color != currentColor)
+                    moveAbility[selectedCol + 1, selectedRow - 1] = "Attack";
+                if (CellExists(selectedCol - 1, selectedRow - 1) && !CellIsEmpty(selectedCol - 1, selectedRow - 1) && board[selectedCol - 1, selectedRow - 1].figure.color != currentColor)
+                    moveAbility[selectedCol - 1, selectedRow - 1] = "Attack";
+            }
+        }
+
+        void KingsMoveAbility(int selectedCol, int selectedRow)
+        {
+            CheckMoveAbility(selectedCol + 1, selectedRow);
+            CheckMoveAbility(selectedCol + 1, selectedRow + 1);
+            CheckMoveAbility(selectedCol + 1, selectedRow - 1);
+            CheckMoveAbility(selectedCol - 1, selectedRow);
+            CheckMoveAbility(selectedCol - 1, selectedRow + 1);
+            CheckMoveAbility(selectedCol - 1, selectedRow - 1);
+            CheckMoveAbility(selectedCol, selectedRow + 1);
+            CheckMoveAbility(selectedCol, selectedRow - 1);
         }
 
         bool CheckMoveAbility(int col, int row)

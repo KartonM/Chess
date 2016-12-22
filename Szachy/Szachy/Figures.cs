@@ -10,11 +10,13 @@ namespace Szachy
     {
         public TypeEnum type;
         public ColorEnum color;
+        public bool firstMove = true;
 
         public Figure()
         {
             type = Figure.TypeEnum.Null;
             color = Figure.ColorEnum.White;
+            firstMove = true;
         }
 
         public enum TypeEnum
