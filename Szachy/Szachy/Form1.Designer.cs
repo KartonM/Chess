@@ -92,6 +92,7 @@
             this.c61 = new System.Windows.Forms.PictureBox();
             this.c71 = new System.Windows.Forms.PictureBox();
             this.c81 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.c11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c28)).BeginInit();
@@ -862,11 +863,22 @@
             this.c81.TabStop = false;
             this.c81.Click += new System.EventHandler(this.CellClick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(23, 506);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 65;
+            this.button1.Text = "Board Setup";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.boardSetup);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 584);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.c81);
             this.Controls.Add(this.c71);
             this.Controls.Add(this.c61);
@@ -932,7 +944,7 @@
             this.Controls.Add(this.c28);
             this.Controls.Add(this.c18);
             this.Name = "Form";
-            this.Text = "Szachy";
+            this.Text = "Chess";
             ((System.ComponentModel.ISupportInitialize)(this.c11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c28)).EndInit();
@@ -1067,6 +1079,7 @@
         private System.Windows.Forms.PictureBox c61;
         private System.Windows.Forms.PictureBox c71;
         private System.Windows.Forms.PictureBox c81;
+        private System.Windows.Forms.Button button1;
     }
 }
 

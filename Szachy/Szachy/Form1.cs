@@ -29,13 +29,18 @@ namespace Szachy
             matrix.MoveFigure(2, 1, 5, 5);
 
             matrix.DrawFigures();
-            
         }
 
         private void CellClick(object sender, EventArgs e)
         {
             PictureBox pb = (PictureBox)sender;
             matrix.SelectCell(int.Parse(pb.Name[1].ToString()), int.Parse(pb.Name[2].ToString()));
+        }
+
+        private void boardSetup(object sender, EventArgs e)
+        {
+            matrix.BoardSetup();
+            matrix.DrawFigures();
         }
     }
 }

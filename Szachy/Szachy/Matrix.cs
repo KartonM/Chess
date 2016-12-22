@@ -17,12 +17,13 @@ namespace Szachy
         public Figure[] figures;
         public Form form;
         public bool cellSelected = false;
-        public int[] currentSelection = { 1, 1 }; 
+        public int[] currentSelection = { 1, 1 };
+        public bool debug = false;
 
         Figure.ColorEnum currentColor;
 
         public Matrix()
-        {
+        {           
             currentColor = Figure.ColorEnum.White;
 
     //BOARD
@@ -95,6 +96,7 @@ namespace Szachy
             figures[31].type = Figure.TypeEnum.Knight;
             figures[32].type = Figure.TypeEnum.Rook;
 
+            
         }
 
         //Check if cell exists
@@ -153,15 +155,25 @@ namespace Szachy
 
         public void BoardSetup()
         {
+            for (int iCol = 1; iCol <= 9; iCol++)
+                for (int iRow = 1; iRow <= 9; iRow++)
+                    board[iCol, iRow].figure = null;
+
+            foreach(Figure figure in figures)
+            {
+                figure.firstMove = true;
+            }
+            currentColor = Figure.ColorEnum.White;
+
             for (int i = 1; i <= 8; i++)
             {
                 //Setting up pawns
-                board[i,2].figure = figures[i];
-                board[i,7].figure = figures[i + 16];
+                board[i, 2].figure = figures[i];
+                board[i, 7].figure = figures[i + 16];
 
                 //Setting up other figures
-                board[i,1].figure = figures[i + 8];
-                board[i,8].figure = figures[i + 24];
+                board[i, 1].figure = figures[i + 8];
+                board[i, 8].figure = figures[i + 24];
             }
         }
 
@@ -257,25 +269,24 @@ namespace Szachy
 
         public void SelectCell(int selectedCol, int selectedRow)
         {
-
-            if (board[selectedCol, selectedRow].figure != null &&
-                board[selectedCol, selectedRow].figure.color == currentColor)
-            {
-                GetMoveAbility(selectedCol, selectedRow);
-                DrawMoveAbility();
-                currentSelection[0] = selectedCol;
-                currentSelection[1] = selectedRow;
-            }
-            else if(moveAbility[selectedCol, selectedRow] == "Yes" ||
-                 moveAbility[selectedCol, selectedRow] == "Attack")
-            {
-                MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
-                DrawFigures();
-                ResetMoveAbility();
-                DrawMoveAbility();
-                if (currentColor == Figure.ColorEnum.White) currentColor = Figure.ColorEnum.Black;
-                else currentColor = Figure.ColorEnum.White;
-            }
+                if (board[selectedCol, selectedRow].figure != null &&
+                    board[selectedCol, selectedRow].figure.color == currentColor)
+                {
+                    GetMoveAbility(selectedCol, selectedRow);
+                    DrawMoveAbility();
+                    currentSelection[0] = selectedCol;
+                    currentSelection[1] = selectedRow;
+                }
+                else if (moveAbility[selectedCol, selectedRow] == "Yes" ||
+                     moveAbility[selectedCol, selectedRow] == "Attack")
+                {
+                    MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
+                    DrawFigures();
+                    ResetMoveAbility();
+                    DrawMoveAbility();
+                    if (currentColor == Figure.ColorEnum.White) currentColor = Figure.ColorEnum.Black;
+                    else currentColor = Figure.ColorEnum.White;
+                }
         }
 
         public void GetMoveAbility(int selectedCol, int selectedRow)
