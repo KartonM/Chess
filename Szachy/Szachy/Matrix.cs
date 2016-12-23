@@ -18,6 +18,8 @@ namespace Szachy
         public Form form;
         public bool cellSelected = false;
         public int[] currentSelection = { 1, 1 };
+        public int[] BlackKingPosition = { 5, 8 };
+        public int[] WhiteKingPosition = { 5, 1 };
         public bool debug = false;
 
         Figure.ColorEnum currentColor;
@@ -118,7 +120,19 @@ namespace Szachy
         }
 
         public void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
-        {
+        {        
+            if (fromColumn == WhiteKingPosition[0] && fromRow == WhiteKingPosition[1])
+            {
+                WhiteKingPosition[0] = toColumn;
+                WhiteKingPosition[1] = toRow;
+            }
+
+            if (fromColumn == BlackKingPosition[0] && fromRow == BlackKingPosition[1])
+            {
+                BlackKingPosition[0] = toColumn;
+                BlackKingPosition[1] = toRow;
+            }
+
             board[fromColumn, fromRow].figure.firstMove = false;
             board[toColumn,toRow].figure = board[fromColumn,fromRow].figure;
 
@@ -151,6 +165,7 @@ namespace Szachy
                 MoveFigure(1, 8, 4, 8);
 
             board[fromColumn,fromRow].figure = null;
+            Debug.WriteLine(WhiteKingPosition[0] + " " + WhiteKingPosition[1] + "   " + BlackKingPosition[0] + " " + BlackKingPosition[1]);
         }
 
         public void BoardSetup()
@@ -273,7 +288,6 @@ namespace Szachy
                     board[selectedCol, selectedRow].figure.color == currentColor)
                 {
                     GetMoveAbility(selectedCol, selectedRow);
-                    DrawMoveAbility();
                     currentSelection[0] = selectedCol;
                     currentSelection[1] = selectedRow;
                 }
@@ -283,10 +297,22 @@ namespace Szachy
                     MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
                     DrawFigures();
                     ResetMoveAbility();
-                    DrawMoveAbility();
+
                     if (currentColor == Figure.ColorEnum.White) currentColor = Figure.ColorEnum.Black;
                     else currentColor = Figure.ColorEnum.White;
+
+                if (CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White))
+                {
+                    moveAbility[WhiteKingPosition[0], WhiteKingPosition[1]] = "Attack";
+                    Debug.WriteLine("White Check!!!");
                 }
+                if (CellIsAttacked(BlackKingPosition[0], BlackKingPosition[1], Figure.ColorEnum.Black))
+                {
+                    moveAbility[BlackKingPosition[0], BlackKingPosition[1]] = "Attack";
+                    Debug.WriteLine("Black Check!!!");
+                }
+            }
+            DrawMoveAbility();
         }
 
         public void GetMoveAbility(int selectedCol, int selectedRow)
@@ -479,7 +505,7 @@ namespace Szachy
               CellIsEmpty(2, 8) &&
               CellIsEmpty(3, 8) &&
               CellIsEmpty(4, 8))
-                moveAbility[3, 8] = "Yes";
+                    moveAbility[3, 8] = "Yes";
 
         }
 
@@ -514,7 +540,7 @@ namespace Szachy
                     moveAbility[iCol, iRow] = "No";
         }
 
-        bool Check(int col, int row, Figure.ColorEnum color)
+        public bool CellIsAttacked(int col, int row, Figure.ColorEnum color)
         {
             if (color == Figure.ColorEnum.White) color = Figure.ColorEnum.Black;
             else color = Figure.ColorEnum.White;
@@ -544,13 +570,110 @@ namespace Szachy
                 if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col - 2, row - 1)) return true;
 
                 //Checking if opponents bishop or queen checks
+                for (int i = 1; i <= 8; i++)
+                {
+                    if(CellExists(col + i, row + i) && !CellIsEmpty(col + i, row + i))
+                        if (FigureIsOnCell(Figure.TypeEnum.Bishop, color, col + i, row + i))
+                        {
+                            return true;
+                        }
+                        else
+                            break;
+                }
 
+                for (int i = 1; i <= 8; i++)
+                {
+                    if (CellExists(col - i, row + i) && !CellIsEmpty(col - i, row + i))
+                        if (FigureIsOnCell(Figure.TypeEnum.Bishop, color, col - i, row + i))
+                        {
+                            return true;
+                        }
+                        else
+                            break;
+                }
+
+                for (int i = 1; i <= 8; i++)
+                {
+                    if (CellExists(col + i, row - i) && !CellIsEmpty(col + i, row - i))
+                        if (FigureIsOnCell(Figure.TypeEnum.Bishop, color, col + i, row - i))
+                        {
+                            return true;
+                        }
+                        else
+                            break;
+                }
+
+                for (int i = 1; i <= 8; i++)
+                {
+                    if (CellExists(col - i, row - i) && !CellIsEmpty(col - i, row - i))
+                        if (FigureIsOnCell(Figure.TypeEnum.Bishop, color, col - i, row - i))
+                        {
+                            return true;
+                        }
+                        else
+                            break;
+                }
+
+                //Checking if opponents rook or queen checks
+                for (int i = 1; i <= 8; i++)
+                {
+                    if (CellExists(col + i, row) && !CellIsEmpty(col + i, row))
+                        if (FigureIsOnCell(Figure.TypeEnum.Rook, color, col + i, row))
+                        {
+                            return true;
+                        }
+                        else
+                    break;
+                }
+
+                for (int i = 1; i <= 8; i++)
+                {
+                    if (CellExists(col, row + i) && !CellIsEmpty(col, row + i))
+                        if (FigureIsOnCell(Figure.TypeEnum.Rook, color, col, row + i))
+                        {
+                            return true;
+                        }
+                        else
+                            break;
+                }
+
+                for (int i = 1; i <= 8; i++)
+                {
+                    if (CellExists(col - i, row) && !CellIsEmpty(col - i, row))
+                        if (FigureIsOnCell(Figure.TypeEnum.Rook, color, col - i, row))
+                        {
+                            return true;
+                        }
+                        else
+                            break;
+                }
+
+                for (int i = 1; i <= 8; i++)
+                {
+                    if (CellExists(col, row - i) && !CellIsEmpty(col, row - i))
+                        if (FigureIsOnCell(Figure.TypeEnum.Rook, color, col, row - i))
+                        {
+                            return true;
+                        }
+                        else
+                            break;
+                }
+
+                //Checking if opponents king checks
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col + 1, row + 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col + 1, row - 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col + 1, row)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col - 1, row + 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col - 1, row - 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col - 1, row)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col, row + 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.King, color, col, row - 1)) return true;
 
             }
             return false;
         }
 
-        bool FigureIsOnCell(Figure.TypeEnum type, Figure.ColorEnum color, int col, int row)
+        public bool FigureIsOnCell(Figure.TypeEnum type, Figure.ColorEnum color, int col, int row)
         {
             if (type == Figure.TypeEnum.Rook || type == Figure.TypeEnum.Bishop)
             {
