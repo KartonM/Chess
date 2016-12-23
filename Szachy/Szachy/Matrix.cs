@@ -13,6 +13,7 @@ namespace Szachy
     public class Matrix
     {
         public Cell[,] board;
+        public Cell[,] boardCopy;
         public string[,] moveAbility; 
         public Figure[] figures;
         public Form form;
@@ -32,10 +33,14 @@ namespace Szachy
     //Creating an empty board
 
             board = new Cell[10,10];
+            boardCopy = new Cell[10, 10];
 
             for (int iCol = 1; iCol <= 9; iCol++)
                 for (int iRow = 1; iRow <= 9; iRow++)
-                    board[iCol,iRow] = new Cell();
+                {
+                    board[iCol, iRow] = new Cell();
+                    boardCopy[iCol, iRow] = new Cell();
+                }
 
             //MOVE ABILITY
 
@@ -438,27 +443,38 @@ namespace Szachy
 
         void PawnMoveAbility(int selectedCol, int selectedRow)
         {
-            if(currentColor==Figure.ColorEnum.White)
+            if (currentColor == Figure.ColorEnum.White)
             {
-                if (CellExists(selectedCol, selectedRow+1) && CellIsEmpty(selectedCol, selectedRow+1))
-                    moveAbility[selectedCol, selectedRow+1] = "Yes";
-                if (board[selectedCol, selectedRow].figure.firstMove && CellIsEmpty(selectedCol, selectedRow + 2) && CellIsEmpty(selectedCol, selectedRow + 1))
-                    moveAbility[selectedCol, selectedRow+2] = "Yes";
-                if(CellExists(selectedCol+1, selectedRow+1) && !CellIsEmpty(selectedCol + 1, selectedRow + 1) && board[selectedCol + 1, selectedRow + 1].figure.color!=currentColor)
-                    moveAbility[selectedCol+1, selectedRow+1] = "Attack";
-                if (CellExists(selectedCol-1, selectedRow+1) && !CellIsEmpty(selectedCol - 1, selectedRow + 1) && board[selectedCol - 1, selectedRow + 1].figure.color != currentColor)
-                    moveAbility[selectedCol-1, selectedRow+1] = "Attack";
+                CheckMoveAbility(selectedCol, selectedRow + 1);
+                if (CellExists(selectedCol, selectedRow + 2) && board[selectedCol, selectedRow].figure.firstMove)
+                    CheckMoveAbility(selectedCol, selectedRow + 2);
+                if (CellExists(selectedCol, selectedRow + 1) && moveAbility[selectedCol, selectedRow + 1] == "Attack")
+                    moveAbility[selectedCol, selectedRow + 1] = "No";
+
+                CheckMoveAbility(selectedCol + 1, selectedRow + 1);
+                if (CellExists(selectedCol + 1, selectedRow + 1) && moveAbility[selectedCol + 1, selectedRow + 1] == "Yes")
+                    moveAbility[selectedCol + 1, selectedRow + 1] = "No";
+
+                CheckMoveAbility(selectedCol - 1, selectedRow + 1);
+                if (CellExists(selectedCol - 1, selectedRow + 1) && moveAbility[selectedCol - 1, selectedRow + 1] == "Yes")
+                    moveAbility[selectedCol - 1, selectedRow + 1] = "No";
+
             }
             else
             {
-                if (CellExists(selectedCol, selectedRow - 1) && CellIsEmpty(selectedCol, selectedRow - 1))
-                    moveAbility[selectedCol, selectedRow - 1] = "Yes";
-                if (board[selectedCol, selectedRow].figure.firstMove && CellIsEmpty(selectedCol, selectedRow - 2) && CellIsEmpty(selectedCol, selectedRow - 1))
-                    moveAbility[selectedCol, selectedRow - 2] = "Yes";
-                if (CellExists(selectedCol + 1, selectedRow - 1) && !CellIsEmpty(selectedCol + 1, selectedRow - 1) && board[selectedCol + 1, selectedRow - 1].figure.color != currentColor)
-                    moveAbility[selectedCol + 1, selectedRow - 1] = "Attack";
-                if (CellExists(selectedCol - 1, selectedRow - 1) && !CellIsEmpty(selectedCol - 1, selectedRow - 1) && board[selectedCol - 1, selectedRow - 1].figure.color != currentColor)
-                    moveAbility[selectedCol - 1, selectedRow - 1] = "Attack";
+                CheckMoveAbility(selectedCol, selectedRow - 1);
+                if (CellExists(selectedCol, selectedRow - 2) && board[selectedCol, selectedRow].figure.firstMove)
+                    CheckMoveAbility(selectedCol, selectedRow - 2);
+                if (CellExists(selectedCol, selectedRow - 1) && moveAbility[selectedCol, selectedRow - 1] == "Attack")
+                    moveAbility[selectedCol, selectedRow - 1] = "No";
+
+                CheckMoveAbility(selectedCol + 1, selectedRow - 1);
+                if (CellExists(selectedCol + 1, selectedRow - 1) && moveAbility[selectedCol + 1, selectedRow - 1] == "Yes")
+                    moveAbility[selectedCol + 1, selectedRow - 1] = "No";
+
+                CheckMoveAbility(selectedCol - 1, selectedRow - 1);
+                if (CellExists(selectedCol - 1, selectedRow - 1) && moveAbility[selectedCol - 1, selectedRow - 1] == "Yes")
+                    moveAbility[selectedCol - 1, selectedRow - 1] = "No";
             }
         }
 
@@ -530,7 +546,6 @@ namespace Szachy
                 }
             }
             return true;
-
         }
 
         public void ResetMoveAbility()
