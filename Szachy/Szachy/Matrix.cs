@@ -110,7 +110,7 @@ namespace Szachy
 
         public bool CellIsEmpty(int column, int row)
         {
-            Debug.WriteLine("col: " + column + "  row: " + row);
+            //Debug.WriteLine("col: " + column + "  row: " + row);
             if (board[column, row].figure == null)
                 return true;
             else
@@ -352,7 +352,6 @@ namespace Szachy
 
             for (int i = 1; i <= 8; i++)
             {
-                //Debug.WriteLine("Left: " + i + ", " + CellExists(selectedCol - i, selectedRow));
 
                 //DIRECTION LEFT
                 if (!CheckMoveAbility(selectedCol - i, selectedRow)) break;
@@ -513,6 +512,60 @@ namespace Szachy
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
                     moveAbility[iCol, iRow] = "No";
+        }
+
+        bool Check(int col, int row, Figure.ColorEnum color)
+        {
+            if (color == Figure.ColorEnum.White) color = Figure.ColorEnum.Black;
+            else color = Figure.ColorEnum.White;
+
+            if(CellExists(col, row))
+            {
+                //Checking if opponents pawn checks
+                if(color == Figure.ColorEnum.White)
+                {
+                    if (FigureIsOnCell(Figure.TypeEnum.Pawn, color, col + 1, row - 1)) return true;
+                    if (FigureIsOnCell(Figure.TypeEnum.Pawn, color, col - 1, row - 1)) return true;
+                }
+                else
+                {
+                    if (FigureIsOnCell(Figure.TypeEnum.Pawn, color, col + 1, row + 1)) return true;
+                    if (FigureIsOnCell(Figure.TypeEnum.Pawn, color, col - 1, row + 1)) return true;
+                }
+
+                //Checking if opponents knight ckecks
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col + 2, row + 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col + 2, row - 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col + 1, row + 2)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col + 1, row - 2)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col - 1, row + 2)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col - 1, row - 2)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col - 2, row + 1)) return true;
+                if (FigureIsOnCell(Figure.TypeEnum.Knight, color, col - 2, row - 1)) return true;
+
+                //Checking if opponents bishop or queen checks
+
+
+            }
+            return false;
+        }
+
+        bool FigureIsOnCell(Figure.TypeEnum type, Figure.ColorEnum color, int col, int row)
+        {
+            if (type == Figure.TypeEnum.Rook || type == Figure.TypeEnum.Bishop)
+            {
+                if (CellExists(col, row) &&
+                       board[col, row].figure != null &&
+                       (board[col, row].figure.type == type || board[col, row].figure.type == Figure.TypeEnum.Queen) &&
+                       board[col, row].figure.color == color)
+                    return true;
+            }
+            else if (CellExists(col, row) &&
+                    board[col, row].figure != null &&
+                    board[col, row].figure.type == type &&
+                    board[col, row].figure.color == color)
+                return true;
+            return false;
         }
     }    
 }
