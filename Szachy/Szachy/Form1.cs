@@ -42,5 +42,10 @@ namespace Szachy
             matrix.BoardSetup();
             matrix.DrawFigures();
         }
+
+        private void debugClick(object sender, EventArgs e)
+        {
+            matrix.debug = checkBox1.Checked;
+        }
     }
 }

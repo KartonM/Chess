@@ -292,35 +292,53 @@ namespace Szachy
         public void GetMoveAbility(int selectedCol, int selectedRow)
         {
             ResetMoveAbility();
+
+            if(debug)
+            {
+                for (int iCol = 1; iCol <= 8; iCol++)
+                    for (int iRow = 1; iRow <= 8; iRow++)
+                    {
+                        if (CellIsEmpty(iCol, iRow))
+                            moveAbility[iCol, iRow] = "Yes";
+                        else if (board[iCol, iRow].figure.color == currentColor)
+                            moveAbility[iCol, iRow] = "No";
+                        else
+                            moveAbility[iCol, iRow] = "Attack";
+                    }
+            }
+
             moveAbility[selectedCol, selectedRow] = "Current";
 
-            switch(board[selectedCol,selectedRow].figure.type)
+            if (!debug)
             {
-                case Figure.TypeEnum.Rook:
-                    RooksMoveAbility(selectedCol, selectedRow);
-                    break;
+                switch (board[selectedCol, selectedRow].figure.type)
+                {
+                    case Figure.TypeEnum.Rook:
+                        RooksMoveAbility(selectedCol, selectedRow);
+                        break;
 
-                case Figure.TypeEnum.Knight:
-                    KnightsMoveAbility(selectedCol, selectedRow);
-                    break;
+                    case Figure.TypeEnum.Knight:
+                        KnightsMoveAbility(selectedCol, selectedRow);
+                        break;
 
-                case Figure.TypeEnum.Bishop:
-                    BishopsMoveAbility(selectedCol, selectedRow);
-                    break;
+                    case Figure.TypeEnum.Bishop:
+                        BishopsMoveAbility(selectedCol, selectedRow);
+                        break;
 
-                case Figure.TypeEnum.Queen:
-                    RooksMoveAbility(selectedCol, selectedRow);
-                    BishopsMoveAbility(selectedCol, selectedRow);
-                    break;
+                    case Figure.TypeEnum.Queen:
+                        RooksMoveAbility(selectedCol, selectedRow);
+                        BishopsMoveAbility(selectedCol, selectedRow);
+                        break;
 
-                case Figure.TypeEnum.Pawn:
-                    PawnMoveAbility(selectedCol, selectedRow);
-                    break;
+                    case Figure.TypeEnum.Pawn:
+                        PawnMoveAbility(selectedCol, selectedRow);
+                        break;
 
-                case Figure.TypeEnum.King:
-                    KingsMoveAbility(selectedCol, selectedRow);
-                    break;
+                    case Figure.TypeEnum.King:
+                        KingsMoveAbility(selectedCol, selectedRow);
+                        break;
 
+                }
             }
         }
 
