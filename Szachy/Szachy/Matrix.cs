@@ -278,8 +278,7 @@ namespace Szachy
                     currentSelection[1] = selectedRow;
                 }
                 else if (moveAbility[selectedCol, selectedRow] == "Yes" ||
-                     moveAbility[selectedCol, selectedRow] == "Attack" ||
-                     debug)
+                     moveAbility[selectedCol, selectedRow] == "Attack")
                 {
                     MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
                     DrawFigures();
