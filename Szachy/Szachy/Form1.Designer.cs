@@ -93,6 +93,7 @@
             this.c71 = new System.Windows.Forms.PictureBox();
             this.c81 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.debug = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.c11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c28)).BeginInit();
@@ -873,11 +874,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.boardSetup);
             // 
+            // debug
+            // 
+            this.debug.AutoSize = true;
+            this.debug.Location = new System.Drawing.Point(23, 536);
+            this.debug.Name = "debug";
+            this.debug.Size = new System.Drawing.Size(56, 17);
+            this.debug.TabIndex = 66;
+            this.debug.Text = "debug";
+            this.debug.UseVisualStyleBackColor = true;
+            this.debug.CheckStateChanged += new System.EventHandler(this.debugToggle);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(577, 584);
+            this.Controls.Add(this.debug);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.c81);
             this.Controls.Add(this.c71);
@@ -1010,6 +1023,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c71)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c81)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1080,6 +1094,7 @@
         private System.Windows.Forms.PictureBox c71;
         private System.Windows.Forms.PictureBox c81;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox debug;
     }
 }
 
