@@ -496,7 +496,10 @@ namespace Szachy
                board[selectedCol, selectedRow].figure.color == Figure.ColorEnum.White && 
                figures[16].firstMove &&
                CellIsEmpty(6, 1) &&
-               CellIsEmpty(7, 1))
+               CellIsEmpty(7, 1) &&
+               !CellIsAttacked(5, 1, Figure.ColorEnum.White) &&
+               !CellIsAttacked(6, 1, Figure.ColorEnum.White) &&
+               !CellIsAttacked(7, 1, Figure.ColorEnum.White))
                     moveAbility[7, 1] = "Yes";
 
             //WHITE castle queen-side *long*
@@ -505,7 +508,10 @@ namespace Szachy
               figures[9].firstMove &&
               CellIsEmpty(2, 1) &&
               CellIsEmpty(3, 1) &&
-              CellIsEmpty(4, 1))
+              CellIsEmpty(4, 1) &&
+              !CellIsAttacked(5, 1, Figure.ColorEnum.White) &&
+              !CellIsAttacked(4, 1, Figure.ColorEnum.White) &&
+              !CellIsAttacked(3, 1, Figure.ColorEnum.White))
                     moveAbility[3, 1] = "Yes";
 
             //BLACK castle king-side *short*
@@ -513,7 +519,10 @@ namespace Szachy
                board[selectedCol, selectedRow].figure.color == Figure.ColorEnum.Black &&
                figures[32].firstMove &&
                CellIsEmpty(6, 8) &&
-               CellIsEmpty(7, 8))
+               CellIsEmpty(7, 8) &&
+               !CellIsAttacked(5, 8, Figure.ColorEnum.Black) &&
+               !CellIsAttacked(6, 8, Figure.ColorEnum.Black) &&
+               !CellIsAttacked(7, 8, Figure.ColorEnum.Black))
                     moveAbility[7, 8] = "Yes";
 
             //BLACK castle queen-side *long*
@@ -522,7 +531,10 @@ namespace Szachy
               figures[25].firstMove &&
               CellIsEmpty(2, 8) &&
               CellIsEmpty(3, 8) &&
-              CellIsEmpty(4, 8))
+              CellIsEmpty(4, 8) &&
+              !CellIsAttacked(5, 8, Figure.ColorEnum.Black) &&
+              !CellIsAttacked(4, 8, Figure.ColorEnum.Black) &&
+              !CellIsAttacked(3, 8, Figure.ColorEnum.Black))
                     moveAbility[3, 8] = "Yes";
 
         }
