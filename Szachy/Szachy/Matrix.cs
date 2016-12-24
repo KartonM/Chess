@@ -108,7 +108,7 @@ namespace Szachy
         }
 
         //Check if cell exists
-        public bool CellExists(int column, int row)
+        public bool CellExists(int column, int row) //Checks if cell (column, row) exists
         {
             if (row >= 1 && column >= 1 && row <= 8 && column <= 8)
                 return true;
@@ -116,7 +116,7 @@ namespace Szachy
                 return false;
         }
 
-        public bool CellIsEmpty(int column, int row)
+        public bool CellIsEmpty(int column, int row) //Checks if there is no figure on cell (column, row) 
         {
             //Debug.WriteLine("col: " + column + "  row: " + row);
             if (board[column, row].figure == null)
@@ -125,7 +125,7 @@ namespace Szachy
                 return false;
         }
 
-        public void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow)
+        public void MoveFigure(int fromColumn, int fromRow, int toColumn, int toRow) //Moves figure from cell (fromColumn, fromRow) to cell (toColumn, toRow)
         {        
             if (fromColumn == WhiteKingPosition[0] && fromRow == WhiteKingPosition[1])
             {
@@ -174,7 +174,7 @@ namespace Szachy
             Debug.WriteLine(WhiteKingPosition[0] + " " + WhiteKingPosition[1] + "   " + BlackKingPosition[0] + " " + BlackKingPosition[1]);
         }
 
-        public void BoardSetup()
+        public void BoardSetup() //Sets the board up
         {
             for (int iCol = 1; iCol <= 9; iCol++)
                 for (int iRow = 1; iRow <= 9; iRow++)
@@ -198,7 +198,7 @@ namespace Szachy
             }
         }
 
-        public void DrawFigures()
+        public void DrawFigures() //Displays figures
         {
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
@@ -263,7 +263,7 @@ namespace Szachy
             }
         }
 
-        public void DrawMoveAbility()
+        public void DrawMoveAbility() //Displays move abilities based on moveAbility[,] array
         {
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
@@ -289,18 +289,18 @@ namespace Szachy
                 }
         }
 
-        public void SelectCell(int selectedCol, int selectedRow)
+        public void SelectCell(int selectedCol, int selectedRow) //Called after clicking on a pictureBox of (selectedCol, selectedRow) cell
         {
                 if (board[selectedCol, selectedRow].figure != null &&
-                    board[selectedCol, selectedRow].figure.color == currentColor)
-                {
+                    board[selectedCol, selectedRow].figure.color == currentColor) //checks move ability
+                {                                                                 //if there is an alllied figure on a clicked cell
                 currentSelection[0] = selectedCol;
                 currentSelection[1] = selectedRow;
                 GetMoveAbility(selectedCol, selectedRow);
                 }
                 else if (moveAbility[selectedCol, selectedRow] == "Yes" ||
-                     moveAbility[selectedCol, selectedRow] == "Attack")
-                {
+                     moveAbility[selectedCol, selectedRow] == "Attack")           //check if move on a clicked cell is avalible
+                {                                                                 //and move the figure
                     MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
                     DrawFigures();
                     ResetMoveAbility();
@@ -308,12 +308,12 @@ namespace Szachy
                     if (currentColor == Figure.ColorEnum.White) currentColor = Figure.ColorEnum.Black;
                     else currentColor = Figure.ColorEnum.White;
 
-                if (CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White))
+                if (CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White)) //checks if the white king is checked
                 {
                     moveAbility[WhiteKingPosition[0], WhiteKingPosition[1]] = "Attack";
                     Debug.WriteLine("White Check!!!");
                 }
-                if (CellIsAttacked(BlackKingPosition[0], BlackKingPosition[1], Figure.ColorEnum.Black))
+                if (CellIsAttacked(BlackKingPosition[0], BlackKingPosition[1], Figure.ColorEnum.Black)) //checks if the black king is checked
                 {
                     moveAbility[BlackKingPosition[0], BlackKingPosition[1]] = "Attack";
                     Debug.WriteLine("Black Check!!!");
@@ -322,11 +322,11 @@ namespace Szachy
             DrawMoveAbility();
         }
 
-        public void GetMoveAbility(int selectedCol, int selectedRow)
+        public void GetMoveAbility(int selectedCol, int selectedRow) //Sets move ability for a figure on cell(selectedCol, selectedRow)
         {
             ResetMoveAbility();
 
-            if(debug)
+            if(debug) //ables to move anywhere if debug mode is turned on
             {
                 for (int iCol = 1; iCol <= 8; iCol++)
                     for (int iRow = 1; iRow <= 8; iRow++)
@@ -566,14 +566,14 @@ namespace Szachy
 
                 for (int iCol = 1; iCol <= 9; iCol++)
                     for (int iRow = 1; iRow <= 9; iRow++)
-                        boardCopy[iCol, iRow].figure = board[iCol, iRow].figure;
-                WhiteKingPositionCopy[0] = WhiteKingPosition[0];
+                        boardCopy[iCol, iRow].figure = board[iCol, iRow].figure; //copies board to boardCopy
+                WhiteKingPositionCopy[0] = WhiteKingPosition[0]; //copies kings positions 
                 WhiteKingPositionCopy[1] = WhiteKingPosition[1];
                 BlackKingPositionCopy[0] = BlackKingPosition[0];
                 BlackKingPositionCopy[1] = BlackKingPosition[1];
 
-                if (currentSelection[0] == WhiteKingPosition[0] && currentSelection[1] == WhiteKingPosition[1])
-                {
+                if (currentSelection[0] == WhiteKingPosition[0] && currentSelection[1] == WhiteKingPosition[1]) //changes king's position
+                {                                                                                               //if it's going to be moved
                     WhiteKingPosition[0] = col;
                     WhiteKingPosition[1] = row;
                 }
@@ -585,18 +585,18 @@ namespace Szachy
                 }
 
                 Debug.WriteLine(currentSelection[0] + " x " + currentSelection[1] + "    " + col + " x " + row);
-                board[col, row].figure = board[currentSelection[0], currentSelection[1]].figure;
+                board[col, row].figure = board[currentSelection[0], currentSelection[1]].figure; //simulates the move that is going to be done
                 board[currentSelection[0], currentSelection[1]].figure = null;
                 if(currentColor == Figure.ColorEnum.White)
                 {
-                    if(CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White))
+                    if(CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White)) //checks if the move is going to cause a check
                     {
                         moveAbility[col, row] = "No";
                     }
                 }
                 else
                 {
-                    if(CellIsAttacked(BlackKingPosition[0], BlackKingPosition[1], Figure.ColorEnum.Black))
+                    if(CellIsAttacked(BlackKingPosition[0], BlackKingPosition[1], Figure.ColorEnum.Black)) //checks if the move is going to cause a check
                     {
                         moveAbility[col, row] = "No";
                     }
@@ -604,8 +604,8 @@ namespace Szachy
 
                 for (int iCol = 1; iCol <= 9; iCol++)
                     for (int iRow = 1; iRow <= 9; iRow++)
-                        board[iCol, iRow].figure = boardCopy[iCol, iRow].figure;
-                WhiteKingPosition[0] = WhiteKingPositionCopy[0];
+                        board[iCol, iRow].figure = boardCopy[iCol, iRow].figure; //gives board its previous values
+                WhiteKingPosition[0] = WhiteKingPositionCopy[0]; //gives kings positions their previous values
                 WhiteKingPosition[1] = WhiteKingPositionCopy[1];
                 BlackKingPosition[0] = BlackKingPositionCopy[0];
                 BlackKingPosition[1] = BlackKingPositionCopy[1];
@@ -619,14 +619,14 @@ namespace Szachy
 
         }
 
-        public void ResetMoveAbility()
+        public void ResetMoveAbility() //sets all move abilities to "No"
         {
             for (int iCol = 1; iCol <= 8; iCol++)
                 for (int iRow = 1; iRow <= 8; iRow++)
                     moveAbility[iCol, iRow] = "No";
         }
 
-        public bool CellIsAttacked(int col, int row, Figure.ColorEnum color)
+        public bool CellIsAttacked(int col, int row, Figure.ColorEnum color) //checks if a figure of color(color) is or will be attacked on cell(col, row)
         {
             if (color == Figure.ColorEnum.White) color = Figure.ColorEnum.Black;
             else color = Figure.ColorEnum.White;
@@ -759,7 +759,7 @@ namespace Szachy
             return false;
         }
 
-        public bool FigureIsOnCell(Figure.TypeEnum type, Figure.ColorEnum color, int col, int row)
+        public bool FigureIsOnCell(Figure.TypeEnum type, Figure.ColorEnum color, int col, int row) //checks if there is a figure(figure, color) on cell(col, row)
         {
             if (type == Figure.TypeEnum.Rook || type == Figure.TypeEnum.Bishop)
             {
