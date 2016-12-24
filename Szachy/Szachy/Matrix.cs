@@ -333,6 +333,7 @@ namespace Szachy
                                 moveAbility[WhiteKingPosition[0], WhiteKingPosition[1]] = "No";
 
                                 for (int jCol = 1; jCol <= 8; jCol++)
+                                {
                                     for (int jRow = 1; jRow <= 8; jRow++)
                                     {
                                         if (moveAbility[jCol, jRow] == "Yes" || moveAbility[jCol, jRow] == "Attack")
@@ -341,8 +342,9 @@ namespace Szachy
                                             mate = false;
                                             break;
                                         }
-                                        if (!mate) break;
                                     }
+                                    if (!mate) break;
+                                }
                             }
                             if (!mate) break;
                         }
@@ -375,6 +377,7 @@ namespace Szachy
                                 moveAbility[WhiteKingPosition[0], WhiteKingPosition[1]] = "No";
 
                                 for (int jCol = 1; jCol <= 8; jCol++)
+                                {
                                     for (int jRow = 1; jRow <= 8; jRow++)
                                     {
                                         if (moveAbility[jCol, jRow] == "Yes" || moveAbility[jCol, jRow] == "Attack")
@@ -383,8 +386,9 @@ namespace Szachy
                                             mate = false;
                                             break;
                                         }
-                                        if (!mate) break;
                                     }
+                                    if (!mate) break;
+                                }
                             }
                             if (!mate) break;
                         }
@@ -524,7 +528,12 @@ namespace Szachy
             {
                 CheckMoveAbility(selectedCol, selectedRow + 1);
                 if (CellExists(selectedCol, selectedRow + 2) && board[selectedCol, selectedRow].figure.firstMove)
+                {
                     CheckMoveAbility(selectedCol, selectedRow + 2);
+                    if (CellExists(selectedCol, selectedRow + 2) && moveAbility[selectedCol, selectedRow + 2] == "Attack")
+                        moveAbility[selectedCol, selectedRow + 2] = "No";
+                }
+
                 if (CellExists(selectedCol, selectedRow + 1) && moveAbility[selectedCol, selectedRow + 1] == "Attack")
                     moveAbility[selectedCol, selectedRow + 1] = "No";
 
@@ -541,9 +550,11 @@ namespace Szachy
             {
                 CheckMoveAbility(selectedCol, selectedRow - 1);
                 if (CellExists(selectedCol, selectedRow - 2) && board[selectedCol, selectedRow].figure.firstMove)
+                {
                     CheckMoveAbility(selectedCol, selectedRow - 2);
-                if (CellExists(selectedCol, selectedRow - 1) && moveAbility[selectedCol, selectedRow - 1] == "Attack")
-                    moveAbility[selectedCol, selectedRow - 1] = "No";
+                    if (CellExists(selectedCol, selectedRow - 2) && moveAbility[selectedCol, selectedRow - 2] == "Attack")
+                        moveAbility[selectedCol, selectedRow - 2] = "No";
+                }
 
                 CheckMoveAbility(selectedCol + 1, selectedRow - 1);
                 if (CellExists(selectedCol + 1, selectedRow - 1) && moveAbility[selectedCol + 1, selectedRow - 1] == "Yes")
