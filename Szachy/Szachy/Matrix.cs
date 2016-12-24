@@ -180,7 +180,7 @@ namespace Szachy
                 for (int iRow = 1; iRow <= 9; iRow++)
                     board[iCol, iRow].figure = null;
 
-            foreach(Figure figure in figures)
+            foreach (Figure figure in figures)
             {
                 figure.firstMove = true;
             }
@@ -530,6 +530,8 @@ namespace Szachy
         bool CheckMoveAbility(int col, int row)
         {
             bool ret = true;
+            int[] WhiteKingPositionCopy = { 1, 1 };
+            int[] BlackKingPositionCopy = { 1, 1 };
 
             if (CellExists(col, row))
             {
@@ -553,8 +555,24 @@ namespace Szachy
                 for (int iCol = 1; iCol <= 9; iCol++)
                     for (int iRow = 1; iRow <= 9; iRow++)
                         boardCopy[iCol, iRow].figure = board[iCol, iRow].figure;
+                WhiteKingPositionCopy[0] = WhiteKingPosition[0];
+                WhiteKingPositionCopy[1] = WhiteKingPosition[1];
+                BlackKingPositionCopy[0] = BlackKingPosition[0];
+                BlackKingPositionCopy[1] = BlackKingPosition[1];
 
-                        Debug.WriteLine(currentSelection[0] + " x " + currentSelection[1] + "    " + col + " x " + row);
+                if (currentSelection[0] == WhiteKingPosition[0] && currentSelection[1] == WhiteKingPosition[1])
+                {
+                    WhiteKingPosition[0] = col;
+                    WhiteKingPosition[1] = row;
+                }
+
+                if (currentSelection[0] == BlackKingPosition[0] && currentSelection[1] == BlackKingPosition[1])
+                {
+                    BlackKingPosition[0] = col;
+                    BlackKingPosition[1] = row;
+                }
+
+                Debug.WriteLine(currentSelection[0] + " x " + currentSelection[1] + "    " + col + " x " + row);
                 board[col, row].figure = board[currentSelection[0], currentSelection[1]].figure;
                 board[currentSelection[0], currentSelection[1]].figure = null;
                 if(currentColor == Figure.ColorEnum.White)
@@ -575,6 +593,10 @@ namespace Szachy
                 for (int iCol = 1; iCol <= 9; iCol++)
                     for (int iRow = 1; iRow <= 9; iRow++)
                         board[iCol, iRow].figure = boardCopy[iCol, iRow].figure;
+                WhiteKingPosition[0] = WhiteKingPositionCopy[0];
+                WhiteKingPosition[1] = WhiteKingPositionCopy[1];
+                BlackKingPosition[0] = BlackKingPositionCopy[0];
+                BlackKingPosition[1] = BlackKingPositionCopy[1];
             }
             //board[1,3].figure = board[1,1].figure;
             //board[1,1].figure = null;

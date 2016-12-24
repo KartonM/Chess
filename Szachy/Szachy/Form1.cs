@@ -43,7 +43,9 @@ namespace Szachy
         private void boardSetup(object sender, EventArgs e)
         {
             matrix.BoardSetup();
+            matrix.ResetMoveAbility();
             matrix.DrawFigures();
+            matrix.DrawMoveAbility();
         }
 
         private void debugClick(object sender, EventArgs e)
