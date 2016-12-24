@@ -447,7 +447,7 @@ namespace Szachy
         {
             if(currentColor==Figure.ColorEnum.White)
             {
-                //CheckMoveAbility(selectedCol, selectedRow + 1);
+                CheckMoveAbility(selectedCol, selectedRow + 1);
                 if (CellExists(selectedCol, selectedRow + 2) && board[selectedCol, selectedRow].figure.firstMove)
                     CheckMoveAbility(selectedCol, selectedRow + 2);
                 if (CellExists(selectedCol, selectedRow + 1) && moveAbility[selectedCol, selectedRow + 1] == "Attack")
@@ -571,14 +571,15 @@ namespace Szachy
                         moveAbility[col, row] = "No";
                     }
                 }
+
+                for (int iCol = 1; iCol <= 9; iCol++)
+                    for (int iRow = 1; iRow <= 9; iRow++)
+                        board[iCol, iRow].figure = boardCopy[iCol, iRow].figure;
             }
             //board[1,3].figure = board[1,1].figure;
             //board[1,1].figure = null;
             //Debug.WriteLine("Figure: " + board[1, 3].figure.type);
             //DrawFigures();
-            for (int iCol = 1; iCol <= 9; iCol++)
-                for (int iRow = 1; iRow <= 9; iRow++)
-                    board[iCol, iRow].figure = boardCopy[iCol, iRow].figure;
 
             return ret;
 
