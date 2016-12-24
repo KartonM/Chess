@@ -23,6 +23,8 @@ namespace Szachy
         public int[] BlackKingPosition = { 5, 8 };
         public int[] WhiteKingPosition = { 5, 1 };
         public bool debug = false;
+        public bool checkingMate = false;
+        public int[] checkingMateFrom = { 1, 1 };
 
         Figure.ColorEnum currentColor;
 
@@ -205,7 +207,7 @@ namespace Szachy
                 {
                     PictureBox pb = (PictureBox)form.Controls.Find("c" + iCol.ToString() + iRow.ToString(), false)[0];
                     pb.SizeMode = PictureBoxSizeMode.StretchImage; //DO USUNIĘCIA
-                    Debug.WriteLine("Drawing figures");
+                    //Debug.WriteLine("Drawing figures");
 
                     if (board[iCol,iRow].figure!=null)
                     {
@@ -312,11 +314,84 @@ namespace Szachy
                 {
                     moveAbility[WhiteKingPosition[0], WhiteKingPosition[1]] = "Attack";
                     Debug.WriteLine("White Check!!!");
+
+                    bool mate = true;
+                    checkingMate = true;
+
+                    for (int iCol = 1; iCol <= 8; iCol++)
+                    {
+                        for (int iRow = 1; iRow <= 8; iRow++)
+                        {
+                            if (!CellIsEmpty(iCol, iRow) && board[iCol, iRow].figure != null &&
+                               board[iCol, iRow].figure.color == Figure.ColorEnum.White)
+                            {
+                                checkingMateFrom[0] = iCol;
+                                checkingMateFrom[1] = iRow;
+
+                                Debug.WriteLine("Sprawdzam bialego " + board[iCol, iRow].figure.type + " na polu " + iCol +" "+ iRow);
+                                GetMoveAbility(iCol, iRow);
+                                moveAbility[WhiteKingPosition[0], WhiteKingPosition[1]] = "No";
+
+                                for (int jCol = 1; jCol <= 8; jCol++)
+                                    for (int jRow = 1; jRow <= 8; jRow++)
+                                    {
+                                        if (moveAbility[jCol, jRow] == "Yes" || moveAbility[jCol, jRow] == "Attack")
+                                        {
+                                            Debug.WriteLine("Bialy " + board[iCol, iRow].figure.type + " moze sie ruszyc na " + jCol + " " + jRow + " " + moveAbility[jCol, jRow]);
+                                            mate = false;
+                                            break;
+                                        }
+                                        if (!mate) break;
+                                    }
+                            }
+                            if (!mate) break;
+                        }
+                        if (!mate) break;
+                    }
+                    checkingMate = false;
+                    if (mate) Debug.WriteLine("Szach mat, czarne wygrywaja");
                 }
+
                 if (CellIsAttacked(BlackKingPosition[0], BlackKingPosition[1], Figure.ColorEnum.Black)) //checks if the black king is checked
                 {
                     moveAbility[BlackKingPosition[0], BlackKingPosition[1]] = "Attack";
                     Debug.WriteLine("Black Check!!!");
+
+                    bool mate = true;
+                    checkingMate = true;
+
+                    for (int iCol = 1; iCol <= 8; iCol++)
+                    {
+                        for (int iRow = 1; iRow <= 8; iRow++)
+                        {
+                            if (!CellIsEmpty(iCol, iRow) && board[iCol, iRow].figure != null &&
+                               board[iCol, iRow].figure.color == Figure.ColorEnum.Black)
+                            {
+                                checkingMateFrom[0] = iCol;
+                                checkingMateFrom[1] = iRow;
+
+                                Debug.WriteLine("Sprawdzam czarnego " + board[iCol, iRow].figure.type + " na polu " + iCol + " " + iRow);
+                                GetMoveAbility(iCol, iRow);
+                                moveAbility[WhiteKingPosition[0], WhiteKingPosition[1]] = "No";
+
+                                for (int jCol = 1; jCol <= 8; jCol++)
+                                    for (int jRow = 1; jRow <= 8; jRow++)
+                                    {
+                                        if (moveAbility[jCol, jRow] == "Yes" || moveAbility[jCol, jRow] == "Attack")
+                                        {
+                                            Debug.WriteLine("Czarny " + board[iCol, iRow].figure.type + " moze sie ruszyc na " + jCol + " " + jRow + " " + moveAbility[jCol, jRow]);
+                                            mate = false;
+                                            break;
+                                        }
+                                        if (!mate) break;
+                                    }
+                            }
+                            if (!mate) break;
+                        }
+                        if (!mate) break;
+                    }
+                    checkingMate = false;
+                    if (mate) Debug.WriteLine("Szach mat, biale wygrywaja");
                 }
             }
             DrawMoveAbility();
@@ -544,6 +619,17 @@ namespace Szachy
             bool ret = true;
             int[] WhiteKingPositionCopy = { 1, 1 };
             int[] BlackKingPositionCopy = { 1, 1 };
+            int[] current = { 1, 1 };
+            if(checkingMate)
+            {
+                current[0] = checkingMateFrom[0];
+                current[1] = checkingMateFrom[1];
+            }
+            else
+            {
+                current[0] = currentSelection[0];
+                current[1] = currentSelection[1];
+            }
 
             if (CellExists(col, row))
             {
@@ -572,21 +658,21 @@ namespace Szachy
                 BlackKingPositionCopy[0] = BlackKingPosition[0];
                 BlackKingPositionCopy[1] = BlackKingPosition[1];
 
-                if (currentSelection[0] == WhiteKingPosition[0] && currentSelection[1] == WhiteKingPosition[1]) //changes king's position
+                if (current[0] == WhiteKingPosition[0] && current[1] == WhiteKingPosition[1]) //changes king's position
                 {                                                                                               //if it's going to be moved
                     WhiteKingPosition[0] = col;
                     WhiteKingPosition[1] = row;
                 }
 
-                if (currentSelection[0] == BlackKingPosition[0] && currentSelection[1] == BlackKingPosition[1])
+                if (current[0] == BlackKingPosition[0] && current[1] == BlackKingPosition[1])
                 {
                     BlackKingPosition[0] = col;
                     BlackKingPosition[1] = row;
                 }
 
-                Debug.WriteLine(currentSelection[0] + " x " + currentSelection[1] + "    " + col + " x " + row);
-                board[col, row].figure = board[currentSelection[0], currentSelection[1]].figure; //simulates the move that is going to be done
-                board[currentSelection[0], currentSelection[1]].figure = null;
+                //Debug.WriteLine(currentSelection[0] + " x " + currentSelection[1] + "    " + col + " x " + row);
+                board[col, row].figure = board[current[0], current[1]].figure; //simulates the move that is going to be done
+                board[current[0], current[1]].figure = null;
                 if(currentColor == Figure.ColorEnum.White)
                 {
                     if(CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White)) //checks if the move is going to cause a check

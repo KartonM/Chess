@@ -867,7 +867,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(31, 623);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 65;
@@ -890,7 +890,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 719);
+            this.ClientSize = new System.Drawing.Size(844, 719);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.c81);
@@ -957,7 +957,7 @@
             this.Controls.Add(this.c38);
             this.Controls.Add(this.c28);
             this.Controls.Add(this.c18);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form";
             this.Text = "Chess";
             ((System.ComponentModel.ISupportInitialize)(this.c11)).EndInit();
