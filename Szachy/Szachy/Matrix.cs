@@ -18,6 +18,9 @@ namespace Szachy
         public string[,] moveAbility; 
         public Figure[] figures;
         public Form form;
+        public TextBox GUI_Count;
+        public TextBox GUI_Color;
+        int moveCount = 0;
         public bool cellSelected = false;
         public int[] currentSelection = { 1, 1 };
         public int[] BlackKingPosition = { 5, 8 };
@@ -307,8 +310,19 @@ namespace Szachy
                     DrawFigures();
                     ResetMoveAbility();
 
-                    if (currentColor == Figure.ColorEnum.White) currentColor = Figure.ColorEnum.Black;
-                    else currentColor = Figure.ColorEnum.White;
+                if (currentColor == Figure.ColorEnum.White)
+                {
+                    currentColor = Figure.ColorEnum.Black;
+                    GUI_Color.Text = "Ruch:" + Environment.NewLine + "Czarnych";
+                }
+                else
+                {
+                    currentColor = Figure.ColorEnum.White;
+                    GUI_Color.Text = "Ruch:" + Environment.NewLine + "Białych";
+                }
+
+                moveCount++;
+                GUI_Count.Text = "Liczba Ruchów:" + Environment.NewLine + moveCount;
 
                 if (CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White)) //checks if the white king is checked
                 {

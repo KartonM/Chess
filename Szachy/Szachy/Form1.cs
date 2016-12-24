@@ -21,17 +21,12 @@ namespace Szachy
 
             matrix = new Matrix();
             matrix.form = this;
+            matrix.GUI_Color = GUI_Color;
+            matrix.GUI_Count = GUI_Count;
             matrix.BoardSetup();
-
-            //matrix.MoveFigure(1, 1, 4, 5);
-            // matrix.MoveFigure(1, 7, 7, 5);
-            // matrix.MoveFigure(2, 1, 6, 5);
-            //matrix.MoveFigure(2, 1, 5, 5);
 
             matrix.DrawFigures();
 
-            //if (matrix.CellIsAttacked(4, 2, Figure.ColorEnum.White))
-            //    Debug.WriteLine("Yes");
         }
 
         private void CellClick(object sender, EventArgs e)
