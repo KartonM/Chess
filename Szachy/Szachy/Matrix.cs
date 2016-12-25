@@ -200,7 +200,10 @@ namespace Szachy
 
             for (int iCol = 1; iCol <= 9; iCol++)
                 for (int iRow = 1; iRow <= 9; iRow++)
+                {
                     board[iCol, iRow].figure = null;
+                    boardCopy[iCol, iRow].figure = null;
+                }
 
             foreach (Figure figure in figures)
             {
@@ -218,6 +221,7 @@ namespace Szachy
                 board[i, 1].figure = figures[i + 8];
                 board[i, 8].figure = figures[i + 24];
             }
+
         }
 
         public void DrawFigures() //Displays figures
