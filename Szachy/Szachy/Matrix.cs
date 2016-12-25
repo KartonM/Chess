@@ -319,6 +319,7 @@ namespace Szachy
                 currentSelection[0] = selectedCol;
                 currentSelection[1] = selectedRow;
                 GetMoveAbility(selectedCol, selectedRow);
+                DrawMoveAbility();
                 }
                 else if (moveAbility[selectedCol, selectedRow] == "Yes" ||
                      moveAbility[selectedCol, selectedRow] == "Attack")           //check if move on a clicked cell is avalible
@@ -438,8 +439,10 @@ namespace Szachy
 
                     }
                 }
+                ResetMoveAbility();
+                DrawMoveAbility();
             }
-            DrawMoveAbility();
+    
         }
 
         public void GetMoveAbility(int selectedCol, int selectedRow) //Sets move ability for a figure on cell(selectedCol, selectedRow)
