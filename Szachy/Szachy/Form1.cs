@@ -39,7 +39,6 @@ namespace Szachy
         {
             matrix.BoardSetup();
             matrix.ResetMoveAbility();
-            matrix.DrawFigures();
             matrix.DrawMoveAbility();
         }
 
@@ -50,8 +49,7 @@ namespace Szachy
 
         private void OpenDialog(object sender, EventArgs e)
         {
-            FigureSelect figc = new FigureSelect();
-            figc.ShowDialog(this);
+
         }
     }
 }

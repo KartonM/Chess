@@ -17,7 +17,7 @@ namespace Szachy
 
         public string[,] moveAbility; 
         public Figure[] figures;
-        public Form form;
+        public Form1 form;
         public TextBox GUI_Count;
         public TextBox GUI_Color;
         int moveCount = 0;
@@ -176,6 +176,19 @@ namespace Szachy
                 MoveFigure(1, 8, 4, 8);
 
             board[fromColumn,fromRow].figure = null;
+
+            if ((board[toColumn, toRow].figure.type == Figure.TypeEnum.Pawn && toRow == 8 && board[toColumn, toRow].figure.color == Figure.ColorEnum.White) ||
+            (board[toColumn, toRow].figure.type == Figure.TypeEnum.Pawn && toRow == 1 && board[toColumn, toRow].figure.color == Figure.ColorEnum.Black))
+            {
+                DrawFigures();
+                FigureSelect figureSelectForm = new FigureSelect();
+                figureSelectForm.matrix = this;
+                figureSelectForm.col = toColumn;
+                figureSelectForm.row = toRow;
+                figureSelectForm.DrawFigures(currentColor);
+                figureSelectForm.ShowDialog(form);
+
+            }
             Debug.WriteLine(WhiteKingPosition[0] + " " + WhiteKingPosition[1] + "   " + BlackKingPosition[0] + " " + BlackKingPosition[1]);
         }
 
