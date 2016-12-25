@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace Szachy
 {
-    public partial class Form : System.Windows.Forms.Form
+    public partial class Form1 : System.Windows.Forms.Form
     {
         Matrix matrix;
 
-        public Form()
+        public Form1()
         {
             InitializeComponent();
 
@@ -46,6 +46,12 @@ namespace Szachy
         private void debugClick(object sender, EventArgs e)
         {
             matrix.debug = checkBox1.Checked;
+        }
+
+        private void OpenDialog(object sender, EventArgs e)
+        {
+            FigureSelect figc = new FigureSelect();
+            figc.ShowDialog(this);
         }
     }
 }
