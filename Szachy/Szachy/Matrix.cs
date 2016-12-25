@@ -181,6 +181,10 @@ namespace Szachy
 
         public void BoardSetup() //Sets the board up
         {
+            GUI_Color.Text = "Ruch:" + Environment.NewLine + "Białych";
+            moveCount = 0;
+            GUI_Count.Text = "Liczba ruchów:" + Environment.NewLine + moveCount;
+
             for (int iCol = 1; iCol <= 9; iCol++)
                 for (int iRow = 1; iRow <= 9; iRow++)
                     board[iCol, iRow].figure = null;
@@ -321,7 +325,7 @@ namespace Szachy
                     GUI_Color.Text = "Ruch:" + Environment.NewLine + "Białych";
                 }
 
-                moveCount++;
+                if(currentColor == Figure.ColorEnum.Black) moveCount++;
                 GUI_Count.Text = "Liczba Ruchów:" + Environment.NewLine + moveCount;
 
                 if (CellIsAttacked(WhiteKingPosition[0], WhiteKingPosition[1], Figure.ColorEnum.White)) //checks if the white king is checked
@@ -332,7 +336,7 @@ namespace Szachy
                     bool mate = true;
                     checkingMate = true;
 
-                    for (int iCol = 1; iCol <= 8; iCol++)
+                    for (int iCol = 1; iCol <= 8; iCol++) //checking if there are any possible moves
                     {
                         for (int iRow = 1; iRow <= 8; iRow++)
                         {
@@ -365,7 +369,12 @@ namespace Szachy
                         if (!mate) break;
                     }
                     checkingMate = false;
-                    if (mate) Debug.WriteLine("Szach mat, czarne wygrywaja");
+                    if (mate)
+                    {
+                        Debug.WriteLine("Szach mat, czarne wygrywaja");
+                        MessageBox.Show("Szach i mat\nCzarne wygrywaja w " + moveCount + " ruchach", "Szach mat", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
                 }
 
                 if (CellIsAttacked(BlackKingPosition[0], BlackKingPosition[1], Figure.ColorEnum.Black)) //checks if the black king is checked
@@ -376,7 +385,7 @@ namespace Szachy
                     bool mate = true;
                     checkingMate = true;
 
-                    for (int iCol = 1; iCol <= 8; iCol++)
+                    for (int iCol = 1; iCol <= 8; iCol++) //checking if there are any possible moves
                     {
                         for (int iRow = 1; iRow <= 8; iRow++)
                         {
@@ -409,7 +418,12 @@ namespace Szachy
                         if (!mate) break;
                     }
                     checkingMate = false;
-                    if (mate) Debug.WriteLine("Szach mat, biale wygrywaja");
+                    if (mate)
+                    {
+                        Debug.WriteLine("Szach mat, biale wygrywaja");
+                        MessageBox.Show("Szach i mat\nBiale wygrywaja w " + moveCount + " ruchach", "Szach mat", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
                 }
             }
             DrawMoveAbility();
@@ -721,10 +735,6 @@ namespace Szachy
                 BlackKingPosition[0] = BlackKingPositionCopy[0];
                 BlackKingPosition[1] = BlackKingPositionCopy[1];
             }
-            //board[1,3].figure = board[1,1].figure;
-            //board[1,1].figure = null;
-            //Debug.WriteLine("Figure: " + board[1, 3].figure.type);
-            //DrawFigures();
 
             return ret;
 
