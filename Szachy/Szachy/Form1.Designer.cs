@@ -1221,8 +1221,6 @@
         private System.Windows.Forms.Label timer1_lbl;
         private System.Windows.Forms.Label timer2_lbl;
         private System.Windows.Forms.Label player2_lbl;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.PictureBox c18;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox c28;
@@ -1289,6 +1287,8 @@
         private System.Windows.Forms.PictureBox c24;
         private System.Windows.Forms.PictureBox c14;
         private System.Windows.Forms.CheckBox autoRotate;
+        public System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Timer timer2;
     }
 }
 

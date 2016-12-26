@@ -131,8 +131,6 @@ namespace Szachy
 
                 timer1_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
                     (player1_sec <= 9 ? "0" : "") + player1_sec.ToString() + ":" + player1_dec.ToString();
-
-                player1_dec--;
             }
         }
 
@@ -157,8 +155,6 @@ namespace Szachy
 
                 timer2_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
                     (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
-
-                player2_dec--;
             }
         }
 
