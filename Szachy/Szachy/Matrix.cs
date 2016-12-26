@@ -340,7 +340,7 @@ namespace Szachy
                     MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
                     DrawFigures();
                     ResetMoveAbility();
-                    //form.ResetTime();
+                    form.RotateBoard(null,null);
 
                 bool stalemate = true;
 
@@ -355,8 +355,8 @@ namespace Szachy
                     {
                         for (int iRow = 1; iRow <= 8; iRow++)
                         {
-                            if (!CellIsEmpty(iCol, iRow) && board[iCol, iRow].figure != null &&
-                               board[iCol, iRow].figure.color == Figure.ColorEnum.Black)
+                            if (!CellIsEmpty(iCol, iRow)// && board[iCol, iRow].figure != null
+                               && board[iCol, iRow].figure.color == Figure.ColorEnum.Black)
                             {
                                 checkingMateFrom[0] = iCol;
                                 checkingMateFrom[1] = iRow;
@@ -953,6 +953,11 @@ namespace Szachy
                     board[col, row].figure.color == color)
                 return true;
             return false;
+        }
+
+        public void RotateBoard()
+        {
+            
         }
     }    
 }

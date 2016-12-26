@@ -17,23 +17,26 @@ namespace Szachy
         //public int timeLeft;
         public int turnTimeMin;
         public int turnTimeSec;
+        public int turnTimeHour;
+
+        public int player1_hour;
         public int player1_min;
         public int player1_sec;
         public int player1_dec;
+        public int player2_hour;
         public int player2_min;
         public int player2_sec;
         public int player2_dec;
         public bool firstMove;
 
-        //System.Windows.Forms.Timer turnTimer;
+        public Label p1_lbl;
+        public Label p2_lbl;
 
         public Form1()
         {
             InitializeComponent();
-            /*turnTimer = new System.Windows.Forms.Timer();
-            turnTimer.Interval = 1000;
-            turnTimer.Tick += new EventHandler(TimerTick);
-            turnTimer.Start();*/
+            p1_lbl = player1_lbl;
+            p2_lbl = player2_lbl;
 
             matrix = new Matrix();
             matrix.form = this;
@@ -90,65 +93,44 @@ namespace Szachy
 
         public void ResetTime()
         {
+            player1_hour = turnTimeHour;
             player1_min = turnTimeMin;
             player1_sec = turnTimeSec;
             player1_dec = 0;
+            player2_hour = turnTimeHour;
             player2_min = turnTimeMin;
             player2_sec = turnTimeSec;
             player2_dec = 0;
 
-            if (player1_sec <= 9 && player1_min <= 9)
-            {
-                timer1_lbl.Text = "0" + player1_min.ToString() + ":0" + player1_sec.ToString() + "." + player1_dec.ToString();
-                timer2_lbl.Text = "0" + player2_min.ToString() + ":0" + player2_sec.ToString() + "." + player2_dec.ToString();
-            }
-            else if (player1_min <= 9)
-            {
-                timer1_lbl.Text = "0" + player1_min.ToString() + ":" + player1_sec.ToString() + "." + player1_dec.ToString();
-                timer2_lbl.Text = "0" + player2_min.ToString() + ":" + player2_sec.ToString() + "." + player2_dec.ToString();
-            }
-            else if (player1_sec <= 9)
-            {
-                timer1_lbl.Text = player1_min.ToString() + ":0" + player1_sec.ToString() + "." + player1_dec.ToString();
-                timer2_lbl.Text = player2_min.ToString() + ":0" + player2_sec.ToString() + "." + player2_dec.ToString();
-            }
-            else
-            {
-                timer1_lbl.Text = player1_min.ToString() + ":" + player1_sec.ToString() + "." + player1_dec.ToString();
-                timer2_lbl.Text = player2_min.ToString() + ":" + player2_sec.ToString() + "." + player2_dec.ToString();
-            }
-            }
+            timer1_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
+                (player1_sec <= 9 ? "0" : "") + player1_sec.ToString() + ":" + player1_dec.ToString();
+
+
+            timer2_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
+                (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
+        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (matrix.currentColor == Figure.ColorEnum.Black)
             {
+                int playerTime = player1_hour * 36000 + player1_min * 600 + player1_sec * 10 + player1_dec;
+
                 firstMove = false;
-                if (player1_min == 0 && player1_sec == 0 && player1_dec == 00)
+                if (playerTime == 0)
                 {
                     Debug.WriteLine("koniec czasu");
                     timer1.Stop();
                 }
 
-                if (player1_dec < 0)
-                {
-                    player1_dec = 9;
-                    player1_sec--;
-                }
-                if (player1_sec < 0)
-                {
-                    player1_sec = 59;
-                    player1_min--;
-                }
+                playerTime--;
+                player1_dec = playerTime % 10;
+                player1_sec = ((playerTime - player1_dec)/10) % 60;
+                player1_min = ((playerTime - player1_sec - player1_dec)/600) % 60;
+                player1_hour = (playerTime - player1_min - player1_sec - player1_dec)/36000;
 
-                if (player1_sec <= 9 && player1_min <= 9)
-                    timer1_lbl.Text = "0" + player1_min.ToString() + ":0" + player1_sec.ToString() + "." + player1_dec.ToString();
-                else if (player1_min <= 9)
-                    timer1_lbl.Text = "0" + player1_min.ToString() + ":" + player1_sec.ToString() + "." + player1_dec.ToString();
-                else if (player1_sec <= 9)
-                    timer1_lbl.Text = player1_min.ToString() + ":0" + player1_sec.ToString() + "." + player1_dec.ToString();
-                else
-                    timer1_lbl.Text = player1_min.ToString() + ":" + player1_sec.ToString() + "." + player1_dec.ToString();
+                timer1_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
+                    (player1_sec <= 9 ? "0" : "") + player1_sec.ToString() + ":" + player1_dec.ToString();
 
                 player1_dec--;
             }
@@ -158,56 +140,49 @@ namespace Szachy
         {
             if (!firstMove && matrix.currentColor == Figure.ColorEnum.White)
             {
-                if (player2_min == 0 && player2_sec == 0 && player2_dec == 00)
+                int playerTime = player2_hour * 36000 + player2_min * 600 + player2_sec * 10 + player2_dec;
+
+                if (playerTime == 0)
                 {
                     Debug.WriteLine("koniec czasu");
                     timer2.Stop();
                 }
 
-                if (player2_dec < 0)
-                {
-                    player2_dec = 9;
-                    player2_sec--;
-                }
-                if (player2_sec < 0)
-                {
-                    player2_sec = 59;
-                    player2_min--;
-                }
+                playerTime--;
+                player2_dec = playerTime % 10;
+                player2_sec = ((playerTime - player2_dec) / 10) % 60;
+                player2_min = ((playerTime - player2_sec - player2_dec) / 600) % 60;
+                player2_hour = (playerTime - player2_min - player2_sec - player2_dec) / 36000;
 
-                if (player2_sec <= 9 && player2_min <= 9)
-                    timer2_lbl.Text = "0" + player2_min.ToString() + ":0" + player2_sec.ToString() + "." + player2_dec.ToString();
-                else if (player2_min <= 9)
-                    timer2_lbl.Text = "0" + player2_min.ToString() + ":" + player2_sec.ToString() + "." + player2_dec.ToString();
-                else if (player2_sec <= 9)
-                    timer2_lbl.Text = player2_min.ToString() + ":0" + player2_sec.ToString() + "." + player2_dec.ToString();
-                else
-                    timer2_lbl.Text = player2_min.ToString() + ":" + player2_sec.ToString() + "." + player2_dec.ToString();
+
+                timer2_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
+                    (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
 
                 player2_dec--;
             }
         }
 
-        /*void TimerTick(Object myObject, EventArgs myEventArgs)
+        public void RotateBoard(object sender, EventArgs e)
         {
-            if(timeLeft<0)
+            if(autoRotate.Checked || sender!=null)
             {
+                Point[,] pbarrayCopy = new Point[9, 9];
 
+                for (int iCol = 1; iCol <= 8; iCol++)
+                    for (int iRow = 1; iRow <= 8; iRow++)
+                    {
+                        Debug.WriteLine("c" + iCol + iRow);
+                        pbarrayCopy[iCol, iRow] = (Point)Controls.Find("c" + iCol.ToString() + iRow.ToString(), false)[0].Location;
+                    }
+
+                for (int iCol = 1; iCol <= 8; iCol++)
+                    for (int iRow = 1; iRow <= 8; iRow++)
+                    {
+                        PictureBox pb = (PictureBox)Controls.Find("c" + (iCol).ToString() + (iRow).ToString(), false)[0];
+                        pb.Location = pbarrayCopy[9 - iCol, 9 - iRow];
+                    }
             }
-            GUI_Time.Text = "Pozostały Czas:" + Environment.NewLine + timeLeft;
-            timeLeft--;
 
-        }*/
-
-        /*public void Win(Figure.ColorEnum color)
-        {
-            if(color==Figure.ColorEnum.White)
-            {
-
-            }
-        }*/     //------ USUNĄŁBYM TO, PO WYGRANEJ WYSTARCZY TEN MESSAGEBOX, KTÓRY WYSKAKUJE
-                //       I WTEDY MOŻNA ALBO WYJŚĆ KRZYŻYKIEM, ALBO USTAWIĆ NA NOWO SZACHOWNICĘ
-                //       I GRAĆ DALEJ - DO TEGO ZROBIĆ LICZNIK WYGRANYCH PARTII I TERAZ JEŚLI KTOŚ
-                //       CHCE ZAGRAC WIECEJ NIZ JEDEN MECZ NIE MUSI NA NOWO ODPALAC APKI
+        }
     }
 }
