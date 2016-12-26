@@ -15,6 +15,7 @@ namespace Szachy
         public Cell[,] board;
         public Cell[,] boardCopy;
 
+        public Menu menu;
         public string[,] moveAbility; 
         public Figure[] figures;
         public Form1 form;
@@ -31,12 +32,10 @@ namespace Szachy
         public bool checkingMate = false;
         public int[] checkingMateFrom = { 1, 1 };
 
-        Figure.ColorEnum currentColor;
+        public Figure.ColorEnum currentColor;
 
         public Matrix()
         {           
-            currentColor = Figure.ColorEnum.White;
-
     //BOARD
     //Creating an empty board
 
@@ -201,7 +200,6 @@ namespace Szachy
             WhiteKingPosition[0] = 5;
             WhiteKingPosition[1] = 1;
 
-            GUI_Color.Text = "Ruch:" + Environment.NewLine + "Białych";
             moveCount = 0;
             GUI_Count.Text = "Liczba ruchów:" + Environment.NewLine + moveCount;
 
@@ -338,6 +336,7 @@ namespace Szachy
                     MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
                     DrawFigures();
                     ResetMoveAbility();
+                    form.ResetTime();
 
                 bool stalemate = true;
 
@@ -445,8 +444,7 @@ namespace Szachy
 
 
                     if (stalemate) //checking if it's a check mate
-                    {
-                        Debug.WriteLine("Szach mat, czarne wygrywaja");
+                    {                       
                         MessageBox.Show("Szach i mat\nCzarne wygrywaja w " + moveCount + " ruchach", "Szach mat", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stalemate = false;
                     }

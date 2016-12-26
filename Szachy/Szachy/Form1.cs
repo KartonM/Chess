@@ -13,18 +13,25 @@ namespace Szachy
 {
     public partial class Form1 : System.Windows.Forms.Form
     {
-        Matrix matrix;
+        public Matrix matrix;
+        public int timeLeft;
+        public int turnTime;
+        System.Windows.Forms.Timer turnTimer;
 
         public Form1()
         {
             InitializeComponent();
+            turnTimer = new System.Windows.Forms.Timer();
+            turnTimer.Interval = 1000;
+            turnTimer.Tick += new EventHandler(TimerTick);
+            turnTimer.Start();
 
             matrix = new Matrix();
             matrix.form = this;
             matrix.GUI_Color = GUI_Color;
             matrix.GUI_Count = GUI_Count;
-            //matrix.BoardSetup();
-            matrix.board[2, 3].figure = matrix.figures[9];
+            matrix.BoardSetup();
+            /*matrix.board[2, 3].figure = matrix.figures[9];
             matrix.board[1, 7].figure = matrix.figures[29];
             matrix.board[4, 4].figure = matrix.figures[2];
             matrix.board[4, 5].figure = matrix.figures[17];
@@ -36,7 +43,7 @@ namespace Szachy
             matrix.figures[2].firstMove = false;
             matrix.figures[17].firstMove = false;
             matrix.figures[13].firstMove = false;
-            matrix.figures[29].firstMove = false;
+            matrix.figures[29].firstMove = false;*/
 
             matrix.DrawFigures();
 
@@ -61,9 +68,28 @@ namespace Szachy
             matrix.debug = checkBox1.Checked;
         }
 
-        private void OpenDialog(object sender, EventArgs e)
+        public void ResetTime()
         {
+            timeLeft = turnTime;
+        }
 
+        void TimerTick(Object myObject, EventArgs myEventArgs)
+        {
+            if(timeLeft<0)
+            {
+
+            }
+            GUI_Time.Text = "Pozostały Czas:" + Environment.NewLine + timeLeft;
+            timeLeft--;
+
+        }
+
+        public void Win(Figure.ColorEnum color)
+        {
+            if(color==Figure.ColorEnum.White)
+            {
+
+            }
         }
     }
 }
