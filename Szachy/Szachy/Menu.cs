@@ -35,7 +35,8 @@ namespace Szachy
             form.matrix.menu = this;
             form.StartPosition = FormStartPosition.Manual;
             form.Location = this.Location;
-            form.turnTime = int.Parse(timeSeconds.Text) + int.Parse(timeMinutes.Text) * 60;
+            form.turnTimeSec = int.Parse(timeSeconds.Text);
+            form.turnTimeMin = int.Parse(timeMinutes.Text);
             form.ResetTime();
             this.Hide();
             form.Closed += (s, args) => this.Close();
