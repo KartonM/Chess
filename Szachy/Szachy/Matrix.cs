@@ -961,10 +961,5 @@ namespace Szachy
                 return true;
             return false;
         }
-
-        public void RotateBoard()
-        {
-            
-        }
     }    
 }

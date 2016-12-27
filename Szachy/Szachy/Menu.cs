@@ -41,16 +41,20 @@ namespace Szachy
 
             form.matrix.menu = this;
             form.StartPosition = FormStartPosition.Manual;
-            //form.Location = this.Location;
 
+            form.timer1_lbl.Enabled = enableTimers.Checked;
+            form.timer1_lbl.Visible = enableTimers.Checked;
 
-            form.enableTimers = enableTime;
+            form.timer2_lbl.Enabled = enableTimers.Checked;
+            form.timer2_lbl.Visible = enableTimers.Checked;
+
+            form.toggleTimer.Enabled = enablePause.Checked;
+            form.toggleTimer.Visible = enablePause.Checked;
+
             form.turnTimeSec = decimal.ToInt16(timeSeconds.Value);
             form.turnTimeMin = decimal.ToInt16(timeMinutes.Value);
             form.turnTimeHour = decimal.ToInt16(timeHours.Value);
             form.ResetTime();
-
-
 
             this.Hide();
             form.Closed += (s, args) => this.Close();
@@ -62,7 +66,6 @@ namespace Szachy
         {
             if(enableTimers.Checked)
             {
-                enableTime = true;
                 textBox6.Enabled = true;
                 textBox5.Enabled = true;
                 textBox3.Enabled = true;
@@ -72,7 +75,6 @@ namespace Szachy
             }
             else
             {
-                enableTime = false;
                 textBox6.Enabled = false;
                 textBox5.Enabled = false;
                 textBox3.Enabled = false;

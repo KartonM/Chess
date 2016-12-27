@@ -30,7 +30,8 @@ namespace Szachy
         public int player2_dec;
         public bool firstMove;
         public bool whiteDownside;
-        public bool enableTimers = true;
+        public bool enableTimers;
+        bool timerIsRunning = true;
 
         public Label p1_lbl;
         public Label p2_lbl;
@@ -62,17 +63,6 @@ namespace Szachy
             matrix.figures[29].firstMove = false;*/
             matrix.DrawFigures();
 
-            if(enableTimers)
-            {
-                timer1_lbl.Visible = true;
-                timer2_lbl.Visible = true;
-            }
-            else if (!enableTimers)
-            {
-                timer1_lbl.Visible = false;
-                timer2_lbl.Visible = false;
-            }
-
         }
 
         private void CellClick(object sender, EventArgs e)
@@ -97,13 +87,11 @@ namespace Szachy
         public void TimerStart()
         {
             timer1.Start();
-            timer2.Start();
         }
 
         public void TimerStop()
         {
             timer1.Stop();
-            timer2.Stop();
         }
 
         public void ResetTime()
@@ -134,11 +122,55 @@ namespace Szachy
                 firstMove = false;
                 if (playerTime == 0)
                 {
+                    bool draw = true;
+                    bool allyFigure = false;
+                    int opponentFigure = 0;
+                    int opponentKnights = 0;
                     Debug.WriteLine("koniec czasu");
                     timer1.Stop();
+
+                    for (int iCol = 1; iCol <= 8; iCol++)
+                        for (int iRow = 1; iRow <= 8; iRow++)
+                        {
+                            if (!matrix.CellIsEmpty(iCol, iRow) &&
+                                matrix.board[iCol, iRow].figure.color == Figure.ColorEnum.White &&
+                                matrix.board[iCol, iRow].figure.type == Figure.TypeEnum.Pawn)
+                                draw = false;
+
+                            if (!matrix.CellIsEmpty(iCol, iRow) &&
+                                matrix.board[iCol, iRow].figure.color == Figure.ColorEnum.Black &&
+                                matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.King)
+                                allyFigure = true;
+
+                            if (!matrix.CellIsEmpty(iCol, iRow) &&
+                               matrix.board[iCol, iRow].figure.color == Figure.ColorEnum.White &&
+                               matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.King &&
+                               matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.Pawn)
+                            {
+                                opponentFigure++;
+                                if (matrix.board[iCol, iRow].figure.type == Figure.TypeEnum.Knight)
+                                    opponentKnights++;
+                            }
+
+                        }
+
+                    if (allyFigure && opponentFigure > 0)
+                        draw = false;
+
+                    if (!allyFigure && opponentFigure > 0 && opponentFigure - opponentKnights > 0)
+                        draw = false;
+
+                    if (!draw)
+                    {
+                        Debug.WriteLine("Koniec czasu, biale wygrywaja");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Koniec czasu, remis");
+                    }
                 }
 
-                timer1_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
+                timer2_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
                     (player1_sec <= 9 ? "0" : "") + player1_sec.ToString() + ":" + player1_dec.ToString();
 
                 playerTime--;
@@ -147,21 +179,62 @@ namespace Szachy
                 player1_min = ((playerTime - player1_sec - player1_dec) / 600) % 60;
                 player1_hour = (playerTime - player1_min - player1_sec - player1_dec) / 36000;
             }
-        }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
             if (!firstMove && matrix.currentColor == Figure.ColorEnum.White)
             {
                 int playerTime = player2_hour * 36000 + player2_min * 600 + player2_sec * 10 + player2_dec;
 
                 if (playerTime == 0)
                 {
-                    Debug.WriteLine("koniec czasu");
-                    timer2.Stop();
+                    bool draw = true;
+                    bool allyFigure = false;
+                    int opponentFigure = 0;
+                    int opponentKnights = 0;
+
+                    timer1.Stop();
+
+                    for (int iCol = 1; iCol <= 8; iCol++)
+                        for (int iRow = 1; iRow <= 8; iRow++)
+                        {
+                            if (!matrix.CellIsEmpty(iCol, iRow) &&
+                                matrix.board[iCol, iRow].figure.color == Figure.ColorEnum.Black &&
+                                matrix.board[iCol, iRow].figure.type == Figure.TypeEnum.Pawn)
+                                draw = false;
+
+                            if (!matrix.CellIsEmpty(iCol, iRow) &&
+                                matrix.board[iCol, iRow].figure.color == Figure.ColorEnum.White &&
+                                matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.King)
+                                allyFigure = true;
+
+                            if (!matrix.CellIsEmpty(iCol, iRow) &&
+                               matrix.board[iCol, iRow].figure.color == Figure.ColorEnum.Black &&
+                               matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.King &&
+                               matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.Pawn)
+                            {
+                                opponentFigure++;
+                                if (matrix.board[iCol, iRow].figure.type == Figure.TypeEnum.Knight)
+                                    opponentKnights++;
+                            }
+
+                        }
+
+                    if (allyFigure && opponentFigure > 0)
+                        draw = false;
+
+                    if (!allyFigure && opponentFigure > 0 && opponentFigure - opponentKnights > 0)
+                        draw = false;
+
+                    if (!draw)
+                    {
+                        Debug.WriteLine("Koniec czasu, czarne wygrywaja");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Koniec czasu, remis");
+                    }
                 }
 
-                timer2_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
+                timer1_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
                     (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
 
 
@@ -171,6 +244,8 @@ namespace Szachy
                 player2_min = ((playerTime - player2_sec - player2_dec) / 600) % 60;
                 player2_hour = (playerTime - player2_min - player2_sec - player2_dec) / 36000;
             }
+
+
         }
 
         public void RotateBoard(object sender, EventArgs e)
@@ -230,6 +305,13 @@ namespace Szachy
         private void autorotateClick(object sender, EventArgs e)
         {
             RotateBoard(null, null);
+        }
+
+        private void toggleTimer_Click(object sender, EventArgs e)
+        {
+            timerIsRunning = !timerIsRunning;
+            toggleTimer.Text = (timerIsRunning ? "Zatrzymaj Zegar":"Wznów Zegar");
+            timer1.Enabled = timerIsRunning;
         }
     }
 }
