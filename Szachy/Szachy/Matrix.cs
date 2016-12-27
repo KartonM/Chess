@@ -26,16 +26,18 @@ namespace Szachy
         public int[] currentSelection = { 1, 1 };
         public int[] BlackKingPosition = { 5, 8 };
         public int[] WhiteKingPosition = { 5, 1 };
-        //public int[] WhiteKingPosition = { 8, 3 };
+        //public int[] WhiteKingPosition = { 8, 3 }; //do testowania pata
         //public int[] BlackKingPosition = { 1, 7 };
         public bool debug = false;
         public bool checkingMate = false;
         public int[] checkingMateFrom = { 1, 1 };
+        public bool whiteDownside;
 
         public Figure.ColorEnum currentColor;
 
         public Matrix()
-        {           
+        {
+            whiteDownside = true;     
     //BOARD
     //Creating an empty board
 
@@ -340,7 +342,6 @@ namespace Szachy
                     MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
                     DrawFigures();
                     ResetMoveAbility();
-                    form.RotateBoard(null,null);
 
                 bool stalemate = true;
 
@@ -348,6 +349,9 @@ namespace Szachy
                 {
                     currentColor = Figure.ColorEnum.Black;
                     GUI_Color.Text = "Ruch:" + Environment.NewLine + "Czarnych";
+
+                    whiteDownside = false;
+                    form.RotateBoard(null, null);
 
                     checkingMate = true;
 
@@ -393,6 +397,9 @@ namespace Szachy
                 {
                     currentColor = Figure.ColorEnum.White;
                     GUI_Color.Text = "Ruch:" + Environment.NewLine + "Białych";
+
+                    whiteDownside = true;
+                    form.RotateBoard(null, null);
 
                     checkingMate = true;
 

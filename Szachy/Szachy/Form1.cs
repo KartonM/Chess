@@ -13,6 +13,7 @@ namespace Szachy
 {
     public partial class Form1 : System.Windows.Forms.Form
     {
+        Menu menu;
         public Matrix matrix;
         //public int timeLeft;
         public int turnTimeMin;
@@ -28,6 +29,8 @@ namespace Szachy
         public int player2_sec;
         public int player2_dec;
         public bool firstMove;
+        public bool whiteDownside;
+        public bool enableTimers = true;
 
         public Label p1_lbl;
         public Label p2_lbl;
@@ -37,13 +40,14 @@ namespace Szachy
             InitializeComponent();
             p1_lbl = player1_lbl;
             p2_lbl = player2_lbl;
+            whiteDownside = true;
 
             matrix = new Matrix();
             matrix.form = this;
             matrix.GUI_Color = GUI_Color;
             matrix.GUI_Count = GUI_Count;
             matrix.BoardSetup();
-            /*matrix.board[2, 3].figure = matrix.figures[9];
+            /*matrix.board[2, 3].figure = matrix.figures[9];   //do testowania pata
             matrix.board[1, 7].figure = matrix.figures[29];
             matrix.board[4, 4].figure = matrix.figures[2];
             matrix.board[4, 5].figure = matrix.figures[17];
@@ -57,6 +61,17 @@ namespace Szachy
             matrix.figures[13].firstMove = false;
             matrix.figures[29].firstMove = false;*/
             matrix.DrawFigures();
+
+            if(enableTimers)
+            {
+                timer1_lbl.Visible = true;
+                timer2_lbl.Visible = true;
+            }
+            else if (!enableTimers)
+            {
+                timer1_lbl.Visible = false;
+                timer2_lbl.Visible = false;
+            }
 
         }
 
@@ -123,14 +138,14 @@ namespace Szachy
                     timer1.Stop();
                 }
 
-                playerTime--;
-                player1_dec = playerTime % 10;
-                player1_sec = ((playerTime - player1_dec)/10) % 60;
-                player1_min = ((playerTime - player1_sec - player1_dec)/600) % 60;
-                player1_hour = (playerTime - player1_min - player1_sec - player1_dec)/36000;
-
                 timer1_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
                     (player1_sec <= 9 ? "0" : "") + player1_sec.ToString() + ":" + player1_dec.ToString();
+
+                playerTime--;
+                player1_dec = playerTime % 10;
+                player1_sec = ((playerTime - player1_dec) / 10) % 60;
+                player1_min = ((playerTime - player1_sec - player1_dec) / 600) % 60;
+                player1_hour = (playerTime - player1_min - player1_sec - player1_dec) / 36000;
             }
         }
 
@@ -146,23 +161,30 @@ namespace Szachy
                     timer2.Stop();
                 }
 
+                timer2_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
+                    (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
+
+
                 playerTime--;
                 player2_dec = playerTime % 10;
                 player2_sec = ((playerTime - player2_dec) / 10) % 60;
                 player2_min = ((playerTime - player2_sec - player2_dec) / 600) % 60;
                 player2_hour = (playerTime - player2_min - player2_sec - player2_dec) / 36000;
-
-
-                timer2_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
-                    (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
             }
         }
 
         public void RotateBoard(object sender, EventArgs e)
         {
-            if(autoRotate.Checked || sender!=null)
+            if((autoRotate.Checked && matrix.whiteDownside!=whiteDownside)  || sender!=null)
             {
                 Point[,] pbarrayCopy = new Point[9, 9];
+                Point player1_lblLocation = player1_lbl.Location; 
+                Point timer1_lblLocation = timer1_lbl.Location;
+
+                player1_lbl.Location = player2_lbl.Location;
+                timer1_lbl.Location = timer2_lbl.Location;
+                player2_lbl.Location = player1_lblLocation;
+                timer2_lbl.Location = timer1_lblLocation;
 
                 for (int iCol = 1; iCol <= 8; iCol++)
                     for (int iRow = 1; iRow <= 8; iRow++)
@@ -177,8 +199,37 @@ namespace Szachy
                         PictureBox pb = (PictureBox)Controls.Find("c" + (iCol).ToString() + (iRow).ToString(), false)[0];
                         pb.Location = pbarrayCopy[9 - iCol, 9 - iRow];
                     }
+                whiteDownside = !whiteDownside;
             }
 
+        }
+
+        private void OpenMenu(object sender, EventArgs e)
+        {
+            if (!firstMove)
+            {
+                DialogResult result = MessageBox.Show("Jesteś pewien, że chcesz wrócić do menu głównego?\nSpowoduje to utratę postepów gry.",
+                                                      "Powrót do menu", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if(result == DialogResult.Yes)
+                {
+                    menu = new Szachy.Menu();
+                    this.Hide();
+                    menu.Closed += (s, args) => this.Close();
+                    menu.Show();
+                }
+            }
+            else
+            {
+                menu = new Szachy.Menu();
+                this.Hide();
+                menu.Closed += (s, args) => this.Close();
+                menu.Show();
+            }
+        }
+
+        private void autorotateClick(object sender, EventArgs e)
+        {
+            RotateBoard(null, null);
         }
     }
 }

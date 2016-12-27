@@ -13,6 +13,7 @@ namespace Szachy
 {
     public partial class Menu : Form
     {
+        public bool enableTime;
         public Menu()
         {
             InitializeComponent();
@@ -40,14 +41,45 @@ namespace Szachy
 
             form.matrix.menu = this;
             form.StartPosition = FormStartPosition.Manual;
-            form.Location = this.Location;
+            //form.Location = this.Location;
+
+
+            form.enableTimers = enableTime;
             form.turnTimeSec = decimal.ToInt16(timeSeconds.Value);
             form.turnTimeMin = decimal.ToInt16(timeMinutes.Value);
             form.turnTimeHour = decimal.ToInt16(timeHours.Value);
             form.ResetTime();
+
+
+
             this.Hide();
             form.Closed += (s, args) => this.Close();
             form.Show();
+        }
+
+
+        private void enableTimersClick(object sender, EventArgs e)
+        {
+            if(enableTimers.Checked)
+            {
+                enableTime = true;
+                textBox6.Enabled = true;
+                textBox5.Enabled = true;
+                textBox3.Enabled = true;
+                timeHours.Enabled = true;
+                timeMinutes.Enabled = true;
+                timeSeconds.Enabled = true;
+            }
+            else
+            {
+                enableTime = false;
+                textBox6.Enabled = false;
+                textBox5.Enabled = false;
+                textBox3.Enabled = false;
+                timeHours.Enabled = false;
+                timeMinutes.Enabled = false;
+                timeSeconds.Enabled = false;
+            }
         }
     }
 }
