@@ -60,7 +60,23 @@ namespace Szachy
             matrix.figures[2].firstMove = false;
             matrix.figures[17].firstMove = false;
             matrix.figures[13].firstMove = false;
-            matrix.figures[29].firstMove = false;*/
+            matrix.figures[29].firstMove = false;
+
+            matrix.board[4, 4].figure = matrix.figures[17];
+            matrix.board[8, 4].figure = matrix.figures[10];
+            matrix.board[4, 2].figure = matrix.figures[15];
+            matrix.board[2, 2].figure = matrix.figures[29];
+            matrix.board[8, 2].figure = matrix.figures[11];
+            matrix.figures[13].firstMove = false;
+            matrix.figures[17].firstMove = false;
+            matrix.figures[15].firstMove = false;
+            matrix.figures[29].firstMove = false;
+            matrix.figures[11].firstMove = false;
+
+            ResetTime();
+            firstMove = true;
+            TimerStart();*/
+
             matrix.DrawFigures();
 
         }
@@ -147,22 +163,26 @@ namespace Szachy
                                matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.King &&
                                matrix.board[iCol, iRow].figure.type != Figure.TypeEnum.Pawn)
                             {
+                                Debug.WriteLine("Znalazłem " + matrix.board[iCol, iRow].figure.type);
                                 opponentFigure++;
                                 if (matrix.board[iCol, iRow].figure.type == Figure.TypeEnum.Knight)
                                     opponentKnights++;
                             }
 
                         }
-
+                    Debug.WriteLine(opponentKnights);
+                    Debug.WriteLine(opponentFigure);
+                    Debug.WriteLine(allyFigure);
                     if (allyFigure && opponentFigure > 0)
                         draw = false;
 
-                    if (!allyFigure && opponentFigure > 0 && opponentFigure - opponentKnights > 0)
+                    if (!allyFigure && opponentFigure > 1 && opponentFigure - opponentKnights > 0)
                         draw = false;
 
                     if (!draw)
                     {
                         Debug.WriteLine("Koniec czasu, biale wygrywaja");
+                        MessageBox.Show("Koniec czasu\nBiale wygrywaja", "Koniec czasu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
@@ -221,12 +241,13 @@ namespace Szachy
                     if (allyFigure && opponentFigure > 0)
                         draw = false;
 
-                    if (!allyFigure && opponentFigure > 0 && opponentFigure - opponentKnights > 0)
+                    if (!allyFigure && opponentFigure > 1 && opponentFigure - opponentKnights > 0)
                         draw = false;
 
                     if (!draw)
                     {
                         Debug.WriteLine("Koniec czasu, czarne wygrywaja");
+                        MessageBox.Show("Koniec czasu\nCzarne wygrywaja", "Koniec czasu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {

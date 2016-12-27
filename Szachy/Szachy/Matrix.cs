@@ -26,8 +26,8 @@ namespace Szachy
         public int[] currentSelection = { 1, 1 };
         public int[] BlackKingPosition = { 5, 8 };
         public int[] WhiteKingPosition = { 5, 1 };
-        //public int[] WhiteKingPosition = { 8, 3 }; //do testowania pata
-        //public int[] BlackKingPosition = { 1, 7 };
+        //public int[] WhiteKingPosition = { 4,4 }; //do testowania
+       // public int[] BlackKingPosition = { 2,2 };
         public bool debug = false;
         public bool checkingMate = false;
         public int[] checkingMateFrom = { 1, 1 };

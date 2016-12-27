@@ -40,7 +40,7 @@ namespace Szachy
             }
 
             form.matrix.menu = this;
-            form.StartPosition = FormStartPosition.Manual;
+            //form.StartPosition = FormStartPosition.Manual;
 
             form.timer1_lbl.Enabled = enableTimers.Checked;
             form.timer1_lbl.Visible = enableTimers.Checked;
@@ -66,6 +66,7 @@ namespace Szachy
         {
             if(enableTimers.Checked)
             {
+                enablePause.Enabled = true;
                 textBox6.Enabled = true;
                 textBox5.Enabled = true;
                 textBox3.Enabled = true;
@@ -75,6 +76,7 @@ namespace Szachy
             }
             else
             {
+                enablePause.Enabled = false;
                 textBox6.Enabled = false;
                 textBox5.Enabled = false;
                 textBox3.Enabled = false;
