@@ -22,6 +22,9 @@ namespace Szachy
         public int turnTimeSec;
         public int turnTimeHour;
 
+        public double player1_points;
+        public double player2_points;
+
         public int player1_hour;
         public int player1_min;
         public int player1_sec;
@@ -34,12 +37,11 @@ namespace Szachy
         public bool whiteDownside;
         public bool enableTimers;
         bool timerIsRunning = true;
+        public int whitePlayer;
+        public bool endOfGame = false;
 
         public Label p1_lbl;
         public Label p2_lbl;
-
-        string path = "save";
-        int fileCounter = 0;
 
         public Form1()
         {
@@ -67,7 +69,7 @@ namespace Szachy
             matrix.figures[13].firstMove = false;
             matrix.figures[29].firstMove = false;
 
-            matrix.board[4, 4].figure = matrix.figures[17];
+            /*matrix.board[4, 4].figure = matrix.figures[17];
             matrix.board[8, 4].figure = matrix.figures[10];
             matrix.board[4, 2].figure = matrix.figures[15];
             matrix.board[2, 2].figure = matrix.figures[29];
@@ -98,6 +100,21 @@ namespace Szachy
             matrix.DrawFigures();
             matrix.ResetMoveAbility();
             matrix.DrawMoveAbility();
+            if(endOfGame)
+            {
+                rotate_labels();
+                if (whitePlayer == 1) whitePlayer = 2;
+                else whitePlayer = 1;
+                endOfGame = false;
+            }
+
+            if (timer1_lbl.Visible)
+            {
+                Point timer1_lblLocation = timer1_lbl.Location;
+                timer1_lbl.Location = timer2_lbl.Location;
+                timer2_lbl.Location = timer1_lblLocation;
+            }
+
         }
 
         private void debugClick(object sender, EventArgs e)
@@ -140,8 +157,11 @@ namespace Szachy
             {
                 int playerTime = player1_hour * 36000 + player1_min * 600 + player1_sec * 10 + player1_dec;
 
+                timer2_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
+                    (player1_sec <= 9 ? "0" : "") + player1_sec.ToString() + ":" + player1_dec.ToString();
+
                 firstMove = false;
-                if (playerTime == 0)
+                if (playerTime == 0 && timer1_lbl.Visible)
                 {
                     bool draw = true;
                     bool allyFigure = false;
@@ -186,17 +206,17 @@ namespace Szachy
 
                     if (!draw)
                     {
+                        if (whitePlayer == 1) player1Win();
+                        else player2Win();
                         Debug.WriteLine("Koniec czasu, biale wygrywaja");
                         MessageBox.Show("Koniec czasu\nBiale wygrywaja", "Koniec czasu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
+                        this.draw();
                         Debug.WriteLine("Koniec czasu, remis");
                     }
                 }
-
-                timer2_lbl.Text = player1_hour.ToString() + ":" + (player1_min <= 9 ? "0" : "") + player1_min.ToString() + ":" +
-                    (player1_sec <= 9 ? "0" : "") + player1_sec.ToString() + ":" + player1_dec.ToString();
 
                 playerTime--;
                 player1_dec = playerTime % 10;
@@ -209,7 +229,10 @@ namespace Szachy
             {
                 int playerTime = player2_hour * 36000 + player2_min * 600 + player2_sec * 10 + player2_dec;
 
-                if (playerTime == 0)
+                timer1_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
+                    (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
+
+                if (playerTime == 0 && timer1_lbl.Visible)
                 {
                     bool draw = true;
                     bool allyFigure = false;
@@ -251,18 +274,17 @@ namespace Szachy
 
                     if (!draw)
                     {
+                        if (whitePlayer == 1) player2Win();
+                        else player1Win();
                         Debug.WriteLine("Koniec czasu, czarne wygrywaja");
                         MessageBox.Show("Koniec czasu\nCzarne wygrywaja", "Koniec czasu", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
+                        this.draw();
                         Debug.WriteLine("Koniec czasu, remis");
                     }
                 }
-
-                timer1_lbl.Text = player2_hour.ToString() + ":" + (player2_min <= 9 ? "0" : "") + player2_min.ToString() + ":" +
-                    (player2_sec <= 9 ? "0" : "") + player2_sec.ToString() + ":" + player2_dec.ToString();
-
 
                 playerTime--;
                 player2_dec = playerTime % 10;
@@ -279,13 +301,16 @@ namespace Szachy
             if((autoRotate.Checked && matrix.whiteDownside!=whiteDownside)  || sender!=null)
             {
                 Point[,] pbarrayCopy = new Point[9, 9];
-                Point player1_lblLocation = player1_lbl.Location; 
+                Point player1_lblLocation = player1_lbl.Location;
                 Point timer1_lblLocation = timer1_lbl.Location;
+                Point points1_lblLocation = points1_lbl.Location;
 
                 player1_lbl.Location = player2_lbl.Location;
                 timer1_lbl.Location = timer2_lbl.Location;
                 player2_lbl.Location = player1_lblLocation;
                 timer2_lbl.Location = timer1_lblLocation;
+                points1_lbl.Location = points2_lbl.Location;
+                points2_lbl.Location = points1_lblLocation;
 
                 for (int iCol = 1; iCol <= 8; iCol++)
                     for (int iRow = 1; iRow <= 8; iRow++)
@@ -340,54 +365,84 @@ namespace Szachy
             timer1.Enabled = timerIsRunning;
         }
 
-        public void boardDecode(object sender, EventArgs e)
+        public void player1Win()
         {
-                // Create a file to write to.
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                for (int iCol = 1; iCol <= 9; iCol++)
-                    for (int iRow = 1; iRow <= 9; iRow++)
-                    {
-                        if(matrix.board[iCol, iRow].figure == null)
-                        {
-                            sw.Write("000");
-                        }
-                        else
-                        {
-                            int indexWr = Array.IndexOf(matrix.figures, matrix.board[iCol, iRow].figure);
-                            Debug.WriteLine(matrix.board[iCol, iRow].figure.type + " " + indexWr);
-                            sw.Write((matrix.board[iCol, iRow].figure.firstMove ? "0":"1")+
-                                (indexWr<10 ? "0":"")+ indexWr.ToString());
-                        }
-                    }
-                sw.WriteLine("");
-                sw.Close();
-                }
+            player1_points++;
+            points1_lbl.Text = "Punkty: " + player1_points.ToString();
+            endOfGame = true;
         }
 
-        public void boardEncode(object sender, EventArgs e)
+        public void player2Win()
         {
-            if(File.Exists(path))
+            player2_points++;
+            points2_lbl.Text = "Punkty: " + player2_points.ToString();
+            endOfGame = true;
+
+        }
+
+        public void draw()
+        {
+            player1_points += 0.5;
+            player2_points += 0.5;
+            points1_lbl.Text = "Punkty: " + player1_points.ToString();
+            points2_lbl.Text = "Punkty: " + player2_points.ToString();
+            endOfGame = true;
+        }
+
+        public void rotate_labels()
+        {
+            Point player1_lblLocation = player1_lbl.Location;
+            Point timer1_lblLocation = timer1_lbl.Location;
+            Point points1_lblLocation = points1_lbl.Location;
+            player1_lbl.Location = player2_lbl.Location;
+            timer1_lbl.Location = timer2_lbl.Location;
+            player2_lbl.Location = player1_lblLocation;
+            timer2_lbl.Location = timer1_lblLocation;
+            points1_lbl.Location = points2_lbl.Location;
+            points2_lbl.Location = points1_lblLocation;
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
             {
-                string line = File.ReadLines(path).Skip(fileCounter).Take(1).First();
-
-                for (int iCol = 1; iCol <= 9; iCol++)
-                    for (int iRow = 1; iRow <= 9; iRow++)
-                    {
-                        int index = (iCol - 1) * 9 + iRow - 1;
-                        string ss = line.Substring(index*3,3);
-                        Debug.WriteLine(ss);
-                        if (ss=="000")
-                        {
-                            matrix.board[iCol, iRow].figure = null;
-                        }
-                        else
-                        {
-                            matrix.board[iCol, iRow].figure = matrix.figures[int.Parse(ss.Substring(1, 2))];
-                        }
-                    }
+                BinaryWriter bw = new BinaryWriter(new FileStream("save", FileMode.Create));
+                bw.Write(ObjectToByteArray(matrix.figures[13]));
             }
-            matrix.DrawFigures();
+            catch (IOException ex)
+            {
+                Debug.WriteLine("WRITE");
+            }
         }
+
+        byte[] ObjectToByteArray(object obj)
+        {
+            if (obj == null)
+                return null;
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            byte[] buffer;
+            buffer = File.ReadAllBytes("save");
+
+            Debug.WriteLine(buffer.Length);
+
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream(buffer))
+            {
+                Figure obj = (Figure)bf.Deserialize(ms);
+                Debug.WriteLine(obj.type + " " + obj.color + " " + obj.firstMove);
+            }
+        }
+
     }
 }

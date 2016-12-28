@@ -106,8 +106,8 @@
             this.autoRotate = new System.Windows.Forms.CheckBox();
             this.button3 = new System.Windows.Forms.Button();
             this.toggleTimer = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.points2_lbl = new System.Windows.Forms.Label();
+            this.points1_lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c28)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c38)).BeginInit();
@@ -176,9 +176,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(19, 56);
+            this.button1.Location = new System.Drawing.Point(25, 69);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 23);
+            this.button1.Size = new System.Drawing.Size(207, 28);
             this.button1.TabIndex = 65;
             this.button1.Text = "Restart Gry";
             this.button1.UseVisualStyleBackColor = true;
@@ -187,10 +188,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(17, 555);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox1.Location = new System.Drawing.Point(23, 683);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(88, 17);
+            this.checkBox1.Size = new System.Drawing.Size(111, 21);
             this.checkBox1.TabIndex = 66;
             this.checkBox1.Text = "Debug Mode";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -200,22 +201,24 @@
             // 
             this.GUI_Color.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.GUI_Color.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.GUI_Color.Location = new System.Drawing.Point(771, 221);
+            this.GUI_Color.Location = new System.Drawing.Point(1028, 272);
+            this.GUI_Color.Margin = new System.Windows.Forms.Padding(4);
             this.GUI_Color.Multiline = true;
             this.GUI_Color.Name = "GUI_Color";
             this.GUI_Color.ReadOnly = true;
-            this.GUI_Color.Size = new System.Drawing.Size(116, 49);
+            this.GUI_Color.Size = new System.Drawing.Size(154, 60);
             this.GUI_Color.TabIndex = 67;
             this.GUI_Color.Text = "Ruch:\r\nBiałych\r\n";
             // 
             // GUI_Count
             // 
             this.GUI_Count.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.GUI_Count.Location = new System.Drawing.Point(771, 289);
+            this.GUI_Count.Location = new System.Drawing.Point(1028, 356);
+            this.GUI_Count.Margin = new System.Windows.Forms.Padding(4);
             this.GUI_Count.Multiline = true;
             this.GUI_Count.Name = "GUI_Count";
             this.GUI_Count.ReadOnly = true;
-            this.GUI_Count.Size = new System.Drawing.Size(116, 49);
+            this.GUI_Count.Size = new System.Drawing.Size(153, 59);
             this.GUI_Count.TabIndex = 68;
             this.GUI_Count.Text = "Liczba Ruchów:\r\n0\r\n";
             // 
@@ -224,10 +227,9 @@
             this.player1_lbl.AutoSize = true;
             this.player1_lbl.BackColor = System.Drawing.Color.White;
             this.player1_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.player1_lbl.Location = new System.Drawing.Point(767, 512);
-            this.player1_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.player1_lbl.Location = new System.Drawing.Point(1023, 607);
             this.player1_lbl.Name = "player1_lbl";
-            this.player1_lbl.Size = new System.Drawing.Size(77, 24);
+            this.player1_lbl.Size = new System.Drawing.Size(100, 29);
             this.player1_lbl.TabIndex = 70;
             this.player1_lbl.Text = "Player 1";
             // 
@@ -236,10 +238,9 @@
             this.timer1_lbl.AutoSize = true;
             this.timer1_lbl.BackColor = System.Drawing.Color.White;
             this.timer1_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.timer1_lbl.Location = new System.Drawing.Point(764, 535);
-            this.timer1_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.timer1_lbl.Location = new System.Drawing.Point(1019, 635);
             this.timer1_lbl.Name = "timer1_lbl";
-            this.timer1_lbl.Size = new System.Drawing.Size(123, 36);
+            this.timer1_lbl.Size = new System.Drawing.Size(154, 44);
             this.timer1_lbl.TabIndex = 71;
             this.timer1_lbl.Text = "00:00.0";
             // 
@@ -248,10 +249,9 @@
             this.timer2_lbl.AutoSize = true;
             this.timer2_lbl.BackColor = System.Drawing.Color.White;
             this.timer2_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.timer2_lbl.Location = new System.Drawing.Point(763, 46);
-            this.timer2_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.timer2_lbl.Location = new System.Drawing.Point(1018, 57);
             this.timer2_lbl.Name = "timer2_lbl";
-            this.timer2_lbl.Size = new System.Drawing.Size(123, 36);
+            this.timer2_lbl.Size = new System.Drawing.Size(154, 44);
             this.timer2_lbl.TabIndex = 73;
             this.timer2_lbl.Text = "00:00.0";
             // 
@@ -260,10 +260,9 @@
             this.player2_lbl.AutoSize = true;
             this.player2_lbl.BackColor = System.Drawing.Color.White;
             this.player2_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.player2_lbl.Location = new System.Drawing.Point(767, 22);
-            this.player2_lbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.player2_lbl.Location = new System.Drawing.Point(1023, 27);
             this.player2_lbl.Name = "player2_lbl";
-            this.player2_lbl.Size = new System.Drawing.Size(77, 24);
+            this.player2_lbl.Size = new System.Drawing.Size(100, 29);
             this.player2_lbl.TabIndex = 72;
             this.player2_lbl.Text = "Player 2";
             // 
@@ -275,19 +274,20 @@
             // 
             this.c18.BackColor = System.Drawing.Color.Moccasin;
             this.c18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c18.Location = new System.Drawing.Point(179, 12);
-            this.c18.Margin = new System.Windows.Forms.Padding(2);
+            this.c18.Location = new System.Drawing.Point(239, 15);
+            this.c18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c18.Name = "c18";
-            this.c18.Size = new System.Drawing.Size(70, 70);
+            this.c18.Size = new System.Drawing.Size(93, 86);
             this.c18.TabIndex = 0;
             this.c18.TabStop = false;
             this.c18.Click += new System.EventHandler(this.CellClick);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(19, 85);
+            this.button2.Location = new System.Drawing.Point(25, 105);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(155, 23);
+            this.button2.Size = new System.Drawing.Size(207, 28);
             this.button2.TabIndex = 74;
             this.button2.Text = "Obróć Szachownicę";
             this.button2.UseVisualStyleBackColor = true;
@@ -297,10 +297,10 @@
             // 
             this.c28.BackColor = System.Drawing.Color.Peru;
             this.c28.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c28.Location = new System.Drawing.Point(249, 12);
-            this.c28.Margin = new System.Windows.Forms.Padding(2);
+            this.c28.Location = new System.Drawing.Point(332, 15);
+            this.c28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c28.Name = "c28";
-            this.c28.Size = new System.Drawing.Size(70, 70);
+            this.c28.Size = new System.Drawing.Size(93, 86);
             this.c28.TabIndex = 75;
             this.c28.TabStop = false;
             this.c28.Click += new System.EventHandler(this.CellClick);
@@ -309,10 +309,10 @@
             // 
             this.c38.BackColor = System.Drawing.Color.Moccasin;
             this.c38.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c38.Location = new System.Drawing.Point(319, 12);
-            this.c38.Margin = new System.Windows.Forms.Padding(2);
+            this.c38.Location = new System.Drawing.Point(425, 15);
+            this.c38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c38.Name = "c38";
-            this.c38.Size = new System.Drawing.Size(70, 70);
+            this.c38.Size = new System.Drawing.Size(93, 86);
             this.c38.TabIndex = 76;
             this.c38.TabStop = false;
             this.c38.Click += new System.EventHandler(this.CellClick);
@@ -321,10 +321,10 @@
             // 
             this.c48.BackColor = System.Drawing.Color.Peru;
             this.c48.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c48.Location = new System.Drawing.Point(389, 12);
-            this.c48.Margin = new System.Windows.Forms.Padding(2);
+            this.c48.Location = new System.Drawing.Point(519, 15);
+            this.c48.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c48.Name = "c48";
-            this.c48.Size = new System.Drawing.Size(70, 70);
+            this.c48.Size = new System.Drawing.Size(93, 86);
             this.c48.TabIndex = 77;
             this.c48.TabStop = false;
             this.c48.Click += new System.EventHandler(this.CellClick);
@@ -333,10 +333,10 @@
             // 
             this.c88.BackColor = System.Drawing.Color.Peru;
             this.c88.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c88.Location = new System.Drawing.Point(669, 12);
-            this.c88.Margin = new System.Windows.Forms.Padding(2);
+            this.c88.Location = new System.Drawing.Point(892, 15);
+            this.c88.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c88.Name = "c88";
-            this.c88.Size = new System.Drawing.Size(70, 70);
+            this.c88.Size = new System.Drawing.Size(93, 86);
             this.c88.TabIndex = 81;
             this.c88.TabStop = false;
             this.c88.Click += new System.EventHandler(this.CellClick);
@@ -345,10 +345,10 @@
             // 
             this.c78.BackColor = System.Drawing.Color.Moccasin;
             this.c78.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c78.Location = new System.Drawing.Point(599, 12);
-            this.c78.Margin = new System.Windows.Forms.Padding(2);
+            this.c78.Location = new System.Drawing.Point(799, 15);
+            this.c78.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c78.Name = "c78";
-            this.c78.Size = new System.Drawing.Size(70, 70);
+            this.c78.Size = new System.Drawing.Size(93, 86);
             this.c78.TabIndex = 80;
             this.c78.TabStop = false;
             this.c78.Click += new System.EventHandler(this.CellClick);
@@ -357,10 +357,10 @@
             // 
             this.c68.BackColor = System.Drawing.Color.Peru;
             this.c68.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c68.Location = new System.Drawing.Point(529, 12);
-            this.c68.Margin = new System.Windows.Forms.Padding(2);
+            this.c68.Location = new System.Drawing.Point(705, 15);
+            this.c68.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c68.Name = "c68";
-            this.c68.Size = new System.Drawing.Size(70, 70);
+            this.c68.Size = new System.Drawing.Size(93, 86);
             this.c68.TabIndex = 79;
             this.c68.TabStop = false;
             this.c68.Click += new System.EventHandler(this.CellClick);
@@ -369,10 +369,10 @@
             // 
             this.c58.BackColor = System.Drawing.Color.Moccasin;
             this.c58.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c58.Location = new System.Drawing.Point(459, 12);
-            this.c58.Margin = new System.Windows.Forms.Padding(2);
+            this.c58.Location = new System.Drawing.Point(612, 15);
+            this.c58.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c58.Name = "c58";
-            this.c58.Size = new System.Drawing.Size(70, 70);
+            this.c58.Size = new System.Drawing.Size(93, 86);
             this.c58.TabIndex = 78;
             this.c58.TabStop = false;
             this.c58.Click += new System.EventHandler(this.CellClick);
@@ -381,10 +381,10 @@
             // 
             this.c86.BackColor = System.Drawing.Color.Peru;
             this.c86.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c86.Location = new System.Drawing.Point(669, 152);
-            this.c86.Margin = new System.Windows.Forms.Padding(2);
+            this.c86.Location = new System.Drawing.Point(892, 187);
+            this.c86.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c86.Name = "c86";
-            this.c86.Size = new System.Drawing.Size(70, 70);
+            this.c86.Size = new System.Drawing.Size(93, 86);
             this.c86.TabIndex = 89;
             this.c86.TabStop = false;
             this.c86.Click += new System.EventHandler(this.CellClick);
@@ -393,10 +393,10 @@
             // 
             this.c76.BackColor = System.Drawing.Color.Moccasin;
             this.c76.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c76.Location = new System.Drawing.Point(599, 152);
-            this.c76.Margin = new System.Windows.Forms.Padding(2);
+            this.c76.Location = new System.Drawing.Point(799, 187);
+            this.c76.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c76.Name = "c76";
-            this.c76.Size = new System.Drawing.Size(70, 70);
+            this.c76.Size = new System.Drawing.Size(93, 86);
             this.c76.TabIndex = 88;
             this.c76.TabStop = false;
             this.c76.Click += new System.EventHandler(this.CellClick);
@@ -405,10 +405,10 @@
             // 
             this.c66.BackColor = System.Drawing.Color.Peru;
             this.c66.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c66.Location = new System.Drawing.Point(529, 152);
-            this.c66.Margin = new System.Windows.Forms.Padding(2);
+            this.c66.Location = new System.Drawing.Point(705, 187);
+            this.c66.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c66.Name = "c66";
-            this.c66.Size = new System.Drawing.Size(70, 70);
+            this.c66.Size = new System.Drawing.Size(93, 86);
             this.c66.TabIndex = 87;
             this.c66.TabStop = false;
             this.c66.Click += new System.EventHandler(this.CellClick);
@@ -417,10 +417,10 @@
             // 
             this.c56.BackColor = System.Drawing.Color.Moccasin;
             this.c56.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c56.Location = new System.Drawing.Point(459, 152);
-            this.c56.Margin = new System.Windows.Forms.Padding(2);
+            this.c56.Location = new System.Drawing.Point(612, 187);
+            this.c56.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c56.Name = "c56";
-            this.c56.Size = new System.Drawing.Size(70, 70);
+            this.c56.Size = new System.Drawing.Size(93, 86);
             this.c56.TabIndex = 86;
             this.c56.TabStop = false;
             this.c56.Click += new System.EventHandler(this.CellClick);
@@ -429,10 +429,10 @@
             // 
             this.c46.BackColor = System.Drawing.Color.Peru;
             this.c46.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c46.Location = new System.Drawing.Point(389, 152);
-            this.c46.Margin = new System.Windows.Forms.Padding(2);
+            this.c46.Location = new System.Drawing.Point(519, 187);
+            this.c46.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c46.Name = "c46";
-            this.c46.Size = new System.Drawing.Size(70, 70);
+            this.c46.Size = new System.Drawing.Size(93, 86);
             this.c46.TabIndex = 85;
             this.c46.TabStop = false;
             this.c46.Click += new System.EventHandler(this.CellClick);
@@ -441,10 +441,10 @@
             // 
             this.c36.BackColor = System.Drawing.Color.Moccasin;
             this.c36.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c36.Location = new System.Drawing.Point(319, 152);
-            this.c36.Margin = new System.Windows.Forms.Padding(2);
+            this.c36.Location = new System.Drawing.Point(425, 187);
+            this.c36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c36.Name = "c36";
-            this.c36.Size = new System.Drawing.Size(70, 70);
+            this.c36.Size = new System.Drawing.Size(93, 86);
             this.c36.TabIndex = 84;
             this.c36.TabStop = false;
             this.c36.Click += new System.EventHandler(this.CellClick);
@@ -453,10 +453,10 @@
             // 
             this.c26.BackColor = System.Drawing.Color.Peru;
             this.c26.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c26.Location = new System.Drawing.Point(249, 152);
-            this.c26.Margin = new System.Windows.Forms.Padding(2);
+            this.c26.Location = new System.Drawing.Point(332, 187);
+            this.c26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c26.Name = "c26";
-            this.c26.Size = new System.Drawing.Size(70, 70);
+            this.c26.Size = new System.Drawing.Size(93, 86);
             this.c26.TabIndex = 83;
             this.c26.TabStop = false;
             this.c26.Click += new System.EventHandler(this.CellClick);
@@ -465,10 +465,10 @@
             // 
             this.c16.BackColor = System.Drawing.Color.Moccasin;
             this.c16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c16.Location = new System.Drawing.Point(179, 152);
-            this.c16.Margin = new System.Windows.Forms.Padding(2);
+            this.c16.Location = new System.Drawing.Point(239, 187);
+            this.c16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c16.Name = "c16";
-            this.c16.Size = new System.Drawing.Size(70, 70);
+            this.c16.Size = new System.Drawing.Size(93, 86);
             this.c16.TabIndex = 82;
             this.c16.TabStop = false;
             this.c16.Click += new System.EventHandler(this.CellClick);
@@ -477,10 +477,10 @@
             // 
             this.c77.BackColor = System.Drawing.Color.Peru;
             this.c77.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c77.Location = new System.Drawing.Point(599, 82);
-            this.c77.Margin = new System.Windows.Forms.Padding(2);
+            this.c77.Location = new System.Drawing.Point(799, 101);
+            this.c77.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c77.Name = "c77";
-            this.c77.Size = new System.Drawing.Size(70, 70);
+            this.c77.Size = new System.Drawing.Size(93, 86);
             this.c77.TabIndex = 97;
             this.c77.TabStop = false;
             this.c77.Click += new System.EventHandler(this.CellClick);
@@ -489,10 +489,10 @@
             // 
             this.c67.BackColor = System.Drawing.Color.Moccasin;
             this.c67.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c67.Location = new System.Drawing.Point(529, 82);
-            this.c67.Margin = new System.Windows.Forms.Padding(2);
+            this.c67.Location = new System.Drawing.Point(705, 101);
+            this.c67.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c67.Name = "c67";
-            this.c67.Size = new System.Drawing.Size(70, 70);
+            this.c67.Size = new System.Drawing.Size(93, 86);
             this.c67.TabIndex = 96;
             this.c67.TabStop = false;
             this.c67.Click += new System.EventHandler(this.CellClick);
@@ -501,10 +501,10 @@
             // 
             this.c57.BackColor = System.Drawing.Color.Peru;
             this.c57.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c57.Location = new System.Drawing.Point(459, 82);
-            this.c57.Margin = new System.Windows.Forms.Padding(2);
+            this.c57.Location = new System.Drawing.Point(612, 101);
+            this.c57.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c57.Name = "c57";
-            this.c57.Size = new System.Drawing.Size(70, 70);
+            this.c57.Size = new System.Drawing.Size(93, 86);
             this.c57.TabIndex = 95;
             this.c57.TabStop = false;
             this.c57.Click += new System.EventHandler(this.CellClick);
@@ -513,10 +513,10 @@
             // 
             this.c47.BackColor = System.Drawing.Color.Moccasin;
             this.c47.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c47.Location = new System.Drawing.Point(389, 82);
-            this.c47.Margin = new System.Windows.Forms.Padding(2);
+            this.c47.Location = new System.Drawing.Point(519, 101);
+            this.c47.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c47.Name = "c47";
-            this.c47.Size = new System.Drawing.Size(70, 70);
+            this.c47.Size = new System.Drawing.Size(93, 86);
             this.c47.TabIndex = 94;
             this.c47.TabStop = false;
             this.c47.Click += new System.EventHandler(this.CellClick);
@@ -525,10 +525,10 @@
             // 
             this.c37.BackColor = System.Drawing.Color.Peru;
             this.c37.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c37.Location = new System.Drawing.Point(319, 82);
-            this.c37.Margin = new System.Windows.Forms.Padding(2);
+            this.c37.Location = new System.Drawing.Point(425, 101);
+            this.c37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c37.Name = "c37";
-            this.c37.Size = new System.Drawing.Size(70, 70);
+            this.c37.Size = new System.Drawing.Size(93, 86);
             this.c37.TabIndex = 93;
             this.c37.TabStop = false;
             this.c37.Click += new System.EventHandler(this.CellClick);
@@ -537,10 +537,10 @@
             // 
             this.c27.BackColor = System.Drawing.Color.Moccasin;
             this.c27.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c27.Location = new System.Drawing.Point(249, 82);
-            this.c27.Margin = new System.Windows.Forms.Padding(2);
+            this.c27.Location = new System.Drawing.Point(332, 101);
+            this.c27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c27.Name = "c27";
-            this.c27.Size = new System.Drawing.Size(70, 70);
+            this.c27.Size = new System.Drawing.Size(93, 86);
             this.c27.TabIndex = 92;
             this.c27.TabStop = false;
             this.c27.Click += new System.EventHandler(this.CellClick);
@@ -549,10 +549,10 @@
             // 
             this.c17.BackColor = System.Drawing.Color.Peru;
             this.c17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c17.Location = new System.Drawing.Point(179, 82);
-            this.c17.Margin = new System.Windows.Forms.Padding(2);
+            this.c17.Location = new System.Drawing.Point(239, 101);
+            this.c17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c17.Name = "c17";
-            this.c17.Size = new System.Drawing.Size(70, 70);
+            this.c17.Size = new System.Drawing.Size(93, 86);
             this.c17.TabIndex = 91;
             this.c17.TabStop = false;
             this.c17.Click += new System.EventHandler(this.CellClick);
@@ -561,10 +561,10 @@
             // 
             this.c87.BackColor = System.Drawing.Color.Moccasin;
             this.c87.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c87.Location = new System.Drawing.Point(669, 82);
-            this.c87.Margin = new System.Windows.Forms.Padding(2);
+            this.c87.Location = new System.Drawing.Point(892, 101);
+            this.c87.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c87.Name = "c87";
-            this.c87.Size = new System.Drawing.Size(70, 70);
+            this.c87.Size = new System.Drawing.Size(93, 86);
             this.c87.TabIndex = 90;
             this.c87.TabStop = false;
             this.c87.Click += new System.EventHandler(this.CellClick);
@@ -573,10 +573,10 @@
             // 
             this.c75.BackColor = System.Drawing.Color.Peru;
             this.c75.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c75.Location = new System.Drawing.Point(599, 222);
-            this.c75.Margin = new System.Windows.Forms.Padding(2);
+            this.c75.Location = new System.Drawing.Point(799, 273);
+            this.c75.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c75.Name = "c75";
-            this.c75.Size = new System.Drawing.Size(70, 70);
+            this.c75.Size = new System.Drawing.Size(93, 86);
             this.c75.TabIndex = 105;
             this.c75.TabStop = false;
             this.c75.Click += new System.EventHandler(this.CellClick);
@@ -585,10 +585,10 @@
             // 
             this.c65.BackColor = System.Drawing.Color.Moccasin;
             this.c65.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c65.Location = new System.Drawing.Point(529, 222);
-            this.c65.Margin = new System.Windows.Forms.Padding(2);
+            this.c65.Location = new System.Drawing.Point(705, 273);
+            this.c65.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c65.Name = "c65";
-            this.c65.Size = new System.Drawing.Size(70, 70);
+            this.c65.Size = new System.Drawing.Size(93, 86);
             this.c65.TabIndex = 104;
             this.c65.TabStop = false;
             this.c65.Click += new System.EventHandler(this.CellClick);
@@ -597,10 +597,10 @@
             // 
             this.c55.BackColor = System.Drawing.Color.Peru;
             this.c55.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c55.Location = new System.Drawing.Point(459, 222);
-            this.c55.Margin = new System.Windows.Forms.Padding(2);
+            this.c55.Location = new System.Drawing.Point(612, 273);
+            this.c55.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c55.Name = "c55";
-            this.c55.Size = new System.Drawing.Size(70, 70);
+            this.c55.Size = new System.Drawing.Size(93, 86);
             this.c55.TabIndex = 103;
             this.c55.TabStop = false;
             this.c55.Click += new System.EventHandler(this.CellClick);
@@ -609,10 +609,10 @@
             // 
             this.c45.BackColor = System.Drawing.Color.Moccasin;
             this.c45.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c45.Location = new System.Drawing.Point(389, 222);
-            this.c45.Margin = new System.Windows.Forms.Padding(2);
+            this.c45.Location = new System.Drawing.Point(519, 273);
+            this.c45.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c45.Name = "c45";
-            this.c45.Size = new System.Drawing.Size(70, 70);
+            this.c45.Size = new System.Drawing.Size(93, 86);
             this.c45.TabIndex = 102;
             this.c45.TabStop = false;
             this.c45.Click += new System.EventHandler(this.CellClick);
@@ -621,10 +621,10 @@
             // 
             this.c35.BackColor = System.Drawing.Color.Peru;
             this.c35.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c35.Location = new System.Drawing.Point(319, 222);
-            this.c35.Margin = new System.Windows.Forms.Padding(2);
+            this.c35.Location = new System.Drawing.Point(425, 273);
+            this.c35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c35.Name = "c35";
-            this.c35.Size = new System.Drawing.Size(70, 70);
+            this.c35.Size = new System.Drawing.Size(93, 86);
             this.c35.TabIndex = 101;
             this.c35.TabStop = false;
             this.c35.Click += new System.EventHandler(this.CellClick);
@@ -633,10 +633,10 @@
             // 
             this.c25.BackColor = System.Drawing.Color.Moccasin;
             this.c25.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c25.Location = new System.Drawing.Point(249, 222);
-            this.c25.Margin = new System.Windows.Forms.Padding(2);
+            this.c25.Location = new System.Drawing.Point(332, 273);
+            this.c25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c25.Name = "c25";
-            this.c25.Size = new System.Drawing.Size(70, 70);
+            this.c25.Size = new System.Drawing.Size(93, 86);
             this.c25.TabIndex = 100;
             this.c25.TabStop = false;
             this.c25.Click += new System.EventHandler(this.CellClick);
@@ -645,10 +645,10 @@
             // 
             this.c15.BackColor = System.Drawing.Color.Peru;
             this.c15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c15.Location = new System.Drawing.Point(179, 222);
-            this.c15.Margin = new System.Windows.Forms.Padding(2);
+            this.c15.Location = new System.Drawing.Point(239, 273);
+            this.c15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c15.Name = "c15";
-            this.c15.Size = new System.Drawing.Size(70, 70);
+            this.c15.Size = new System.Drawing.Size(93, 86);
             this.c15.TabIndex = 99;
             this.c15.TabStop = false;
             this.c15.Click += new System.EventHandler(this.CellClick);
@@ -657,10 +657,10 @@
             // 
             this.c85.BackColor = System.Drawing.Color.Moccasin;
             this.c85.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c85.Location = new System.Drawing.Point(669, 222);
-            this.c85.Margin = new System.Windows.Forms.Padding(2);
+            this.c85.Location = new System.Drawing.Point(892, 273);
+            this.c85.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c85.Name = "c85";
-            this.c85.Size = new System.Drawing.Size(70, 70);
+            this.c85.Size = new System.Drawing.Size(93, 86);
             this.c85.TabIndex = 98;
             this.c85.TabStop = false;
             this.c85.Click += new System.EventHandler(this.CellClick);
@@ -669,10 +669,10 @@
             // 
             this.c71.BackColor = System.Drawing.Color.Peru;
             this.c71.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c71.Location = new System.Drawing.Point(599, 502);
-            this.c71.Margin = new System.Windows.Forms.Padding(2);
+            this.c71.Location = new System.Drawing.Point(799, 618);
+            this.c71.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c71.Name = "c71";
-            this.c71.Size = new System.Drawing.Size(70, 70);
+            this.c71.Size = new System.Drawing.Size(93, 86);
             this.c71.TabIndex = 137;
             this.c71.TabStop = false;
             this.c71.Click += new System.EventHandler(this.CellClick);
@@ -681,10 +681,10 @@
             // 
             this.c61.BackColor = System.Drawing.Color.Moccasin;
             this.c61.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c61.Location = new System.Drawing.Point(529, 502);
-            this.c61.Margin = new System.Windows.Forms.Padding(2);
+            this.c61.Location = new System.Drawing.Point(705, 618);
+            this.c61.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c61.Name = "c61";
-            this.c61.Size = new System.Drawing.Size(70, 70);
+            this.c61.Size = new System.Drawing.Size(93, 86);
             this.c61.TabIndex = 136;
             this.c61.TabStop = false;
             this.c61.Click += new System.EventHandler(this.CellClick);
@@ -693,10 +693,10 @@
             // 
             this.c51.BackColor = System.Drawing.Color.Peru;
             this.c51.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c51.Location = new System.Drawing.Point(459, 502);
-            this.c51.Margin = new System.Windows.Forms.Padding(2);
+            this.c51.Location = new System.Drawing.Point(612, 618);
+            this.c51.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c51.Name = "c51";
-            this.c51.Size = new System.Drawing.Size(70, 70);
+            this.c51.Size = new System.Drawing.Size(93, 86);
             this.c51.TabIndex = 135;
             this.c51.TabStop = false;
             this.c51.Click += new System.EventHandler(this.CellClick);
@@ -705,10 +705,10 @@
             // 
             this.c41.BackColor = System.Drawing.Color.Moccasin;
             this.c41.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c41.Location = new System.Drawing.Point(389, 502);
-            this.c41.Margin = new System.Windows.Forms.Padding(2);
+            this.c41.Location = new System.Drawing.Point(519, 618);
+            this.c41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c41.Name = "c41";
-            this.c41.Size = new System.Drawing.Size(70, 70);
+            this.c41.Size = new System.Drawing.Size(93, 86);
             this.c41.TabIndex = 134;
             this.c41.TabStop = false;
             this.c41.Click += new System.EventHandler(this.CellClick);
@@ -717,10 +717,10 @@
             // 
             this.c31.BackColor = System.Drawing.Color.Peru;
             this.c31.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c31.Location = new System.Drawing.Point(319, 502);
-            this.c31.Margin = new System.Windows.Forms.Padding(2);
+            this.c31.Location = new System.Drawing.Point(425, 618);
+            this.c31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c31.Name = "c31";
-            this.c31.Size = new System.Drawing.Size(70, 70);
+            this.c31.Size = new System.Drawing.Size(93, 86);
             this.c31.TabIndex = 133;
             this.c31.TabStop = false;
             this.c31.Click += new System.EventHandler(this.CellClick);
@@ -729,10 +729,10 @@
             // 
             this.c21.BackColor = System.Drawing.Color.Moccasin;
             this.c21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c21.Location = new System.Drawing.Point(249, 502);
-            this.c21.Margin = new System.Windows.Forms.Padding(2);
+            this.c21.Location = new System.Drawing.Point(332, 618);
+            this.c21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c21.Name = "c21";
-            this.c21.Size = new System.Drawing.Size(70, 70);
+            this.c21.Size = new System.Drawing.Size(93, 86);
             this.c21.TabIndex = 132;
             this.c21.TabStop = false;
             this.c21.Click += new System.EventHandler(this.CellClick);
@@ -741,10 +741,10 @@
             // 
             this.c11.BackColor = System.Drawing.Color.Peru;
             this.c11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c11.Location = new System.Drawing.Point(179, 502);
-            this.c11.Margin = new System.Windows.Forms.Padding(2);
+            this.c11.Location = new System.Drawing.Point(239, 618);
+            this.c11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c11.Name = "c11";
-            this.c11.Size = new System.Drawing.Size(70, 70);
+            this.c11.Size = new System.Drawing.Size(93, 86);
             this.c11.TabIndex = 131;
             this.c11.TabStop = false;
             this.c11.Click += new System.EventHandler(this.CellClick);
@@ -753,10 +753,10 @@
             // 
             this.c81.BackColor = System.Drawing.Color.Moccasin;
             this.c81.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c81.Location = new System.Drawing.Point(669, 502);
-            this.c81.Margin = new System.Windows.Forms.Padding(2);
+            this.c81.Location = new System.Drawing.Point(892, 618);
+            this.c81.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c81.Name = "c81";
-            this.c81.Size = new System.Drawing.Size(70, 70);
+            this.c81.Size = new System.Drawing.Size(93, 86);
             this.c81.TabIndex = 130;
             this.c81.TabStop = false;
             this.c81.Click += new System.EventHandler(this.CellClick);
@@ -765,10 +765,10 @@
             // 
             this.c73.BackColor = System.Drawing.Color.Peru;
             this.c73.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c73.Location = new System.Drawing.Point(599, 362);
-            this.c73.Margin = new System.Windows.Forms.Padding(2);
+            this.c73.Location = new System.Drawing.Point(799, 446);
+            this.c73.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c73.Name = "c73";
-            this.c73.Size = new System.Drawing.Size(70, 70);
+            this.c73.Size = new System.Drawing.Size(93, 86);
             this.c73.TabIndex = 129;
             this.c73.TabStop = false;
             this.c73.Click += new System.EventHandler(this.CellClick);
@@ -777,10 +777,10 @@
             // 
             this.c63.BackColor = System.Drawing.Color.Moccasin;
             this.c63.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c63.Location = new System.Drawing.Point(529, 362);
-            this.c63.Margin = new System.Windows.Forms.Padding(2);
+            this.c63.Location = new System.Drawing.Point(705, 446);
+            this.c63.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c63.Name = "c63";
-            this.c63.Size = new System.Drawing.Size(70, 70);
+            this.c63.Size = new System.Drawing.Size(93, 86);
             this.c63.TabIndex = 128;
             this.c63.TabStop = false;
             this.c63.Click += new System.EventHandler(this.CellClick);
@@ -789,10 +789,10 @@
             // 
             this.c53.BackColor = System.Drawing.Color.Peru;
             this.c53.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c53.Location = new System.Drawing.Point(459, 362);
-            this.c53.Margin = new System.Windows.Forms.Padding(2);
+            this.c53.Location = new System.Drawing.Point(612, 446);
+            this.c53.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c53.Name = "c53";
-            this.c53.Size = new System.Drawing.Size(70, 70);
+            this.c53.Size = new System.Drawing.Size(93, 86);
             this.c53.TabIndex = 127;
             this.c53.TabStop = false;
             this.c53.Click += new System.EventHandler(this.CellClick);
@@ -801,10 +801,10 @@
             // 
             this.c43.BackColor = System.Drawing.Color.Moccasin;
             this.c43.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c43.Location = new System.Drawing.Point(389, 362);
-            this.c43.Margin = new System.Windows.Forms.Padding(2);
+            this.c43.Location = new System.Drawing.Point(519, 446);
+            this.c43.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c43.Name = "c43";
-            this.c43.Size = new System.Drawing.Size(70, 70);
+            this.c43.Size = new System.Drawing.Size(93, 86);
             this.c43.TabIndex = 126;
             this.c43.TabStop = false;
             this.c43.Click += new System.EventHandler(this.CellClick);
@@ -813,10 +813,10 @@
             // 
             this.c33.BackColor = System.Drawing.Color.Peru;
             this.c33.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c33.Location = new System.Drawing.Point(319, 362);
-            this.c33.Margin = new System.Windows.Forms.Padding(2);
+            this.c33.Location = new System.Drawing.Point(425, 446);
+            this.c33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c33.Name = "c33";
-            this.c33.Size = new System.Drawing.Size(70, 70);
+            this.c33.Size = new System.Drawing.Size(93, 86);
             this.c33.TabIndex = 125;
             this.c33.TabStop = false;
             this.c33.Click += new System.EventHandler(this.CellClick);
@@ -825,10 +825,10 @@
             // 
             this.c23.BackColor = System.Drawing.Color.Moccasin;
             this.c23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c23.Location = new System.Drawing.Point(249, 362);
-            this.c23.Margin = new System.Windows.Forms.Padding(2);
+            this.c23.Location = new System.Drawing.Point(332, 446);
+            this.c23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c23.Name = "c23";
-            this.c23.Size = new System.Drawing.Size(70, 70);
+            this.c23.Size = new System.Drawing.Size(93, 86);
             this.c23.TabIndex = 124;
             this.c23.TabStop = false;
             this.c23.Click += new System.EventHandler(this.CellClick);
@@ -837,10 +837,10 @@
             // 
             this.c13.BackColor = System.Drawing.Color.Peru;
             this.c13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c13.Location = new System.Drawing.Point(179, 362);
-            this.c13.Margin = new System.Windows.Forms.Padding(2);
+            this.c13.Location = new System.Drawing.Point(239, 446);
+            this.c13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c13.Name = "c13";
-            this.c13.Size = new System.Drawing.Size(70, 70);
+            this.c13.Size = new System.Drawing.Size(93, 86);
             this.c13.TabIndex = 123;
             this.c13.TabStop = false;
             this.c13.Click += new System.EventHandler(this.CellClick);
@@ -849,10 +849,10 @@
             // 
             this.c83.BackColor = System.Drawing.Color.Moccasin;
             this.c83.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c83.Location = new System.Drawing.Point(669, 362);
-            this.c83.Margin = new System.Windows.Forms.Padding(2);
+            this.c83.Location = new System.Drawing.Point(892, 446);
+            this.c83.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c83.Name = "c83";
-            this.c83.Size = new System.Drawing.Size(70, 70);
+            this.c83.Size = new System.Drawing.Size(93, 86);
             this.c83.TabIndex = 122;
             this.c83.TabStop = false;
             this.c83.Click += new System.EventHandler(this.CellClick);
@@ -861,10 +861,10 @@
             // 
             this.c82.BackColor = System.Drawing.Color.Peru;
             this.c82.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c82.Location = new System.Drawing.Point(669, 432);
-            this.c82.Margin = new System.Windows.Forms.Padding(2);
+            this.c82.Location = new System.Drawing.Point(892, 532);
+            this.c82.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c82.Name = "c82";
-            this.c82.Size = new System.Drawing.Size(70, 70);
+            this.c82.Size = new System.Drawing.Size(93, 86);
             this.c82.TabIndex = 121;
             this.c82.TabStop = false;
             this.c82.Click += new System.EventHandler(this.CellClick);
@@ -873,10 +873,10 @@
             // 
             this.c72.BackColor = System.Drawing.Color.Moccasin;
             this.c72.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c72.Location = new System.Drawing.Point(599, 432);
-            this.c72.Margin = new System.Windows.Forms.Padding(2);
+            this.c72.Location = new System.Drawing.Point(799, 532);
+            this.c72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c72.Name = "c72";
-            this.c72.Size = new System.Drawing.Size(70, 70);
+            this.c72.Size = new System.Drawing.Size(93, 86);
             this.c72.TabIndex = 120;
             this.c72.TabStop = false;
             this.c72.Click += new System.EventHandler(this.CellClick);
@@ -885,10 +885,10 @@
             // 
             this.c62.BackColor = System.Drawing.Color.Peru;
             this.c62.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c62.Location = new System.Drawing.Point(529, 432);
-            this.c62.Margin = new System.Windows.Forms.Padding(2);
+            this.c62.Location = new System.Drawing.Point(705, 532);
+            this.c62.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c62.Name = "c62";
-            this.c62.Size = new System.Drawing.Size(70, 70);
+            this.c62.Size = new System.Drawing.Size(93, 86);
             this.c62.TabIndex = 119;
             this.c62.TabStop = false;
             this.c62.Click += new System.EventHandler(this.CellClick);
@@ -897,10 +897,10 @@
             // 
             this.c52.BackColor = System.Drawing.Color.Moccasin;
             this.c52.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c52.Location = new System.Drawing.Point(459, 432);
-            this.c52.Margin = new System.Windows.Forms.Padding(2);
+            this.c52.Location = new System.Drawing.Point(612, 532);
+            this.c52.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c52.Name = "c52";
-            this.c52.Size = new System.Drawing.Size(70, 70);
+            this.c52.Size = new System.Drawing.Size(93, 86);
             this.c52.TabIndex = 118;
             this.c52.TabStop = false;
             this.c52.Click += new System.EventHandler(this.CellClick);
@@ -909,10 +909,10 @@
             // 
             this.c42.BackColor = System.Drawing.Color.Peru;
             this.c42.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c42.Location = new System.Drawing.Point(389, 432);
-            this.c42.Margin = new System.Windows.Forms.Padding(2);
+            this.c42.Location = new System.Drawing.Point(519, 532);
+            this.c42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c42.Name = "c42";
-            this.c42.Size = new System.Drawing.Size(70, 70);
+            this.c42.Size = new System.Drawing.Size(93, 86);
             this.c42.TabIndex = 117;
             this.c42.TabStop = false;
             this.c42.Click += new System.EventHandler(this.CellClick);
@@ -921,10 +921,10 @@
             // 
             this.c32.BackColor = System.Drawing.Color.Moccasin;
             this.c32.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c32.Location = new System.Drawing.Point(319, 432);
-            this.c32.Margin = new System.Windows.Forms.Padding(2);
+            this.c32.Location = new System.Drawing.Point(425, 532);
+            this.c32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c32.Name = "c32";
-            this.c32.Size = new System.Drawing.Size(70, 70);
+            this.c32.Size = new System.Drawing.Size(93, 86);
             this.c32.TabIndex = 116;
             this.c32.TabStop = false;
             this.c32.Click += new System.EventHandler(this.CellClick);
@@ -933,10 +933,10 @@
             // 
             this.c22.BackColor = System.Drawing.Color.Peru;
             this.c22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c22.Location = new System.Drawing.Point(249, 432);
-            this.c22.Margin = new System.Windows.Forms.Padding(2);
+            this.c22.Location = new System.Drawing.Point(332, 532);
+            this.c22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c22.Name = "c22";
-            this.c22.Size = new System.Drawing.Size(70, 70);
+            this.c22.Size = new System.Drawing.Size(93, 86);
             this.c22.TabIndex = 115;
             this.c22.TabStop = false;
             this.c22.Click += new System.EventHandler(this.CellClick);
@@ -945,10 +945,10 @@
             // 
             this.c12.BackColor = System.Drawing.Color.Moccasin;
             this.c12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c12.Location = new System.Drawing.Point(179, 432);
-            this.c12.Margin = new System.Windows.Forms.Padding(2);
+            this.c12.Location = new System.Drawing.Point(239, 532);
+            this.c12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c12.Name = "c12";
-            this.c12.Size = new System.Drawing.Size(70, 70);
+            this.c12.Size = new System.Drawing.Size(93, 86);
             this.c12.TabIndex = 114;
             this.c12.TabStop = false;
             this.c12.Click += new System.EventHandler(this.CellClick);
@@ -957,10 +957,10 @@
             // 
             this.c84.BackColor = System.Drawing.Color.Peru;
             this.c84.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c84.Location = new System.Drawing.Point(669, 292);
-            this.c84.Margin = new System.Windows.Forms.Padding(2);
+            this.c84.Location = new System.Drawing.Point(892, 359);
+            this.c84.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c84.Name = "c84";
-            this.c84.Size = new System.Drawing.Size(70, 70);
+            this.c84.Size = new System.Drawing.Size(93, 86);
             this.c84.TabIndex = 113;
             this.c84.TabStop = false;
             this.c84.Click += new System.EventHandler(this.CellClick);
@@ -969,10 +969,10 @@
             // 
             this.c74.BackColor = System.Drawing.Color.Moccasin;
             this.c74.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c74.Location = new System.Drawing.Point(599, 292);
-            this.c74.Margin = new System.Windows.Forms.Padding(2);
+            this.c74.Location = new System.Drawing.Point(799, 359);
+            this.c74.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c74.Name = "c74";
-            this.c74.Size = new System.Drawing.Size(70, 70);
+            this.c74.Size = new System.Drawing.Size(93, 86);
             this.c74.TabIndex = 112;
             this.c74.TabStop = false;
             this.c74.Click += new System.EventHandler(this.CellClick);
@@ -981,10 +981,10 @@
             // 
             this.c64.BackColor = System.Drawing.Color.Peru;
             this.c64.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c64.Location = new System.Drawing.Point(529, 292);
-            this.c64.Margin = new System.Windows.Forms.Padding(2);
+            this.c64.Location = new System.Drawing.Point(705, 359);
+            this.c64.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c64.Name = "c64";
-            this.c64.Size = new System.Drawing.Size(70, 70);
+            this.c64.Size = new System.Drawing.Size(93, 86);
             this.c64.TabIndex = 111;
             this.c64.TabStop = false;
             this.c64.Click += new System.EventHandler(this.CellClick);
@@ -993,10 +993,10 @@
             // 
             this.c54.BackColor = System.Drawing.Color.Moccasin;
             this.c54.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c54.Location = new System.Drawing.Point(459, 292);
-            this.c54.Margin = new System.Windows.Forms.Padding(2);
+            this.c54.Location = new System.Drawing.Point(612, 359);
+            this.c54.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c54.Name = "c54";
-            this.c54.Size = new System.Drawing.Size(70, 70);
+            this.c54.Size = new System.Drawing.Size(93, 86);
             this.c54.TabIndex = 110;
             this.c54.TabStop = false;
             this.c54.Click += new System.EventHandler(this.CellClick);
@@ -1005,10 +1005,10 @@
             // 
             this.c44.BackColor = System.Drawing.Color.Peru;
             this.c44.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c44.Location = new System.Drawing.Point(389, 292);
-            this.c44.Margin = new System.Windows.Forms.Padding(2);
+            this.c44.Location = new System.Drawing.Point(519, 359);
+            this.c44.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c44.Name = "c44";
-            this.c44.Size = new System.Drawing.Size(70, 70);
+            this.c44.Size = new System.Drawing.Size(93, 86);
             this.c44.TabIndex = 109;
             this.c44.TabStop = false;
             this.c44.Click += new System.EventHandler(this.CellClick);
@@ -1017,10 +1017,10 @@
             // 
             this.c34.BackColor = System.Drawing.Color.Moccasin;
             this.c34.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c34.Location = new System.Drawing.Point(319, 292);
-            this.c34.Margin = new System.Windows.Forms.Padding(2);
+            this.c34.Location = new System.Drawing.Point(425, 359);
+            this.c34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c34.Name = "c34";
-            this.c34.Size = new System.Drawing.Size(70, 70);
+            this.c34.Size = new System.Drawing.Size(93, 86);
             this.c34.TabIndex = 108;
             this.c34.TabStop = false;
             this.c34.Click += new System.EventHandler(this.CellClick);
@@ -1029,10 +1029,10 @@
             // 
             this.c24.BackColor = System.Drawing.Color.Peru;
             this.c24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c24.Location = new System.Drawing.Point(249, 292);
-            this.c24.Margin = new System.Windows.Forms.Padding(2);
+            this.c24.Location = new System.Drawing.Point(332, 359);
+            this.c24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c24.Name = "c24";
-            this.c24.Size = new System.Drawing.Size(70, 70);
+            this.c24.Size = new System.Drawing.Size(93, 86);
             this.c24.TabIndex = 107;
             this.c24.TabStop = false;
             this.c24.Click += new System.EventHandler(this.CellClick);
@@ -1041,10 +1041,10 @@
             // 
             this.c14.BackColor = System.Drawing.Color.Moccasin;
             this.c14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.c14.Location = new System.Drawing.Point(179, 292);
-            this.c14.Margin = new System.Windows.Forms.Padding(2);
+            this.c14.Location = new System.Drawing.Point(239, 359);
+            this.c14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.c14.Name = "c14";
-            this.c14.Size = new System.Drawing.Size(70, 70);
+            this.c14.Size = new System.Drawing.Size(93, 86);
             this.c14.TabIndex = 106;
             this.c14.TabStop = false;
             this.c14.Click += new System.EventHandler(this.CellClick);
@@ -1052,9 +1052,10 @@
             // autoRotate
             // 
             this.autoRotate.AutoSize = true;
-            this.autoRotate.Location = new System.Drawing.Point(19, 115);
+            this.autoRotate.Location = new System.Drawing.Point(25, 142);
+            this.autoRotate.Margin = new System.Windows.Forms.Padding(4);
             this.autoRotate.Name = "autoRotate";
-            this.autoRotate.Size = new System.Drawing.Size(145, 17);
+            this.autoRotate.Size = new System.Drawing.Size(189, 21);
             this.autoRotate.TabIndex = 138;
             this.autoRotate.Text = "Automatyczne Obracanie";
             this.autoRotate.UseVisualStyleBackColor = true;
@@ -1062,9 +1063,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(19, 25);
+            this.button3.Location = new System.Drawing.Point(25, 31);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(155, 23);
+            this.button3.Size = new System.Drawing.Size(207, 28);
             this.button3.TabIndex = 139;
             this.button3.Text = "Menu";
             this.button3.UseVisualStyleBackColor = true;
@@ -1072,41 +1074,44 @@
             // 
             // toggleTimer
             // 
-            this.toggleTimer.Location = new System.Drawing.Point(19, 138);
+            this.toggleTimer.Location = new System.Drawing.Point(25, 170);
+            this.toggleTimer.Margin = new System.Windows.Forms.Padding(4);
             this.toggleTimer.Name = "toggleTimer";
-            this.toggleTimer.Size = new System.Drawing.Size(155, 23);
+            this.toggleTimer.Size = new System.Drawing.Size(207, 28);
             this.toggleTimer.TabIndex = 140;
             this.toggleTimer.Text = "Zatrzymaj Zegar";
             this.toggleTimer.UseVisualStyleBackColor = true;
             this.toggleTimer.Click += new System.EventHandler(this.toggleTimer_Click);
             // 
-            // button4
+            // points2_lbl
             // 
-            this.button4.Location = new System.Drawing.Point(19, 305);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(155, 23);
-            this.button4.TabIndex = 141;
-            this.button4.Text = "Save";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.boardDecode);
+            this.points2_lbl.AutoSize = true;
+            this.points2_lbl.BackColor = System.Drawing.Color.White;
+            this.points2_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.points2_lbl.Location = new System.Drawing.Point(1023, 101);
+            this.points2_lbl.Name = "points2_lbl";
+            this.points2_lbl.Size = new System.Drawing.Size(86, 24);
+            this.points2_lbl.TabIndex = 141;
+            this.points2_lbl.Text = "Punkty: 0";
             // 
-            // button5
+            // points1_lbl
             // 
-            this.button5.Location = new System.Drawing.Point(19, 339);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(155, 23);
-            this.button5.TabIndex = 142;
-            this.button5.Text = "Load";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.boardEncode);
+            this.points1_lbl.AutoSize = true;
+            this.points1_lbl.BackColor = System.Drawing.Color.White;
+            this.points1_lbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.points1_lbl.Location = new System.Drawing.Point(1020, 679);
+            this.points1_lbl.Name = "points1_lbl";
+            this.points1_lbl.Size = new System.Drawing.Size(86, 24);
+            this.points1_lbl.TabIndex = 142;
+            this.points1_lbl.Text = "Punkty: 0";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(925, 632);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.ClientSize = new System.Drawing.Size(1233, 778);
+            this.Controls.Add(this.points1_lbl);
+            this.Controls.Add(this.points2_lbl);
             this.Controls.Add(this.toggleTimer);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.autoRotate);
@@ -1184,6 +1189,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.c18);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chess";
@@ -1334,8 +1340,8 @@
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button3;
         public System.Windows.Forms.Button toggleTimer;
-        public System.Windows.Forms.Button button4;
-        public System.Windows.Forms.Button button5;
+        public System.Windows.Forms.Label points2_lbl;
+        public System.Windows.Forms.Label points1_lbl;
     }
 }
 

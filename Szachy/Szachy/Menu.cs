@@ -30,15 +30,23 @@ namespace Szachy
 
             if (startingPlayer.SelectedIndex==0)
             {
+                form.whitePlayer = 1;
                 form.p1_lbl.Text = namePlayer1.Text;
                 form.p2_lbl.Text = namePlayer2.Text;
             }
             else
             {
+                form.whitePlayer = 2;
+
+                Point points1_lblLocation = form.points1_lbl.Location;
+                form.points1_lbl.Location = form.points2_lbl.Location;
+                form.points2_lbl.Location = points1_lblLocation;
+
                 form.p1_lbl.Text = namePlayer2.Text;
                 form.p2_lbl.Text = namePlayer1.Text;
             }
 
+            Debug.WriteLine("Gracz grający białymi: " + form.whitePlayer);
             form.matrix.menu = this;
             //form.StartPosition = FormStartPosition.Manual;
 
