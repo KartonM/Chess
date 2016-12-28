@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Szachy
 {
+    [Serializable]
     public class Figure
     {
         public TypeEnum type;
@@ -21,12 +23,12 @@ namespace Szachy
 
         public enum TypeEnum
         {
-            Pawn, Rook, Knight, Bishop, Queen, King, Null
+            Pawn=1, Rook=2, Knight=3, Bishop=4, Queen=5, King=6, Null=7
         };
 
         public enum ColorEnum
         {
-            White, Black
+            White=0, Black=1
         };
     }
 }

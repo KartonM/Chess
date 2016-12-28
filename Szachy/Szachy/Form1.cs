@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -35,6 +37,9 @@ namespace Szachy
 
         public Label p1_lbl;
         public Label p2_lbl;
+
+        string path = "save";
+        int fileCounter = 0;
 
         public Form1()
         {
@@ -333,6 +338,56 @@ namespace Szachy
             timerIsRunning = !timerIsRunning;
             toggleTimer.Text = (timerIsRunning ? "Zatrzymaj Zegar":"Wznów Zegar");
             timer1.Enabled = timerIsRunning;
+        }
+
+        public void boardDecode(object sender, EventArgs e)
+        {
+                // Create a file to write to.
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                for (int iCol = 1; iCol <= 9; iCol++)
+                    for (int iRow = 1; iRow <= 9; iRow++)
+                    {
+                        if(matrix.board[iCol, iRow].figure == null)
+                        {
+                            sw.Write("000");
+                        }
+                        else
+                        {
+                            int indexWr = Array.IndexOf(matrix.figures, matrix.board[iCol, iRow].figure);
+                            Debug.WriteLine(matrix.board[iCol, iRow].figure.type + " " + indexWr);
+                            sw.Write((matrix.board[iCol, iRow].figure.firstMove ? "0":"1")+
+                                (indexWr<10 ? "0":"")+ indexWr.ToString());
+                        }
+                    }
+                sw.WriteLine("");
+                sw.Close();
+                }
+        }
+
+        public void boardEncode(object sender, EventArgs e)
+        {
+            if(File.Exists(path))
+            {
+                string line = File.ReadLines(path).Skip(fileCounter).Take(1).First();
+
+                for (int iCol = 1; iCol <= 9; iCol++)
+                    for (int iRow = 1; iRow <= 9; iRow++)
+                    {
+                        int index = (iCol - 1) * 9 + iRow - 1;
+                        string ss = line.Substring(index*3,3);
+                        Debug.WriteLine(ss);
+                        if (ss=="000")
+                        {
+                            matrix.board[iCol, iRow].figure = null;
+                        }
+                        else
+                        {
+                            matrix.board[iCol, iRow].figure = matrix.figures[int.Parse(ss.Substring(1, 2))];
+                        }
+                    }
+            }
+            matrix.DrawFigures();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,6 +11,7 @@ using Szachy.Properties;
 
 namespace Szachy
 {
+    [Serializable]
     public class Matrix
     {
         public Cell[,] board;
@@ -113,6 +115,12 @@ namespace Szachy
             figures[32].type = Figure.TypeEnum.Rook;
 
             
+        }
+
+
+        protected Matrix(SerializationInfo info, StreamingContext context)
+        {
+            board = (Cell[,])info.GetValue("Board", typeof(Cell[,]));
         }
 
         //Check if cell exists
