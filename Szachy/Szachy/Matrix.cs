@@ -26,8 +26,8 @@ namespace Szachy
         public int[] currentSelection = { 1, 1 };
         public int[] BlackKingPosition = { 5, 8 };
         public int[] WhiteKingPosition = { 5, 1 };
-        //public int[] WhiteKingPosition = { 4,4 }; //do testowania
-       // public int[] BlackKingPosition = { 2,2 };
+        //public int[] WhiteKingPosition = { 8, 3 }; //do testowania
+        //public int[] BlackKingPosition = { 1, 7 };
         public bool debug = false;
         public bool checkingMate = false;
         public int[] checkingMateFrom = { 1, 1 };
@@ -457,6 +457,16 @@ namespace Szachy
                     if (stalemate) //checking if it's a check mate
                     {
                         form.TimerStop();
+                        if (form.whitePlayer == 1)
+                        {
+                            Debug.WriteLine("Gracz 2 zwyciezyl czarnymi");
+                            form.player2Win();
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Gracz 1 zwyciezyl czarnymi");
+                            form.player1Win();
+                        }
                         Debug.WriteLine("Szach mat, czarne wygrywaja");
                         MessageBox.Show("Szach i mat\nCzarne wygrywaja w " + moveCount + " ruchach", "Szach mat", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stalemate = false;
@@ -472,6 +482,16 @@ namespace Szachy
                     if (stalemate)  //checking if it's a check mate
                     {
                         form.TimerStop();
+                        if (form.whitePlayer == 1)
+                        {
+                            Debug.WriteLine("Gracz 1 zwyciezyl bialymi");
+                            form.player1Win();
+                        }
+                        else
+                        {
+                            Debug.WriteLine("Gracz 2 zwyciezyl białymi");
+                            form.player2Win();
+                        }
                         Debug.WriteLine("Szach mat, białe wygrywaja");
                         MessageBox.Show("Szach i mat\nBiałe wygrywaja w " + moveCount + " ruchach", "Szach mat", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         stalemate = false;
@@ -481,11 +501,13 @@ namespace Szachy
                 if (stalemate && currentColor == Figure.ColorEnum.White)
                 {
                     form.TimerStop();
+                    form.draw();
                     Debug.WriteLine("PAT");
                     MessageBox.Show("Pat\nBiałe nie mają możliwości ruchu", "Pat", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } else if(stalemate)
                 {
                     form.TimerStop();
+                    form.draw();
                     Debug.WriteLine("PAT");
                     MessageBox.Show("Pat\nCzarne nie mają możliwości ruchu", "Pat", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
