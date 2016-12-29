@@ -350,6 +350,8 @@ namespace Szachy
                     MoveFigure(currentSelection[0], currentSelection[1], selectedCol, selectedRow);
                     DrawFigures();
                     ResetMoveAbility();
+                //form.fileCounter++;
+                form.boardEncode(null, null);
 
                 bool stalemate = true;
 
@@ -677,6 +679,9 @@ namespace Szachy
                     if (CellExists(selectedCol, selectedRow - 2) && moveAbility[selectedCol, selectedRow - 2] == "Attack")
                         moveAbility[selectedCol, selectedRow - 2] = "No";
                 }
+
+                if (CellExists(selectedCol, selectedRow - 1) && moveAbility[selectedCol, selectedRow - 1] == "Attack")
+                    moveAbility[selectedCol, selectedRow - 1] = "No";
 
                 CheckMoveAbility(selectedCol + 1, selectedRow - 1);
                 if (CellExists(selectedCol + 1, selectedRow - 1) && moveAbility[selectedCol + 1, selectedRow - 1] == "Yes")

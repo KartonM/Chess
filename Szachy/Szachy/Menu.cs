@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,7 +49,6 @@ namespace Szachy
 
             Debug.WriteLine("Gracz grający białymi: " + form.whitePlayer);
             form.matrix.menu = this;
-            //form.StartPosition = FormStartPosition.Manual;
 
             form.timer1_lbl.Enabled = enableTimers.Checked;
             form.timer1_lbl.Visible = enableTimers.Checked;
@@ -91,6 +91,37 @@ namespace Szachy
                 timeHours.Enabled = false;
                 timeMinutes.Enabled = false;
                 timeSeconds.Enabled = false;
+            }
+        }
+
+        private void loadGame_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.FileName = "save.majc";
+            dialog.DefaultExt = ".majc";
+            //dialog.InitialDirectory
+            dialog.Filter = "Maric And Jan Chess (*.majc)|*.majc";
+
+            if(dialog.ShowDialog() == DialogResult.OK)
+            {
+                Form1 form = new Form1();
+                form.saveText = File.ReadAllLines(dialog.FileName);
+                form.fileData = form.saveText[form.saveText.Length-1];
+                Array.Resize<string>(ref form.saveText, form.saveText.Length - 1);
+                form.fileCounter = form.saveText.Length;
+                foreach(string s in form.saveText)
+                {
+                    Debug.WriteLine(s);
+                }
+                form.timer1_lbl.Enabled = false;
+                form.timer1_lbl.Visible = false;
+
+                form.timer2_lbl.Enabled = false;
+                form.timer2_lbl.Visible = false;
+                form.boardDecode(null, null);
+                this.Hide();
+                form.Closed += (s, args) => this.Close();
+                form.Show();
             }
         }
     }

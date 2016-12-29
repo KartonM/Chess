@@ -43,8 +43,14 @@ namespace Szachy
         public Label p1_lbl;
         public Label p2_lbl;
 
+        public int fileCounter = 0;
+        public string[] saveText;
+        public string fileData;
+
         public Form1()
         {
+            saveText = new string[1];
+
             InitializeComponent();
             p1_lbl = player1_lbl;
             p2_lbl = player2_lbl;
@@ -86,6 +92,7 @@ namespace Szachy
 
             matrix.DrawFigures();
 
+            boardEncode(null, null);
         }
 
         private void CellClick(object sender, EventArgs e)
@@ -403,46 +410,111 @@ namespace Szachy
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        public void boardEncode(object sender, EventArgs e)
         {
-            try
-            {
-                BinaryWriter bw = new BinaryWriter(new FileStream("save", FileMode.Create));
-                bw.Write(ObjectToByteArray(matrix.figures[13]));
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine("WRITE");
-            }
+            ///
+            ///         STRUKTURA ZAPISU:
+            ///         3 LICZBY DLA KAŻEGO CELLA
+            ///         
+            ///         JEŻELI POLE PUSTE 000
+            ///         
+            ///         JEŻELI POLE NIEPUSTE
+            ///         1 JEZELI FIRSTMOVE = TRUE / 0 JEŻELI = FALSE
+            ///         DWIE CYFRY BĘDĄCE NR BIERKI W FIGURES
+            ///
+            fileCounter++;
+            Array.Resize<string>(ref saveText, fileCounter);
+            saveText[fileCounter - 1] = "";
+            Debug.WriteLine("Encode: " + fileCounter);
+
+                for (int iCol = 1; iCol <= 9; iCol++)
+                    for (int iRow = 1; iRow <= 9; iRow++)
+                    {
+                        if (matrix.board[iCol, iRow].figure == null)
+                        {
+                        saveText[fileCounter-1] += "000";
+                        }
+                        else
+                        {
+                            int indexWr = Array.IndexOf(matrix.figures, matrix.board[iCol, iRow].figure);
+                        saveText[fileCounter-1] += (matrix.board[iCol, iRow].figure.firstMove ? "1" : "0") +
+                                (indexWr < 10 ? "0" : "") + indexWr.ToString();
+                        }
+                    }
+            //}
         }
 
-        byte[] ObjectToByteArray(object obj)
+        public void boardDecode(object sender, EventArgs e)
         {
-            if (obj == null)
-                return null;
-            BinaryFormatter bf = new BinaryFormatter();
-            using (MemoryStream ms = new MemoryStream())
+            if (fileCounter>1)
             {
-                bf.Serialize(ms, obj);
-                return ms.ToArray();
-            }
+                fileCounter--;
+                Debug.WriteLine("Decode: " + fileCounter);
 
+                string line = saveText[fileCounter-1];
+
+                if (fileCounter % 2 == 1)
+                matrix.currentColor = Figure.ColorEnum.White;
+                else
+                matrix.currentColor = Figure.ColorEnum.Black;
+
+                for (int iCol = 1; iCol <= 9; iCol++)
+                    for (int iRow = 1; iRow <= 9; iRow++)
+                    {
+                        int index = (iCol - 1) * 9 + iRow - 1;
+                        string ss = line.Substring(index * 3, 3);
+                        if (ss == "000")
+                        {
+                            matrix.board[iCol, iRow].figure = null;
+                        }
+                        else
+                        {
+                            matrix.board[iCol, iRow].figure = matrix.figures[int.Parse(ss.Substring(1, 2))];
+                            if (ss.Substring(0, 1) == "1")
+                                matrix.board[iCol, iRow].figure.firstMove = true;
+                            else
+                                matrix.board[iCol, iRow].figure.firstMove = false;
+                        }
+                    }
+            }
+            matrix.DrawFigures();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void SaveGame(object sender, EventArgs e)
         {
-            byte[] buffer;
-            buffer = File.ReadAllBytes("save");
-
-            Debug.WriteLine(buffer.Length);
-
-            BinaryFormatter bf = new BinaryFormatter();
-            using (MemoryStream ms = new MemoryStream(buffer))
+            SaveFileDialog fdlg = new SaveFileDialog();
+            fdlg.Title = "Zapis Gry";
+            fdlg.DefaultExt = ".majc";
+            fdlg.FileName = "save";
+            fdlg.Filter = "Maric And Jan Chess (*.majc)|*.majc";
+            if(fdlg.ShowDialog() == DialogResult.OK)
             {
-                Figure obj = (Figure)bf.Deserialize(ms);
-                Debug.WriteLine(obj.type + " " + obj.color + " " + obj.firstMove);
+                string[] fileText = saveText;
+                Array.Resize<string>(ref fileText, fileText.Length + 1);
+                fileText[fileText.Length-1] =
+                    //PLAYER 1 NAME
+                    player1_lbl.Text+
+                    //PLAYER 1 TIME
+                    player1_hour.ToString().PadLeft(2, '0')+
+                    player1_min.ToString().PadLeft(2, '0')+
+                    player1_sec.ToString().PadLeft(2, '0')+
+                    player1_dec.ToString()+
+                    //PLAYER 2 NAME
+                    player2_lbl.Text +
+                    //PLAYER 2 TIME
+                    player2_hour.ToString().PadLeft(2, '0') +
+                    player2_min.ToString().PadLeft(2, '0') +
+                    player2_sec.ToString().PadLeft(2, '0') +
+                    player2_dec.ToString() +                    
+                    //GRA NA CZAS
+                    Convert.ToInt16(timer1_lbl.Enabled)+
+                    //ZATRZYMYWANIE CZSU DOZWOLONE
+                    Convert.ToInt16(toggleTimer.Enabled);
+                string saveDirectory = fdlg.FileName;
+                Debug.WriteLine(saveDirectory);
+                File.Create(saveDirectory).Close();
+                File.AppendAllLines(saveDirectory, fileText);
             }
         }
-
     }
 }
