@@ -51,6 +51,8 @@ namespace Szachy
             Debug.WriteLine("Gracz grający białymi: " + form.whitePlayer);
             form.matrix.menu = this;
 
+            form.timer1.Enabled = enableTimers.Checked;
+
             form.timer1_lbl.Enabled = enableTimers.Checked;
             form.timer1_lbl.Visible = enableTimers.Checked;
 
@@ -119,6 +121,7 @@ namespace Szachy
                 bool b;
                 b = fileData[0] == '1';
                 Debug.WriteLine(b);
+                form.timer1.Enabled = enableTimers.Checked;
                 form.timer1_lbl.Enabled = b;
                 form.timer1_lbl.Visible = b;
 

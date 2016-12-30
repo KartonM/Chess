@@ -512,6 +512,8 @@ namespace Szachy
                 Debug.WriteLine(saveDirectory);
                 File.Create(saveDirectory).Close();
                 File.AppendAllLines(saveDirectory, fileText);
+
+                Debug.WriteLine(player1_dec.ToString() + "  " + player2_hour.ToString().PadLeft(2, '0'));
             }
         }
     }
