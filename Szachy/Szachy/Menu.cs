@@ -15,6 +15,7 @@ namespace Szachy
     public partial class Menu : Form
     {
         public bool enableTime;
+        string fileData;
         public Menu()
         {
             InitializeComponent();
@@ -100,24 +101,53 @@ namespace Szachy
             dialog.FileName = "save.majc";
             dialog.DefaultExt = ".majc";
             //dialog.InitialDirectory
-            dialog.Filter = "Maric And Jan Chess (*.majc)|*.majc";
+            dialog.Filter = "Marcin And Jan Chess (*.majc)|*.majc";
 
             if(dialog.ShowDialog() == DialogResult.OK)
             {
                 Form1 form = new Form1();
+                form.matrix.menu = this;
                 form.saveText = File.ReadAllLines(dialog.FileName);
-                form.fileData = form.saveText[form.saveText.Length-1];
+                fileData = form.saveText[form.saveText.Length-1];
                 Array.Resize<string>(ref form.saveText, form.saveText.Length - 1);
-                form.fileCounter = form.saveText.Length;
+                form.fileCounter = form.saveText.Length + 1;
                 foreach(string s in form.saveText)
                 {
                     Debug.WriteLine(s);
                 }
-                form.timer1_lbl.Enabled = false;
-                form.timer1_lbl.Visible = false;
 
-                form.timer2_lbl.Enabled = false;
-                form.timer2_lbl.Visible = false;
+                bool b;
+                b = fileData[0] == '1';
+                Debug.WriteLine(b);
+                form.timer1_lbl.Enabled = b;
+                form.timer1_lbl.Visible = b;
+
+                form.timer2_lbl.Enabled = b;
+                form.timer2_lbl.Visible = b;
+
+                b = fileData[1] == '1';
+                Debug.WriteLine(b);
+
+                form.toggleTimer.Enabled = b;
+                form.toggleTimer.Visible = b;
+
+                form.player1_hour = int.Parse(fileData.Substring(2, 2));
+                form.player1_min = int.Parse(fileData.Substring(4, 2));
+                form.player1_sec = int.Parse(fileData.Substring(6, 2));
+                form.player1_dec = int.Parse(fileData[8].ToString());
+
+                form.player2_hour = int.Parse(fileData.Substring(9, 2));
+                form.player2_min = int.Parse(fileData.Substring(11, 2));
+                form.player2_sec = int.Parse(fileData.Substring(13, 2));
+                form.player2_dec = int.Parse(fileData[15].ToString());
+
+                form.timer1_lbl.Text = form.player1_hour.ToString() + ":" + (form.player1_min <= 9 ? "0" : "") + form.player1_min.ToString() + ":" +
+                (form.player1_sec <= 9 ? "0" : "") + form.player1_sec.ToString() + ":" + form.player1_dec.ToString();
+
+
+                form.timer2_lbl.Text = form.player2_hour.ToString() + ":" + (form.player2_min <= 9 ? "0" : "") + form.player2_min.ToString() + ":" +
+                (form.player2_sec <= 9 ? "0" : "") + form.player2_sec.ToString() + ":" + form.player2_dec.ToString();
+
                 form.boardDecode(null, null);
                 this.Hide();
                 form.Closed += (s, args) => this.Close();

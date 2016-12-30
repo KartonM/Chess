@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.startGame = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -66,9 +67,9 @@
             // 
             // startGame
             // 
-            this.startGame.Location = new System.Drawing.Point(12, 540);
+            this.startGame.Location = new System.Drawing.Point(11, 540);
             this.startGame.Name = "startGame";
-            this.startGame.Size = new System.Drawing.Size(380, 39);
+            this.startGame.Size = new System.Drawing.Size(381, 39);
             this.startGame.TabIndex = 1;
             this.startGame.Text = "ROZPOCZNIJ NOWĄ GRĘ";
             this.startGame.UseVisualStyleBackColor = true;
@@ -287,6 +288,7 @@
             this.Controls.Add(this.startGame);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";

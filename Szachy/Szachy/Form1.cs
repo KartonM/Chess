@@ -25,14 +25,14 @@ namespace Szachy
         public double player1_points;
         public double player2_points;
 
-        public int player1_hour;
-        public int player1_min;
-        public int player1_sec;
-        public int player1_dec;
-        public int player2_hour;
-        public int player2_min;
-        public int player2_sec;
-        public int player2_dec;
+        public int player1_hour=1;
+        public int player1_min=0;
+        public int player1_sec=0;
+        public int player1_dec=0;
+        public int player2_hour=1;
+        public int player2_min=0;
+        public int player2_sec=0;
+        public int player2_dec=0;
         public bool firstMove;
         public bool whiteDownside;
         public bool enableTimers;
@@ -45,7 +45,6 @@ namespace Szachy
 
         public int fileCounter = 0;
         public string[] saveText;
-        public string fileData;
 
         public Form1()
         {
@@ -477,6 +476,8 @@ namespace Szachy
                         }
                     }
             }
+
+
             matrix.DrawFigures();
         }
 
@@ -486,30 +487,27 @@ namespace Szachy
             fdlg.Title = "Zapis Gry";
             fdlg.DefaultExt = ".majc";
             fdlg.FileName = "save";
-            fdlg.Filter = "Maric And Jan Chess (*.majc)|*.majc";
+            fdlg.Filter = "Marcin And Jan Chess (*.majc)|*.majc";
             if(fdlg.ShowDialog() == DialogResult.OK)
             {
                 string[] fileText = saveText;
                 Array.Resize<string>(ref fileText, fileText.Length + 1);
-                fileText[fileText.Length-1] =
-                    //PLAYER 1 NAME
-                    player1_lbl.Text+
+                fileText[fileText.Length - 1] =
+                    //GRA NA CZAS
+                    Convert.ToInt16(timer1_lbl.Enabled).ToString() +
+                    //ZATRZYMYWANIE CZSU DOZWOLONE
+                    Convert.ToInt16(toggleTimer.Enabled).ToString()+
                     //PLAYER 1 TIME
-                    player1_hour.ToString().PadLeft(2, '0')+
-                    player1_min.ToString().PadLeft(2, '0')+
-                    player1_sec.ToString().PadLeft(2, '0')+
-                    player1_dec.ToString()+
-                    //PLAYER 2 NAME
-                    player2_lbl.Text +
+                    player1_hour.ToString().PadLeft(2, '0') +
+                    player1_min.ToString().PadLeft(2, '0') +
+                    player1_sec.ToString().PadLeft(2, '0') +
+                    player1_dec.ToString() +
                     //PLAYER 2 TIME
                     player2_hour.ToString().PadLeft(2, '0') +
                     player2_min.ToString().PadLeft(2, '0') +
                     player2_sec.ToString().PadLeft(2, '0') +
-                    player2_dec.ToString() +                    
-                    //GRA NA CZAS
-                    Convert.ToInt16(timer1_lbl.Enabled)+
-                    //ZATRZYMYWANIE CZSU DOZWOLONE
-                    Convert.ToInt16(toggleTimer.Enabled);
+                    player2_dec.ToString();
+                                                        
                 string saveDirectory = fdlg.FileName;
                 Debug.WriteLine(saveDirectory);
                 File.Create(saveDirectory).Close();

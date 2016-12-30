@@ -49,6 +49,9 @@
   <PropertyGroup>
     <StartupObject>Szachy.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>WhiteQueen.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -144,6 +147,7 @@
     <Content Include="Resources\WhitePawn.png" />
     <Content Include="Resources\WhiteQueen.png" />
     <Content Include="Resources\WhiteRook.png" />
+    <Content Include="WhiteQueen.ico" />
     <Content Include="WorkLog.txt" />
   </ItemGroup>
   <ItemGroup>
